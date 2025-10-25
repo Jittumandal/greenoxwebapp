@@ -126,11 +126,19 @@ const Location = () => {
       </div>
       {/* Right: Locations or Mascot */}
       <div
-        className={`relative flex flex-col items-center justify-center p-6 transition-colors duration-300 md:w-2/3 ${
+        className={
+          "relative flex flex-col items-center justify-center p-6 transition-colors duration-300 md:w-2/3 " +
+          (selectedCity ? "" : "bg-orange-50")
+        }
+        style={
           selectedCity
-            ? "bg-[url('img/subscription2.svg')] bg-cover bg-center"
-            : "bg-[url('img/sssss.svg')] bg-cover bg-center"
-        }`}
+            ? {
+                backgroundImage: "url('/img/subscription2.svg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }
+            : {}
+        }
       >
         {/* Show mascots image only when no city is selected */}
         {!selectedCity && (

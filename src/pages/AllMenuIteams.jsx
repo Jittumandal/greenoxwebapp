@@ -114,7 +114,7 @@ const AllMenuItems = () => {
         src="menuimg/menubg.svg"
       />
       {/* Hero Section */}
-      <div className="relative h-[250px]">
+      <div className="relative h-[230px]">
         <div className="absolute inset-0">
           <img
             src="/img/menu-banner.jpg"

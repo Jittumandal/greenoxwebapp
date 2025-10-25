@@ -175,3 +175,7 @@ header {
     height: 250px;
     z-index: 0 !important;
 }
+
+.h230 {
+    height: 230px;
+}
