@@ -1,25 +1,46 @@
 import { Link } from "react-router-dom";
 
 const menuItems = [
-  { label: "Monopoly at GreeNox's Menu", img: "/menuimg/menu.avif" },
-  { label: "Extra Value Meals", img: "/menuimg/menu2.avif" },
-  { label: "Happy Meal®", img: "/menuimg/menu3.avif" },
-  { label: "Snack Wrap®", img: "/menuimg/menu4.avif" },
-  { label: "McValue™", img: "/menuimg/menu5.avif" },
-  { label: "Breakfast", img: "/menuimg/menu6.avif" },
-  { label: "Burgers", img: "/menuimg/menu7.avif" },
-  { label: "Extra Value Meals", img: "/menuimg/menu8.avif" },
-  { label: "Happy Meal®", img: "/menuimg/menu9.avif" },
-  { label: "Snack Wrap®", img: "/menuimg/menu10.avif" },
-  { label: "McValue™", img: "/menuimg/menu11.avif" },
-  { label: "Breakfast", img: "/menuimg/menu12.avif" },
-  { label: "Burgers", img: "/menuimg/menu13.avif" },
-  { label: "Chicken & Fish Sandwiches", img: "/menuimg/menu14.avif" },
-  { label: "McNuggets® & McCrispy™ Strips", img: "/menuimg/menu15.avif" },
-  { label: "Fries & Sides", img: "/menuimg/menu16.avif" },
-  { label: "Sweets & Treats", img: "/menuimg/menu17.avif" },
-  { label: "McCafé® Coffees", img: "/menuimg/menu18.avif" },
-  { label: "Beverages", img: "/menuimg/menu19.avif" },
+  {
+    label: "ABC Red Nutritional Juice",
+    img: "/products/ABC Red Nutritional Juice.jpg",
+  },
+  {
+    label: "Extra Value Meals",
+    img: "/products/Alfredo ( White Sauce ) Pasta - 2.jpg",
+  },
+  { label: "Alfredo®", img: "/products/Alfredo.jpg" },
+  { label: "Snack Wrap®", img: "/products/Apple Berry Oatmeal Jar -2.jpg" },
+  {
+    label: "Assorted Veggies",
+    img: "/products/Assorted Veggies & Quinoa Salad -2.jpg",
+  },
+  { label: "Avocado", img: "/products/Avocado & Berries Smoothie Bowl.jpg" },
+  { label: "Avocado Banana", img: "/products/Avocado Banana Smoothie.jpg" },
+  {
+    label: "Veg Burrito Bowl",
+    img: "/products/Avocado Veg Burrito Bowl - 2.jpg",
+  },
+  { label: "Basil Pesto®", img: "/products/Basil Pesto Pasta Salad (1).jpg" },
+  { label: "Bircher Muesli Jar®", img: "/products/Bircher Muesli Jar.jpg" },
+  { label: "Caribbean", img: "/products/Caribbean Chicken Fillets .jpg" },
+  { label: "Cheese Veg Burger", img: "/products/Cheese Veg Burger- 2.jpg" },
+  { label: "Blue Lagoon Mint", img: "/products/Blue Lagoon Mint - 2.jpg" },
+  { label: "Cheesy Tikka", img: "/products/Cheesy Tikka Sub -2.jpg" },
+  { label: "Cheesy Tikka Sub", img: "/products/Cheesy Tikka Sub.jpg" },
+  {
+    label: "Chicken Caesar Salad",
+    img: "/products/Chicken Caesar Salad- 2.jpg",
+  },
+  {
+    label: "Choco Brownie Shake",
+    img: "/products/Choco Brownie Shake- 2 (1).jpg",
+  },
+  { label: "Classic Cold Coffee", img: "/products/Classic Cold Coffee.jpg" },
+  {
+    label: "Soya Paneer Rice Bowl",
+    img: "/products/Soya Paneer Rice Bowl -3.jpg",
+  },
 ];
 
 export default function MegaDropdown({ isOpen, onClose }) {
@@ -80,7 +101,7 @@ export default function MegaDropdown({ isOpen, onClose }) {
           {/* Right: promo CTA */}
           <div className="w-1/5">
             <img
-              src="/menuimg/menu24.avif"
+              src="/products/Protein Packed Salad ( Veg ) - 2.jpg"
               alt="promo"
               className="mb-4 h-40 w-full rounded object-cover"
             />
