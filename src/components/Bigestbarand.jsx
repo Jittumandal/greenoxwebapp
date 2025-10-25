@@ -13,13 +13,17 @@ const BiggestBrands = () => {
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 py-16">
         {/* Heading */}
-        <h2 className="mb-8 text-center text-4xl font-bold text-green-500">
-          We are making some of the biggest brands healthier!
+        <h2 className="mb-8 text-center text-6xl font-bold text-green-500">
+          Our Presence
         </h2>
 
         {/* Subheading */}
-        <h3 className="mb-12 text-center text-2xl font-medium text-gray-800">
-          Our Food Is Delivered To ...
+        <h3 className="mb-12 text-center text-2xl text-gray-800">
+          Over the years, we have expanded our presence across various
+          institutions and corporate offices. We’ve had the privilege of serving
+          and receiving love from over 4,000 students and 1,000 employees, all
+          of whom appreciate the care and fresh ingredients that go into every
+          meal we prepare.
         </h3>
 
         {/* Brands Logo Grid */}
@@ -43,10 +47,10 @@ const BiggestBrands = () => {
           <p className="text-lg text-gray-800">
             For Corporate Catering Enquiries Call us at{" "}
             <a
-              href="tel:+919560702568"
+              href="tel:+91 7078548120"
               className="font-semibold text-green-600 hover:underline"
             >
-              +919560702568
+              +91 7078548120
             </a>
           </p>
         </div>

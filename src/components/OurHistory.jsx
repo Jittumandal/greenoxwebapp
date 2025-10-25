@@ -9,9 +9,9 @@ export const OurHistory = () => {
           {/* Text Content - Now 60% width */}
           <div className="ourhistory w-full flex-[1.5] space-y-6 md:w-[50%]">
             {/* Badge */}
-            <span className="inline-block py-2 text-sm font-medium text-gray-800">
+            {/* <span className="inline-block py-2 text-sm font-medium text-gray-800">
               Our History
-            </span>
+            </span> */}
 
             <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
               The GreeNox Story

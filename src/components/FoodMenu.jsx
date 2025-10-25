@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Delicious from "../components/Delicious.jsx";
 
 const menuItems = {
   Special: [
@@ -134,10 +135,11 @@ const FoodMenu = () => {
     <div className="mx-auto max-w-7xl px-4 py-8" id="target-section">
       <div className="mb-8 flex items-center justify-between">
         <div className="mb-8">
-          <p className="mb-4 mt-12 text-gray-600">Popular Menu</p>
-          <h2 className="text-4xl font-semibold text-gray-800">
+          <p className="mb-4 mt-12 text-gray-600">Popular Menu </p>
+          {/* <h2 className="text-4xl font-semibold text-gray-800">
             Delicious Food Menu
-          </h2>
+          </h2> */}
+          <Delicious />
           <span className="mt-2 block w-20 border-b-4 border-orange-500 bg-orange-50" />
         </div>
 

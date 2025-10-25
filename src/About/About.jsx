@@ -80,6 +80,7 @@ export default function About() {
           </Link>
         </div>
       </section>
+
       <OurHistory />
       {/* Journey Section */}
       <section className="mx-auto mb-8 flex max-w-7xl flex-col gap-8 rounded-lg bg-white px-6 py-8 shadow md:flex-row">
@@ -95,12 +96,6 @@ export default function About() {
             Our Journey
           </h3>
           <p className="text-sm text-gray-700">
-            We started small and grew each year with dedication, hard work and
-            by being consistent and true to ourselves. Those are the same values
-            that we use to help our customers reach their fitness goals. For us
-            the journey is always onward-and-upward!
-          </p>
-          <p className="mt-4 text-sm text-gray-700">
             The Journey of GreeNox Started in 2016 by Two Engineering Graduate
             with an idea to provide healthy snacking with the aim of catering to
             your craving without compromising on your holistic well being. Our
@@ -110,6 +105,19 @@ export default function About() {
             Our restaurant type is fast-casual – mash-up of Healthy food and
             casual dining. It has been strongest segment in the restaurant
             industry over the post pandemic time.
+          </p>
+          <p className="mt-4 text-sm text-gray-700">
+            We offer most trendy and fast-growing Healthy cuisine concept
+            focused on longevity – with mostly plant based menu. This Concept is
+            perfectly suited food for people interested in health-longevity,
+            fitness, sustainable, green food prepared in clean and hygienic
+            environment. while you explore your love for food, we take care to
+            supplement your fitness & nutrients concerns. The Food we serve is
+            highly rich in energy and nutrients so that your immune system
+            excels with radiant energy. Apart from food our outlet provides you
+            homely environment live music free WI-FI sports TV. Be it your
+            breakfast or late night dinner, family outings or parties Team
+            GreeNox Welcome you to a memorable sojourn into the world of food.
           </p>
         </div>
       </section>

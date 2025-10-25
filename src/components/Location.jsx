@@ -5,50 +5,51 @@ const cityLocations = {
   "Uttar Pradesh": [
     {
       address:
-        "BG-02, HUDCO Place, Ansal Plaza Khel Gaon Road New Delhi- 110049",
+        "A-41 Corenthum Tower Noida, Sector 62, Noida, Uttar Pradesh-201301",
+      phone: "098990 80100",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address:
+        "World Trade tower, C-1, Central Auto Market, Sector 16, Noida, Uttar Pradesh 201301",
+      phone: "088001 23480",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address:
+        "UG 38, Ajnara Orbit Plaza Mall, Crossings Republik, Ghaziabad, Uttar Pradesh 201016",
       phone: "9711882104",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "47, Basant Lok, Community Centre, Vasant Vihar, New Delhi-110057",
-      phone: "9899795811",
+        "639 GF, Shakti Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh 201014",
+      phone: "093157 00833",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "BG-02, HUDCO Place, Ansal Plaza Khel Gaon Road New Delhi- 110049",
-      phone: "9711882104",
-      dinein: "OPEN",
-      delivery: "OPEN",
-    },
-    {
-      address:
-        "47, Basant Lok, Community Centre, Vasant Vihar, New Delhi-110057",
-      phone: "9899795811",
-      dinein: "OPEN",
-      delivery: "OPEN",
-    },
-    {
-      address:
-        "47, Basant Lok, Community Centre, Vasant Vihar, New Delhi-110057",
-      phone: "9899795811",
+        "S- 8, Gardenia Geetanjali, Market, Maharaja Agarsain Marg, near Maharaja Agrasen Chowk, Sector 18, Vasundhara, Ghaziabad, Uttar Pradesh 201012",
+      phone: " 070785 48120",
       dinein: "OPEN",
       delivery: "OPEN",
     },
   ],
   Delhi: [
     {
-      address: "Plot No. 9B & C , Cross River Mall, CBD Shahdara. Delhi-110032",
-      phone: "9811852820",
+      address:
+        "Shop 19, New Marke, Old Market, Shivalik Colony, Malviya Nagar, New Delhi, Delhi 110017",
+      phone: " 098211 76930",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "Shop no. 7, 8 & 9, Unity One Mall, Plot No. 29 & 31. East CBD Shahdara. Delhi- 110032",
+        "Shop 19, New Marke, Old Market, Shivalik Colony, Malviya Nagar, New Delhi, Delhi 110017",
       phone: "9873162942",
       dinein: "OPEN",
       delivery: "OPEN",
