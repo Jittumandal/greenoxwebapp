@@ -8,7 +8,7 @@ const FoodMenu = () => {
   const activeContent = menuItems[activeTab] || menuItems.special;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12">
+    <section className="mx-auto max-w-7xl px-4 py-12" id="target-section">
       {/* Header: left title, right tabs */}
       <div className="mb-8 flex w-full flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         {/* Left: heading */}

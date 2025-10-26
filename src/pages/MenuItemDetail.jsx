@@ -95,12 +95,12 @@ const MenuItemDetail = () => {
     <div className="container-fluid mx-auto mt-20 py-12">
       <Link
         to="/menu"
-        className="mb-6 inline-block text-sm font-medium text-green-600 hover:text-green-700"
+        className="mb-6 inline-block pl-32 text-sm font-medium text-green-600 hover:text-green-700"
       >
         ← Back to Menu
       </Link>
 
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl rounded-lg px-4 py-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {/* Image */}
           <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
@@ -154,7 +154,7 @@ const MenuItemDetail = () => {
         </div>
       </div>
       <div className="freshmealplan mx-auto mt-16 w-full px-4 py-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl px-4">
           <h1 className="mb-8 text-center text-4xl font-extrabold text-green-500">
             Nutritional Information
           </h1>
@@ -223,7 +223,7 @@ const MenuItemDetail = () => {
 
                 {/* Detailed nutrition table */}
                 <div className="space-y-4">
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-8 text-center">
                     <div>
                       <div className="flex justify-between border-b py-2">
                         <span className="text-sm text-gray-600">

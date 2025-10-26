@@ -2,7 +2,6 @@ import React from "react";
 import "animate.css";
 import { Link } from "react-router-dom";
 import { OurHistory } from "../components/OurHistory";
-import MenuItemDetail from "../pages/MenuItemDetail";
 
 const team = [
   {
@@ -81,7 +80,6 @@ export default function About() {
           </Link>
         </div>
       </section>
-      <MenuItemDetail />
       <OurHistory />
       {/* Journey Section */}
       <section className="mx-auto mb-8 flex max-w-7xl flex-col gap-8 rounded-lg bg-white px-6 py-8 shadow md:flex-row">
