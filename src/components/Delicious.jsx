@@ -18,7 +18,7 @@ const Delicious = () => {
   }, []);
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className="justify-Left relative flex items-center">
       <div className="flex items-center text-[40px] font-semibold">
         <p className="mr-2">Delicious</p>
         <div className="relative min-h-[60px] min-w-[300px]">
