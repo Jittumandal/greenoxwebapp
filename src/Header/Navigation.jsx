@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MegaDropdown from "./MegaDropdown";
 
 export default function Navigation() {
@@ -7,6 +7,7 @@ export default function Navigation() {
   const [megaOpen, setMegaOpen] = useState(false); // desktop mega
   const wrapperRef = useRef(null);
   const closeTimeoutRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     function handleOutside(e) {
@@ -29,6 +30,9 @@ export default function Navigation() {
     closeTimeoutRef.current = setTimeout(() => setMegaOpen(false), 150);
   };
 
+  const isActive = (path) => location.pathname === path;
+  const isMenuActive = () => megaOpen || location.pathname.startsWith("/menu");
+
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto w-full max-w-screen-xl px-4">
@@ -45,7 +49,11 @@ export default function Navigation() {
             <div className="flex items-center gap-8 pr-8">
               <Link
                 to="/"
-                className="border-b-2 border-green-500 pb-1 font-medium text-green-500"
+                className={`font-medium ${
+                  isActive("/")
+                    ? "border-b-2 border-green-500 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
               >
                 Home
               </Link>
@@ -66,7 +74,11 @@ export default function Navigation() {
                     setMegaOpen((s) => !s);
                   }}
                   aria-expanded={megaOpen}
-                  className="flex items-center gap-2 text-gray-700 hover:text-green-500 focus:outline-none"
+                  className={`flex items-center gap-2 focus:outline-none ${
+                    isMenuActive()
+                      ? "border-b-2 border-green-500 pb-1 text-green-500"
+                      : "text-gray-700 hover:text-green-500"
+                  }`}
                 >
                   Menu
                   <svg
@@ -91,18 +103,35 @@ export default function Navigation() {
 
               <Link
                 to="/subscription"
-                className="text-gray-700 hover:text-green-500"
+                className={`${
+                  isActive("/subscription")
+                    ? "border-b-2 border-green-500 pb-1 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
               >
                 Subscription Plan
               </Link>
-              <Link to="/about" className="text-gray-700 hover:text-green-500">
+              <Link
+                to="/about"
+                className={`${
+                  isActive("/about")
+                    ? "border-b-2 border-green-500 pb-1 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
+              >
                 About Us
               </Link>
-              <Link to="/blog" className="text-gray-700 hover:text-green-500">
+              <Link
+                to="/blog"
+                className={`${
+                  isActive("/blog")
+                    ? "border-b-2 border-green-500 pb-1 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
+              >
                 Blog
               </Link>
-            </div>
-
+              {/* 
             <div className="flex items-center gap-4">
               <button
                 className="text-gray-700 hover:text-green-500"
@@ -129,6 +158,7 @@ export default function Navigation() {
               >
                 Register
               </Link>
+            </div> */}
             </div>
           </div>
 
@@ -160,35 +190,35 @@ export default function Navigation() {
             <div className="flex flex-col gap-4 px-4 py-4">
               <Link
                 to="/"
-                className="font-medium text-green-500"
+                className={`font-medium ${isActive("/") ? "text-green-500" : "text-gray-700 hover:text-green-500"}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 to="/menu"
-                className="text-gray-700 hover:text-green-500"
+                className={`${isMenuActive() ? "text-green-500" : "text-gray-700 hover:text-green-500"}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Menu
               </Link>
               <Link
                 to="/subscription"
-                className="text-gray-700 hover:text-green-500"
+                className={`${isActive("/subscription") ? "text-green-500" : "text-gray-700 hover:text-green-500"}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Subscription Plan
               </Link>
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-green-500"
+                className={`${isActive("/about") ? "text-green-500" : "text-gray-700 hover:text-green-500"}`}
                 onClick={() => setMenuOpen(false)}
               >
                 About Us
               </Link>
               <Link
                 to="/blog"
-                className="text-gray-700 hover:text-green-500"
+                className={`${isActive("/blog") ? "text-green-500" : "text-gray-700 hover:text-green-500"}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Blog

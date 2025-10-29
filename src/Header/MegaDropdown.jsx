@@ -48,7 +48,7 @@ export default function MegaDropdown({ isOpen, onClose }) {
 
   return (
     <div className="leftmargin absolute left-0 top-full z-50 mt-3 bg-transparent">
-      <div className="mx-auto w-full max-w-screen-xl rounded-md bg-white p-6">
+      <div className="mx-auto w-full max-w-screen-xl p-6">
         <div className="flex gap-6">
           {/* Left column: categories */}
           <div className="w-2/5">

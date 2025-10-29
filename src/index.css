@@ -125,8 +125,15 @@ header {
 }
 
 .leftmargin {
-    left: -525px;
+    left: -790px;
     width: 1200px;
+    border: 1px solid #009688;
+    margin-top: 30px;
+    border-top: 0px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: #fff;
+
 }
 
 .blog_banner {

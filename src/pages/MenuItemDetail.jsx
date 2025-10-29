@@ -92,7 +92,7 @@ const MenuItemDetail = () => {
   const allergens = item.allergens || ["Milk", "Wheat"]; // example
 
   return (
-    <div className="container-fluid mx-auto mt-20 py-12">
+    <div className="container-fluid mx-auto mt-20 pt-12">
       <Link
         to="/menu"
         className="mb-6 inline-block pl-32 text-sm font-medium text-green-600 hover:text-green-700"

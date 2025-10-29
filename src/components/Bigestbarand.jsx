@@ -11,9 +11,9 @@ const BiggestBrands = () => {
 
   return (
     <section className="py-16">
-      <div className="mx-auto max-w-7xl px-4 py-16">
+      <div className="mx-auto max-w-7xl px-4 py-12">
         {/* Heading */}
-        <h2 className="mb-8 text-center text-6xl font-bold text-green-500">
+        <h2 className="mb-8 text-center text-5xl font-bold text-green-500">
           Our Presence
         </h2>
 
