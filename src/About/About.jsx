@@ -48,8 +48,8 @@ export default function About() {
             One meal at a time!
           </h1>
           {/* Fixed width cards */}
-          <div className="animate__animated animate__bounceIn mb-8 mt-12 flex gap-6">
-            <div className="w-100 flex flex-col items-center rounded-lg bg-white px-8 py-6 shadow">
+          <div className="about_cards animate__animated animate__bounceIn mb-8 mt-12 flex gap-6">
+            <div className="w-100 w100 flex flex-col items-center rounded-lg bg-white px-8 py-6 shadow">
               <span className="text-2xl font-semibold text-orange-500">
                 100k +
               </span>
@@ -57,7 +57,7 @@ export default function About() {
                 Customers served till now
               </span>
             </div>
-            <div className="w-100 flex flex-col items-center rounded-lg bg-white px-8 py-6 shadow">
+            <div className="w-100 w100 flex flex-col items-center rounded-lg bg-white px-8 py-6 shadow">
               <span className="text-2xl font-semibold text-orange-500">
                 10 %
               </span>
@@ -65,7 +65,7 @@ export default function About() {
                 Avg weight loss per person
               </span>
             </div>
-            <div className="flex w-48 flex-col items-center rounded-lg bg-white px-8 py-6 shadow">
+            <div className="w100 flex w-48 flex-col items-center rounded-lg bg-white px-8 py-6 shadow">
               <span className="text-2xl font-semibold text-orange-500">2</span>
               <span className="mt-1 text-center text-xs text-gray-500">
                 Cities
@@ -82,7 +82,7 @@ export default function About() {
       </section>
       <OurHistory />
       {/* Journey Section */}
-      <section className="mx-auto mb-8 flex max-w-7xl flex-col gap-8 rounded-lg bg-white px-6 py-8 shadow md:flex-row">
+      <section className="Join_Our_Team mx-auto mb-8 flex max-w-7xl flex-col gap-8 rounded-lg bg-white px-6 py-8 shadow md:flex-row">
         <div className="flex flex-1 items-center justify-center">
           <img
             src="img/janri.png"
@@ -122,7 +122,7 @@ export default function About() {
       </section>
 
       {/* Team Section */}
-      <section className="mx-auto mb-8 max-w-7xl rounded-md bg-white px-6 py-8 shadow">
+      <section className="Join_Our_Team mx-auto mb-8 max-w-7xl rounded-md bg-white px-6 py-8 shadow">
         <h2 className="mb-6 text-lg font-semibold text-orange-500">Our Team</h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {team.map((member, idx) => (
@@ -142,7 +142,7 @@ export default function About() {
         </div>
       </section>
       {/* Work & Footer Section */}
-      <section className="mx-auto mb-8 flex max-w-7xl flex-col rounded-lg bg-white px-0 py-0 shadow md:flex-row">
+      <section className="Join_Our_Team mx-auto mb-8 flex max-w-7xl flex-col rounded-lg bg-white px-0 py-0 shadow md:flex-row">
         <div className="flex-1">
           <img
             src="img/outteam.jpeg"

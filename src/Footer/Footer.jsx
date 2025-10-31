@@ -40,12 +40,12 @@ const Footer = () => {
             <a href="#" className="hover:text-green-400">
               <IoLogoLinkedin size={32} />
             </a>
-            <a href="#" className="hover:text-green-400">
+            {/* <a href="#" className="hover:text-green-400">
               <FaTwitter size={32} />
             </a>
             <a href="#" className="hover:text-green-400">
               <FaYoutube size={32} />
-            </a>
+            </a> */}
           </div>
         </div>
         {/* Center: Quick Links and Utility Pages */}

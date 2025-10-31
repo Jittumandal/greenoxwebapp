@@ -222,7 +222,7 @@ const MenuItemDetail = () => {
                 </div>
 
                 {/* Detailed nutrition table */}
-                <div className="space-y-4">
+                {/* <div className="space-y-4">
                   <div className="grid grid-cols-3 gap-8 text-center">
                     <div>
                       <div className="flex justify-between border-b py-2">
@@ -319,7 +319,7 @@ const MenuItemDetail = () => {
                   <p className="mt-4 text-xs text-gray-500">
                     *Percent Daily Values (DV) are based on a 2,000 calorie diet
                   </p>
-                </div>
+                </div> */}
               </div>
             )}
           </div>

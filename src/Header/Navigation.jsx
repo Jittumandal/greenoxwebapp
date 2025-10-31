@@ -122,6 +122,16 @@ export default function Navigation() {
                 About Us
               </Link>
               <Link
+                to="/careers"
+                className={`${
+                  isActive("/careers")
+                    ? "border-b-2 border-green-500 pb-1 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
+              >
+                Careers
+              </Link>
+              <Link
                 to="/blog"
                 className={`${
                   isActive("/blog")
@@ -131,6 +141,7 @@ export default function Navigation() {
               >
                 Blog
               </Link>
+
               {/* 
             <div className="flex items-center gap-4">
               <button
@@ -217,6 +228,16 @@ export default function Navigation() {
                 About Us
               </Link>
               <Link
+                to="/careers"
+                className={`${
+                  isActive("/careers")
+                    ? "border-b-2 border-green-500 pb-1 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
+              >
+                Careers
+              </Link>
+              <Link
                 to="/blog"
                 className={`${isActive("/blog") ? "text-green-500" : "text-gray-700 hover:text-green-500"}`}
                 onClick={() => setMenuOpen(false)}
@@ -224,7 +245,7 @@ export default function Navigation() {
                 Blog
               </Link>
 
-              <hr className="my-2 border-gray-200" />
+              {/* <hr className="my-2 border-gray-200" />
               <button
                 className="mb-2 text-gray-700 hover:text-green-500"
                 aria-label="Search"
@@ -253,7 +274,7 @@ export default function Navigation() {
                 onClick={() => setMenuOpen(false)}
               >
                 Register
-              </Link>
+              </Link> */}
             </div>
           </div>
         )}

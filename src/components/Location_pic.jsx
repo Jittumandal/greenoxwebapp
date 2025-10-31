@@ -73,6 +73,7 @@ const Location_pic = () => {
   return (
     <div className="main-container flex items-center justify-center">
       <div
+        className="mobile_view_loc_pic"
         style={{
           position: "relative",
           width: "330px",

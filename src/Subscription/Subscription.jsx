@@ -1,3 +1,4 @@
+import FreshMealPlansHeading from "../components/FreshMealPlansHeading";
 import Subscription_Plans from "../components/Subscription_Plans";
 
 const mealTypes = [
@@ -24,10 +25,11 @@ const Subscription = () => {
     <>
       <div className="subcriptionplan_bg flex w-full flex-col items-center justify-center bg-auto bg-center bg-no-repeat px-4 py-12">
         <div className="mx-auto w-full max-w-2xl pt-12 text-center">
-          <h1 className="mb-2 text-4xl font-bold text-green-600 md:text-5xl">
+          {/* <h1 className="animate__animated animate__backInDown mb-2 text-4xl font-bold text-green-600 md:text-5xl">
             Fresh Meal Plans
-          </h1>
-          <p className="mb-6 text-gray-600">
+          </h1> */}
+          <FreshMealPlansHeading />
+          <p className="animate__animated animate__backInDown mb-6 text-gray-600">
             Transform Your Health Journey&nbsp; Premium meal plans and
             personalized coaching to help you achieve your wellness goals
           </p>
@@ -39,7 +41,7 @@ const Subscription = () => {
             />
             <button
               type="submit"
-              className="rounded-full bg-orange-400 px-8 py-3 font-semibold text-white transition hover:bg-orange-500"
+              className="getnow rounded-full bg-orange-400 px-8 py-3 font-semibold text-white transition hover:bg-orange-500"
             >
               GET START NOW
             </button>

@@ -23,7 +23,7 @@ const FoodMenu = () => {
 
         {/* Right: tabs */}
         <div className="w-full md:w-auto">
-          <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="tabsmenu flex w-full flex-col gap-2 sm:flex-row sm:items-center">
             {categories.map((category) => {
               const key = category.name.toLowerCase();
               const active = activeTab === key;

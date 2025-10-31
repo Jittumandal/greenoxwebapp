@@ -1,0 +1,103 @@
+/*.row{
+    display: block;
+}*/
+@media only screen and (max-width: 1200px) {}
+
+@media only screen and (max-width: 1090px) {}
+
+@media only screen and (max-width: 1024px) {}
+
+
+@media only screen and (max-width: 990px) {}
+
+@media only screen and (max-width: 991px) {}
+
+@media only screen and (max-width: 991px) {}
+
+@media only screen and (max-width: 768px) {}
+
+@media only screen and (max-width: 767px) {}
+
+@media only screen and (max-width: 690px) {}
+
+@media only screen and (max-width: 600px) {}
+
+@media only screen and (max-width: 575px) {}
+
+@media only screen and (max-width: 560px) {}
+
+@media only screen and (max-width: 480px) {}
+
+@media only screen and (max-width: 460px) {
+    .delicious_mobile {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .tabsmenu {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-direction: row;
+    }
+
+    .Meal_Plans {
+        display: none;
+    }
+
+    .mobile_view_plan {
+        justify-content: center;
+    }
+
+    .aliment-left {
+        text-align: center;
+    }
+
+    .about_overlay {
+        display: none;
+    }
+
+    .ourhistory {
+        margin-right: 0px;
+    }
+
+    .our_history_section {
+        margin-top: -100px;
+    }
+
+    .mobile_view_loc_pic {
+        margin-left: 0px !important;
+    }
+
+    .locaton_mobile_section {
+        margin-left: 0px !important;
+    }
+
+
+    .select_locotion {
+        padding-left: 0px !important;
+    }
+
+    .Testimonials_mobile {
+        width: 340px !important;
+    }
+
+    .getnow {
+        width: 100% !important;
+    }
+
+    .Join_Our_Team {
+        margin: 15px;
+    }
+
+    .about_cards {
+        width: 100% !important;
+        display: block;
+    }
+
+    .w100 {
+        width: 100% !important;
+        margin-bottom: 25px;
+    }
+
+}

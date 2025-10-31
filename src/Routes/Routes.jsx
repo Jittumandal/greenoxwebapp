@@ -11,6 +11,7 @@ import BlogPost from "../pages/BlogPost";
 import Subcriptiondestails from "../pages/Subcriptiondestails";
 import AllMenuIteams from "../pages/AllMenuIteams";
 import MenuItemDetail from "../pages/MenuItemDetail"; // add this import
+import Careers from "../Careers/Careers";
 
 export default function AppRoutes() {
   return (
@@ -25,6 +26,7 @@ export default function AppRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/subscription" element={<Subscription />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/careers" element={<Careers />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/post/:slug" element={<BlogPost />} />
       <Route path="/subcriptiondestails" element={<Subcriptiondestails />} />

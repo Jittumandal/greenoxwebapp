@@ -39,42 +39,42 @@ const cityLocations = {
       delivery: "OPEN",
     },
   ],
-  Delhi: [
+  Others: [
     {
       address:
-        "Shop 19, New Marke, Old Market, Shivalik Colony, Malviya Nagar, New Delhi, Delhi 110017",
+        "Shop 19, New Marke, Old Market, Shivalik Colony, Malviya Nagar, New Others , Others  110017",
       phone: " 098211 76930",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "Shop 19, New Marke, Old Market, Shivalik Colony, Malviya Nagar, New Delhi, Delhi 110017",
+        "GreeNox Ultrex Recreational Club, South City I, Sector 41, Gurugram, Haryana 122003",
       phone: "9873162942",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "Commercial Complex-II /1888–89, Kumar Theatre, Chandni Chowk, New Delhi-110006",
+        "Commercial Complex-II /1888–89, Kumar Theatre, Chandni Chowk, New Others -110006",
       phone: "9711882126",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "Delhi D-Mall Rohini:- Plot No. 1B5, Twin District Center. D-Mall , Sector-10, Rohini, New Delhi- 110085",
+        "Others  D-Mall Rohini:- Plot No. 1B5, Twin District Center. D-Mall , Sector-10, Rohini, New Others - 110085",
       phone: "9999194946",
       dinein: "OPEN",
       delivery: "OPEN",
     },
   ],
-  Mumbai: [],
-  Bangalore: [],
-  Kolkata: [],
-  Chennai: [],
-  Hyderabad: [],
-  Pune: [],
+  // Mumbai: [],
+  // Bangalore: [],
+  // Kolkata: [],
+  // Chennai: [],
+  // Hyderabad: [],
+  // Pune: [],
 };
 
 const cities = Object.keys(cityLocations);
@@ -86,8 +86,8 @@ const Location = () => {
   return (
     <div className="flex min-h-screen w-full flex-col bg-white md:flex-row">
       {/* Left: Select City */}
-      <div className="freshmealplan flex flex-col items-center justify-center p-8 pl-12 md:w-1/3">
-        <div className="max-w-xm mb-8 w-full pb-4 pl-12">
+      <div className="freshmealplan locaton_mobile_section flex flex-col items-center justify-center p-8 pl-12 md:w-1/3">
+        <div className="max-w-xm select_locotion mb-8 w-full pb-4 pl-12">
           <div className="relative">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
               <img src="/img/location.svg" alt="Location" className="h-5 w-5" />

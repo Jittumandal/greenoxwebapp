@@ -48,7 +48,7 @@ export const OurHistory = () => {
             <div className="relative mx-auto w-full">
               <div className="aspect-square overflow-hidden rounded-full border-8 border-white shadow-xl">
                 <img
-                  src="/products/Herb Chicken And Hummus Salad- 2.jpg"
+                  src="/products/Icy Strawberry Shake.jpg"
                   alt="Avocado Toast with Eggs"
                   className="h-full w-full object-cover"
                 />

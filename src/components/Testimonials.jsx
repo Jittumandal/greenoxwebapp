@@ -99,7 +99,7 @@ export const Testimonials = () => {
           </div>
           {/* Right: Vertical Marquee */}
           <div
-            className="relative"
+            className="Testimonials_mobile relative"
             style={{
               width: "370px",
               height: `${ITEM_HEIGHT * SLIDES_TO_SHOW}px`,

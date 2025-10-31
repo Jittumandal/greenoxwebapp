@@ -1,5 +1,6 @@
 import React from "react";
 import Subscription_Plans from "../components/Subscription_Plans";
+import FreshMealPlansHeading from "./FreshMealPlansHeading";
 
 const features = [
   {
@@ -51,23 +52,24 @@ const features = [
 const Freshmealplans = () => {
   return (
     <div className="freshmealplan bg-white px-2 py-12">
-      {/* <h2 className="mb-2 text-center text-4xl font-bold text-green-700">
-        Fresh Meal Plans
-      </h2> */}
-      {/* New Secondary Heading with Animation */}
-      <h2 className="mb-4 animate-pulse text-center text-4xl font-semibold text-green-500">
-        Fresh Meal Plans
-      </h2>
-      <p className="mx-auto mb-8 max-w-2xl text-center text-gray-600">
-        Transform Your Health Journey. Premium meal plans and personalized
-        coaching to help you achieve your wellness goals.
-      </p>
+      <div className="flex w-full flex-col items-center justify-center">
+        <div className="mx-auto w-full max-w-2xl text-center">
+          {/* <h1 className="animate__animated animate__backInDown mb-2 text-4xl font-bold text-green-600 md:text-5xl">
+            Fresh Meal Plans
+          </h1> */}
+          <FreshMealPlansHeading />
+          <p className="animate__animated animate__backInDown text-gray-600">
+            Transform Your Health Journey&nbsp; Premium meal plans and
+            personalized coaching to help you achieve your wellness goals
+          </p>
+        </div>
+      </div>
 
       {/* Features */}
       <div className="mx-auto mb-10 mt-10 grid max-w-4xl grid-cols-2 gap-4 text-center text-sm text-gray-600 md:grid-cols-4">
         {features.map((feature, index) => (
           <div className="grid gap-2" key={index}>
-            {feature.icon}
+            <span className="animate-bounce">{feature.icon}</span>
             <div className="font-semibold text-green-700">{feature.title}</div>
             <div className="text-xs text-gray-500">{feature.desc}</div>
           </div>
