@@ -3,7 +3,7 @@ import "animate.css";
 
 export default function HeroSection() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="Main_Heading_bg relative min-h-[400px] overflow-hidden md:min-h-screen">
       {/* Background Video */}
       <video
         autoPlay
@@ -12,18 +12,15 @@ export default function HeroSection() {
         playsInline
         className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40 transition-opacity duration-500 ease-in-out"
       >
-        <source
-          src="https://www.shutterstock.com/shutterstock/videos/9349901/preview/stock-footage-healthy-food.mp4"
-          type="video/mp4"
-        />
+        <source src="/img/greenox.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
       {/* Overlay Content */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4">
+      <div className="Main_Heading relative z-10 flex min-h-[400px] flex-col items-center justify-center px-4 md:min-h-screen">
         {/* Main Heading and Description */}
         <div className="mx-auto mt-12 w-full max-w-4xl pt-12 text-center">
-          <h1 className="animate__animated animate__zoomIn mb-2 mt-12 pt-12 text-5xl font-bold uppercase leading-tight text-black md:text-6xl md:leading-[1.15]">
+          <h1 className="Main_Heading animate__animated animate__zoomIn mb-2 mt-12 pt-12 text-5xl font-bold uppercase leading-tight text-black md:text-6xl md:leading-[1.15]">
             Your Trusted Partner in
             <span className="block justify-center uppercase text-green-600">
               Healthy Living

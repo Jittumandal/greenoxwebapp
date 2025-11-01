@@ -63,6 +63,7 @@
 
     .our_history_section {
         margin-top: -100px;
+        padding-bottom: 0px;
     }
 
     .mobile_view_loc_pic {
@@ -99,5 +100,82 @@
         width: 100% !important;
         margin-bottom: 25px;
     }
+
+    .blog_banner {
+        padding: 40px 20px;
+        margin-top: 80px;
+
+    }
+
+    .Talk {
+        font-size: 30px;
+    }
+
+    .LetGreeNox {
+        margin-bottom: 0px;
+    }
+
+    .OurExpert {
+        margin: 20px;
+    }
+
+    .OurExpert a {
+        margin-bottom: 20px;
+        display: block;
+        text-align: center;
+    }
+
+    .career_h1 {
+        font-size: 30px;
+    }
+
+    .career_sec {
+        padding-top: 120px;
+        padding-bottom: 20px;
+    }
+
+    .career_sec p {
+        padding: 0 10px;
+    }
+
+    .Main_Heading_bg {
+        height: auto;
+    }
+
+    .Main_Heading div:last-child {
+        margin: 0px;
+        padding: 10px;
+    }
+
+    .Main_Heading h1 {
+        font-size: 36px;
+        line-height: 1.2;
+        margin: 0px;
+        padding: 0px;
+        margin-top: 25px;
+    }
+
+    .Our_Presence {
+        padding: 0px;
+    }
+
+    .Our_Presence h2 {
+        font-size: 40px;
+        margin-bottom: 16px;
+    }
+
+    .Our_Presence h3 {
+        font-size: 20px;
+    }
+
+    .gap2 {
+        gap: 20px;
+    }
+
+    .Real {
+        font-size: 30px;
+        text-align: center;
+    }
+
 
 }

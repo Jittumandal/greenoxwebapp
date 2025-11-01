@@ -34,8 +34,8 @@ export const Careers = () => {
           backgroundBlend: "overlay",
         }}
       >
-        <div className="mx-auto max-w-6xl px-4 pt-52 text-center">
-          <h1 className="animate__animated animate__backInDown mb-6 text-5xl font-bold text-white">
+        <div className="career_sec mx-auto max-w-6xl px-4 pt-52 text-center">
+          <h1 className="career_h1 animate__animated animate__backInDown mb-6 text-5xl font-bold text-white">
             Join Our Team:
             <span className="bg-gradient-to-r from-green-500 via-green-500 to-green-500 bg-clip-text text-transparent">
               Exciting Career Opportunities

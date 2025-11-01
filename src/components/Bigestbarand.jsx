@@ -10,7 +10,7 @@ const BiggestBrands = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section className="Our_Presence py-16">
       <div className="mx-auto max-w-7xl px-4 py-12">
         {/* Heading */}
         <h2 className="mb-8 text-center text-5xl font-bold text-green-500">
@@ -27,7 +27,7 @@ const BiggestBrands = () => {
         </h3>
 
         {/* Brands Logo Grid */}
-        <div className="mx-auto mb-12 flex flex-wrap items-center justify-center gap-12 md:gap-16">
+        <div className="gap2 mx-auto mb-12 flex flex-wrap items-center justify-center gap-12 md:gap-16">
           {brands.map((brand) => (
             <div
               key={brand.name}

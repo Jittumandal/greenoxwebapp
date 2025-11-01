@@ -212,7 +212,7 @@ export default function Blog() {
       </section>
 
       {/* Wellness Journey Banner */}
-      <section className="mx-auto mb-8 flex max-w-5xl flex-col items-center rounded-lg bg-white px-4 py-4 shadow md:flex-row">
+      <section className="OurExpert mx-auto mb-8 flex max-w-5xl flex-col items-center rounded-lg bg-white px-4 py-4 shadow md:flex-row">
         <div className="flex-1">
           <h2 className="mb-2 text-xl font-semibold">
             Start your wellness journey today!

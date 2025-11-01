@@ -90,7 +90,7 @@ export const Testimonials = () => {
                 What people Says
               </span>
             </div>
-            <h2 className="mb-6 text-5xl font-extrabold leading-tight text-gray-800">
+            <h2 className="Real mb-6 text-5xl font-extrabold leading-tight text-gray-800">
               Real People, Real Reviews
             </h2>
             <p className="text-lg text-gray-700">
