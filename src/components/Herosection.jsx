@@ -10,10 +10,20 @@ export default function HeroSection() {
         muted
         loop
         playsInline
+        preload="metadata"
+        poster="/img/greenox-poster.jpg"
         className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40 transition-opacity duration-500 ease-in-out"
+        crossOrigin="anonymous"
       >
-        <source src="/img/greenox.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src={encodeURI("/img/greenox.mp4")} type="video/mp4" />
+        {/* add webm fallback if you have one */}
+        <source src={encodeURI("/img/greenox.webm")} type="video/webm" />
+        {/* accessible fallback */}
+        <img
+          src="/img/greenox-poster.jpg"
+          alt="Hero background"
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
+        />
       </video>
 
       {/* Overlay Content */}
