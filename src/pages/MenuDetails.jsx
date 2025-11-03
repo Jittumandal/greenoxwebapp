@@ -1,142 +1,148 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { menuItems } from "../data/menuData"; // Update this import
+import menuItems from "../data/menuItems";
 
-const NutritionRow = ({ label, value }) => (
-  <div className="flex justify-between border-t border-gray-100 py-2 text-sm">
-    <div className="text-gray-600">{label}</div>
-    <div className="font-medium text-gray-800">{value}</div>
-  </div>
-);
+const slugify = (s = "") =>
+  s
+    .toString()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
 
-const MenuItemDetail = () => {
-  const { category, id, pairIndex } = useParams();
+function Accordion({ title, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-lg bg-white shadow-sm">
+      <button
+        onClick={() => setOpen((s) => !s)}
+        className="flex w-full items-center justify-between px-4 py-3 text-left"
+      >
+        <span className="font-semibold">{title}</span>
+        <span className="text-lg">{open ? "−" : "+"}</span>
+      </button>
+      {open && <div className="px-4 pb-4 pt-0">{children}</div>}
+    </div>
+  );
+}
 
-  const findMenuItem = () => {
-    console.log("Params:", { category, id, pairIndex }); // Debug params
-
-    // Convert category to lowercase to match data structure
-    const categoryKey = category?.toLowerCase();
-    const categoryItems = menuItems[categoryKey];
-
-    console.log("Category items:", categoryItems); // Debug category items
-
-    if (!categoryItems) {
-      console.log("Category not found:", categoryKey);
-      return null;
-    }
-
-    // Find the main item
-    const mainItem = categoryItems.find(
-      (item) => String(item.id) === String(id),
+export default function MenuItemDetail() {
+  const { category: categoryParam, id: idParam } = useParams();
+  const { menuArray, itemsByKey } = useMemo(() => {
+    const arr = Object.values(menuItems).flatMap((v) =>
+      Array.isArray(v) ? v : [],
     );
+    const map = {};
+    Object.entries(menuItems).forEach(([k, v]) => {
+      map[slugify(k)] = Array.isArray(v) ? v.slice() : [];
+    });
+    return { menuArray: arr, itemsByKey: map };
+  }, []);
 
-    console.log("Found item:", mainItem); // Debug found item
+  const categoryKey = decodeURIComponent(categoryParam || "");
+  const idRaw = decodeURIComponent(idParam || "");
 
-    if (!mainItem) {
-      console.log("Item not found:", id);
-      return null;
-    }
+  const candidates =
+    categoryKey === slugify("All Menu") ||
+    categoryKey === slugify("All Menu Items") ||
+    categoryKey === "all-menu"
+      ? menuArray
+      : itemsByKey[categoryKey] ||
+        menuArray.filter((it) =>
+          `${it.name || ""} ${it.description || ""}`
+            .toLowerCase()
+            .includes((categoryKey || "").replace(/-/g, " ")),
+        );
 
-    // If we have a pairIndex, return the paired item
-    if (pairIndex !== undefined && mainItem.pairs) {
-      return mainItem.pairs[parseInt(pairIndex)] || null;
-    }
+  const item =
+    candidates.find((it) => String(it.id) === idRaw) ||
+    candidates.find((it) => it.id && Number(it.id) === Number(idRaw)) ||
+    candidates.find((it) => it.name && slugify(it.name) === slugify(idRaw)) ||
+    candidates.find((it) => it.name && it.name === idRaw);
 
-    return mainItem;
-  };
-
-  const item = findMenuItem();
-
-  const [openNutrition, setOpenNutrition] = useState(true);
-  const [openAllergens, setOpenAllergens] = useState(false);
-
-  console.log("Rendered item:", item);
-
-  // Update the not found state to show more info:
   if (!item) {
     return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800">Item not found</h2>
-          <p className="mt-2 text-gray-600">
-            Category: {category}, ID: {id}
-            {pairIndex !== undefined && `, Pair Index: ${pairIndex}`}
-          </p>
-          <Link
-            to="/menu"
-            className="mt-4 inline-block rounded-lg bg-green-500 px-6 py-2 text-white hover:bg-green-600"
-          >
-            Back to Menu
-          </Link>
-        </div>
-      </div>
+      <main className="mx-auto max-w-4xl p-6">
+        <h1 className="mb-4 text-2xl font-semibold">Item not found</h1>
+        <p className="mb-4">
+          Category: {categoryKey || "—"}, ID: {idRaw || "—"}
+        </p>
+        <Link to="/menu" className="text-green-600 underline">
+          Back to menu
+        </Link>
+      </main>
     );
   }
 
-  // Fallback nutrition data if not provided in menuData
-  const nutrition = item.nutritionInfo || {
-    calories: "625 Cal",
-    protein: "22g",
-    carbs: "49g",
-    fat: "39g",
-    details: {
-      "Saturated Fat": "7g",
-      "Total Sugars": "2g",
-      Sodium: "650mg",
-      "Dietary Fiber": "4g",
-      Cholesterol: "28mg",
-    },
+  const nutrition = item.nutritionInfo || {};
+  // panel state used by the Nutrition / Allergen accordions
+  const [openNutrition, setOpenNutrition] = useState(true);
+  const [openAllergens, setOpenAllergens] = useState(false);
+  const allergens = item.allergens || [];
+
+  const handleImgError = (e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src = "/img/menu/menubg.svg"; // ensure placeholder exists in public/img
   };
 
-  const allergens = item.allergens || ["Milk", "Wheat"]; // example
-
   return (
-    <div className="container-fluid mx-auto mt-20 pt-12">
-      <Link
-        to="/"
-        className="mb-6 inline-block pl-32 text-sm font-medium text-green-600 hover:text-green-700"
-      >
-        ← Back to Menu
-      </Link>
+    <section>
+      {/* Hero Section */}
+      <div className="relative mt-20 h-[300px]">
+        <div className="absolute inset-0">
+          <img
+            src="/img/menu-banner.jpg"
+            alt="Menu Banner"
+            onError={handleImgError}
+            className="h-full w-full object-cover opacity-50"
+          />
+        </div>
+      </div>
+      <main className="main_box mx-auto max-w-7xl px-6">
+        <Link
+          to={`/menu/${encodeURIComponent(categoryKey)}`}
+          className="mb-6 inline-block text-green-600"
+        >
+          ← Back to Menu
+        </Link>
 
-      <div className="mx-auto max-w-7xl rounded-lg px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {/* Image */}
-          <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
-            <img
-              src={item.image || item.img}
-              alt={item.name}
-              className="h-100 w-full rounded-lg object-cover md:h-full"
-            />
-          </div>
-
-          {/* Details */}
-          <div className="p-8">
-            <h1 className="mb-2 text-3xl font-extrabold text-gray-900">
-              {item.name}
-            </h1>
-            <p className="mb-4 text-sm text-gray-500">{item.subtitle}</p>
-
-            <div className="mb-6 flex items-center gap-6">
-              <div>
-                <div className="text-xs text-gray-500">Calories</div>
-                <div className="text-lg font-semibold text-gray-800">
-                  {nutrition.calories}
-                </div>
-              </div>
-
-              <div>
-                <div className="text-xs text-gray-500">Price</div>
-                <div className="text-lg font-bold text-orange-500">
-                  ₹{item.price}
-                </div>
-              </div>
+        <div className="mx-auto max-w-7xl rounded-lg bg-white px-4 py-4">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {/* Image */}
+            <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
+              <img
+                src={item.image || item.img}
+                alt={item.name}
+                className="h-100 w-full rounded-lg object-cover md:h-full"
+              />
             </div>
 
-            <p className="mb-6 text-gray-700">{item.description}</p>
+            {/* Details */}
+            <div className="p-8">
+              <h1 className="mb-2 text-3xl font-extrabold text-gray-900">
+                {item.name}
+              </h1>
+              <p className="mb-4 text-sm text-gray-500">{item.subtitle}</p>
 
-            {/* <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+              <div className="mb-6 flex items-center gap-6">
+                <div>
+                  <div className="text-xs text-gray-500">Calories</div>
+                  <div className="text-lg font-semibold text-gray-800">
+                    {nutrition.calories}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-gray-500">Price</div>
+                  <div className="text-lg font-bold text-orange-500">
+                    ₹{item.price}
+                  </div>
+                </div>
+              </div>
+
+              <p className="mb-6 text-gray-700">{item.description}</p>
+
+              {/* <div className="mb-6 flex flex-col gap-3 sm:flex-row">
               <button
                 className="w-full rounded-lg bg-green-600 px-5 py-3 text-white shadow transition hover:bg-green-700"
                 title="Add to cart"
@@ -150,10 +156,12 @@ const MenuItemDetail = () => {
                 Customize
               </button>
             </div> */}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="freshmealplan mx-auto mt-16 w-full px-4 py-8">
+      </main>
+
+      <div className="freshmealplan mx-auto mt-16 w-full py-12">
         <div className="mx-auto max-w-7xl px-4">
           <h1 className="mb-8 text-center text-4xl font-extrabold text-green-500">
             Nutritional Information
@@ -374,8 +382,6 @@ const MenuItemDetail = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default MenuItemDetail;
+}

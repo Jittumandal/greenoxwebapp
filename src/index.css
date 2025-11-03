@@ -220,3 +220,8 @@ header {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #6ee7b7, #047857);
 }
+
+.main_box {
+    margin-top: -250px;
+    position: relative;
+}
