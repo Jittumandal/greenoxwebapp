@@ -59,69 +59,47 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-white">
-                  About
-                </Link>
-              </li>
-              <li>
                 <Link to="/menu" className="hover:text-white">
-                  Our Menu
+                  Menu
                 </Link>
               </li>
               <li>
-                <Link to="/balanced-meal" className="hover:text-white">
-                  Balanced Meal
+                <Link to="/subscription" className="hover:text-white">
+                  Subscription Plan
                 </Link>
               </li>
+              <li>
+                <Link to="/about" className="hover:text-white">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/careers" className="hover:text-white">
+                  Careers
+                </Link>
+              </li>
+
               <li>
                 <Link to="/blog" className="hover:text-white">
                   Blog
                 </Link>
               </li>
-
-              <li>
-                <Link to="/delivery" className="hover:text-white">
-                  Delivery
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
-            <div className="mb-2 font-semibold">Utility Pages</div>
+            <div className="mb-2 font-semibold">Contact</div>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>
-                <Link to="/start-here" className="hover:text-white">
-                  Start Here
-                </Link>
+                <Link className="hover:text-white">+91 7078548120</Link>
+              </li>
+              <li className="py-2">
+                <a href="mailto:info@greenox.in" className="hover:text-white">
+                  info@greenox.in
+                </a>
               </li>
               <li>
-                <Link to="/styleguide" className="hover:text-white">
-                  Styleguide
-                </Link>
-              </li>
-              <li>
-                <Link to="/password-protected" className="hover:text-white">
-                  Password Protected
-                </Link>
-              </li>
-              <li>
-                <Link to="/404" className="hover:text-white">
-                  404 Not Found
-                </Link>
-              </li>
-              <li>
-                <Link to="/licenses" className="hover:text-white">
-                  Licenses
-                </Link>
-              </li>
-              <li>
-                <Link to="/changelog" className="hover:text-white">
-                  Changelog
-                </Link>
-              </li>
-              <li>
-                <Link to="/view-more" className="hover:text-white">
-                  View More
+                <Link to="/" className="hover:text-white">
+                  www.greenox.in
                 </Link>
               </li>
             </ul>

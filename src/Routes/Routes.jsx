@@ -5,19 +5,19 @@ import Home from "../Home/Home";
 import About from "../About/About";
 import Subscription from "../Subscription/Subscription";
 import Contact from "../Contact/Contact";
-import Menu from "../Menu/Menu";
 import Blog from "../Blog/Blog";
 import BlogPost from "../pages/BlogPost";
 import Subcriptiondestails from "../pages/Subcriptiondestails";
 import AllMenuIteams from "../pages/AllMenuIteams";
-import MenuItemDetail from "../pages/MenuItemDetail"; // add this import
+import MenuItemDetail from "../pages/MenuItemDetail";
 import Careers from "../Careers/Careers";
+import MenuTabs from "../Menu/Menu";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/menu" element={<Menu />} />
+      <Route path="/menu" element={<MenuTabs />} />
       <Route path="/menu/:category/:id" element={<MenuItemDetail />} />
       <Route
         path="/menu/:category/:id/pair/:pairIndex"

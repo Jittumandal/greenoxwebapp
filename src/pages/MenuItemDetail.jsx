@@ -94,7 +94,7 @@ const MenuItemDetail = () => {
   return (
     <div className="container-fluid mx-auto mt-20 pt-12">
       <Link
-        to="/menu"
+        to="/"
         className="mb-6 inline-block pl-32 text-sm font-medium text-green-600 hover:text-green-700"
       >
         ← Back to Menu
@@ -136,7 +136,7 @@ const MenuItemDetail = () => {
 
             <p className="mb-6 text-gray-700">{item.description}</p>
 
-            <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+            {/* <div className="mb-6 flex flex-col gap-3 sm:flex-row">
               <button
                 className="w-full rounded-lg bg-green-600 px-5 py-3 text-white shadow transition hover:bg-green-700"
                 title="Add to cart"
@@ -149,7 +149,7 @@ const MenuItemDetail = () => {
               >
                 Customize
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

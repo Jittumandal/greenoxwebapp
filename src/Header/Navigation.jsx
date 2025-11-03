@@ -57,49 +57,16 @@ export default function Navigation() {
               >
                 Home
               </Link>
-
-              {/* Menu with Mega Dropdown */}
-              <div
-                className="relative"
-                ref={wrapperRef}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+              <Link
+                to="/menu"
+                className={`${
+                  isActive("/menu") || isMenuActive()
+                    ? "border-b-2 border-green-500 pb-1 text-green-500"
+                    : "text-gray-700 hover:text-green-500"
+                }`}
               >
-                <button
-                  onClick={() => {
-                    if (closeTimeoutRef.current) {
-                      clearTimeout(closeTimeoutRef.current);
-                      closeTimeoutRef.current = null;
-                    }
-                    setMegaOpen((s) => !s);
-                  }}
-                  aria-expanded={megaOpen}
-                  className={`flex items-center gap-2 focus:outline-none ${
-                    isMenuActive()
-                      ? "border-b-2 border-green-500 pb-1 text-green-500"
-                      : "text-gray-700 hover:text-green-500"
-                  }`}
-                >
-                  Menu
-                  <svg
-                    className={`h-4 w-4 transition-transform ${
-                      megaOpen ? "rotate-180" : "rotate-0"
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    aria-hidden
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-
-                <MegaDropdown
-                  isOpen={megaOpen}
-                  onClose={() => setMegaOpen(false)}
-                />
-              </div>
+                Menu
+              </Link>
 
               <Link
                 to="/subscription"

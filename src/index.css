@@ -186,3 +186,37 @@ header {
 .delicious {
     margin-left: 37%;
 }
+
+.menu-bg {
+    background-color: #F3F6F4;
+    padding: 50px 0px;
+}
+
+/* green rounded custom scrollbar (WebKit + Firefox) */
+.custom-scrollbar {
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #10b981 #ecfdf5;
+}
+
+/* WebKit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #ecfdf5;
+    /* pale green track */
+    border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #a7f3d0, #059669);
+    /* light -> dark green */
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #6ee7b7, #047857);
+}
