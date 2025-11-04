@@ -4,6 +4,14 @@ import { FaBookmark } from "react-icons/fa";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import BlogBanner from "./BlogBanner";
 
+const slugify = (s = "") =>
+  s
+    .toString()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
 export const latestStories = [
   {
     slug: "whole-grains-1",
@@ -23,7 +31,7 @@ export const latestStories = [
     date: "2023 NOV 18",
     desc: "Breakfast is the most important meal of the day. But wolfing down a plate of aloo puri or buttered toast, standard morning fare in many homes, will do you more harm than good. If you",
     full: "Full article content for story 2...",
-    avatar: "/blog/avatar.svg",
+    avatar: "/blog/Aditya.jpg",
   },
   {
     slug: "whole-grains-3",
@@ -33,17 +41,18 @@ export const latestStories = [
     date: "2023 NOV 18",
     desc: "Everyone wants a job that offers flexibility, allows creativity, requires...",
     full: "Full article content for story 3...",
-    avatar: "/blog/avatar.svg",
+    avatar: "/blog/Adeesh.jpg",
   },
 ];
 
-const topReads = [
+export const topReads = [
   {
     title: "Height Weight Chart – Ideal Weight for Men and Women",
     desc: "Good health is a prerequisite for happiness. While for adults, a vital for children and quality of life, for children, is essential for proper growth, both physically and mentally.",
     img: "/blog/height.jpg",
     tag: "Weight Loss",
     author: "Dr A Bhowal",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "The Ultimate 7-Day Meal Plan for Intermittent Fasting",
@@ -51,6 +60,7 @@ const topReads = [
     img: "/blog/ultimate.jpg",
     tag: "Diet Plans",
     author: "Riya Malampy",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "Introduction to Smart Scale",
@@ -58,49 +68,62 @@ const topReads = [
     img: "/blog/weightloss.jpg",
     tag: "Weight Loss",
     author: "By Neha",
+    avatar: "/blog/Akash.jpg",
   },
 ];
 
-const recentPosts = [
+export const recentPosts = [
   {
-    title: "BC Red Nutritional Juice for Weight Loss",
-    img: "/products/ABC Red Nutritional Juice.jpg",
+    slug: "whole-grains-3",
+    title: "All About Whole Grains... 3",
+    img: "/blog/proteensalad3.jpg",
     author: "By GreeNox Diet",
+    date: "2023 NOV 18",
+    desc: "Everyone wants a job that offers flexibility, allows creativity, requires...",
+    full: "Full article content for story 3...",
+    avatar: "/blog/Adeesh.jpg",
   },
   {
     title: "Alfredo ( White Sauce ) Pasta",
     img: "/products/Alfredo ( White Sauce ) Pasta - 2.jpg",
-    author: "By Rishi Sharma",
+    avatar: "/blog/Akash.jpg",
+    full: "BC Red Nutritional Juice for Weight Loss",
   },
   {
     title: "Apple Berry Oatmeal Jar",
     img: "/products/Apple Berry Oatmeal Jar -2.jpg",
     author: "By GreeNox Transformation",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "Apple Berry Oatmeal Jar",
     img: "/products/Apple Berry Oatmeal Jar.jpg",
     author: "By Savansana “Shiva” Hantare",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "Assorted Veggies & Quinoa Salad !",
     img: "/products/Assorted Veggies & Quinoa Salad -2.jpg",
     author: "By GreeNox Diet",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "Assorted Veggies & Quinoa Salad",
     img: "/products/Assorted Veggies & Quinoa Salad -4.jpg",
     author: "By GreeNox Diet",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "Avocado & Berries Smoothie Bowl ",
     img: "/products/Avocado & Berries Smoothie Bowl - 2.jpg",
     author: "By Riya Malampy",
+    avatar: "/blog/Akash.jpg",
   },
   {
     title: "Hara Bhara Kebab Wrap",
     img: "/products/Hara Bhara Kebab Wrap.jpg",
     author: "By Nandita Thombre",
+    avatar: "/blog/Akash.jpg",
   },
 ];
 
@@ -111,7 +134,7 @@ export default function Blog() {
       <BlogBanner />
 
       {/* Search Section */}
-      <div className="mx-auto max-w-5xl px-4 py-6">
+      <div className="mx-auto max-w-7xl px-4 py-6">
         <input
           type="search"
           placeholder="Search..."
@@ -120,16 +143,15 @@ export default function Blog() {
       </div>
 
       {/* Latest Stories Section */}
-      <section className="mx-auto max-w-5xl px-4 py-6">
+      <section className="mx-auto max-w-7xl px-4 py-6">
         <h2 className="mb-4 text-xl font-semibold">Latest Stories</h2>
 
         <div className="flex gap-6 overflow-x-auto pb-2">
           {latestStories.map((story) => (
-            <a
+            <Link
               key={story.slug}
-              href={`/blog/post/${story.slug}`}
-              rel="noopener noreferrer"
-              className="block min-w-[280px] max-w-xs"
+              to={`/blog/post/${encodeURIComponent(story.slug)}`}
+              className="block min-w-[400px] max-w-xs"
             >
               <div className="rounded-lg border border-gray-100 bg-white shadow transition hover:shadow-lg">
                 <img
@@ -154,11 +176,9 @@ export default function Blog() {
                     <span className="text-xs text-gray-600">
                       {story.author}
                     </span>
-                    {/* Example icons */}
                     <button className="ml-auto text-red-400 hover:text-red-500">
                       <IoIosHeart size={22} />
                     </button>
-
                     <button className="text-green-400 hover:text-purple-500">
                       <FaBookmark size={18} />
                     </button>
@@ -168,35 +188,39 @@ export default function Blog() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
 
       {/* Top Reads */}
-      <section className="mx-auto max-w-5xl px-4 py-6">
+      <section className="mx-auto max-w-7xl px-4 py-6">
         <h2 className="mb-4 text-xl font-semibold">Top Reads</h2>
         <div className="flex flex-col gap-6">
-          {topReads.map((read, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:flex-row"
-            >
-              <img
-                src={read.img}
-                alt={read.title}
-                className="h-[150px] w-[150px] rounded object-cover"
-              />
-              <div className="flex-1">
-                <div className="text-sm font-bold text-gray-800">
-                  {read.title}
+          {topReads.map((read, idx) => {
+            const slug = slugify(read.title + "-" + idx);
+            return (
+              <Link
+                key={idx}
+                to={`/blog/post/${encodeURIComponent(slug)}`}
+                className="flex flex-col gap-4 rounded-lg bg-white p-4 shadow md:flex-row"
+              >
+                <img
+                  src={read.img}
+                  alt={read.title}
+                  className="h-[150px] w-[150px] rounded object-cover"
+                />
+                <div className="flex-1">
+                  <div className="text-sm font-bold text-gray-800">
+                    {read.title}
+                  </div>
+                  <div className="mb-2 text-xs text-gray-500">{read.tag}</div>
+                  <div className="mb-2 text-xs text-gray-700">{read.desc}</div>
+                  <div className="text-xs text-gray-400">{read.author}</div>
                 </div>
-                <div className="mb-2 text-xs text-gray-500">{read.tag}</div>
-                <div className="mb-2 text-xs text-gray-700">{read.desc}</div>
-                <div className="text-xs text-gray-400">{read.author}</div>
-              </div>
-            </div>
-          ))}
+              </Link>
+            );
+          })}
         </div>
         {/* Pagination */}
         <div className="mt-6 flex justify-center gap-2">
@@ -212,7 +236,7 @@ export default function Blog() {
       </section>
 
       {/* Wellness Journey Banner */}
-      <section className="OurExpert mx-auto mb-8 flex max-w-5xl flex-col items-center rounded-lg bg-white px-4 py-4 shadow md:flex-row">
+      <section className="OurExpert mx-auto mb-8 flex max-w-7xl flex-col items-center rounded-lg bg-white px-4 py-4 shadow md:flex-row">
         <div className="flex-1">
           <h2 className="mb-2 text-xl font-semibold">
             Start your wellness journey today!
@@ -238,32 +262,36 @@ export default function Blog() {
       </section>
 
       {/* Recent Posts */}
-      <section className="mx-auto max-w-5xl px-4 py-6 pb-12">
+      <section className="mx-auto max-w-7xl px-4 py-6 pb-12">
         <h2 className="mb-4 text-xl font-semibold">Recent Posts</h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-          {recentPosts.map((post, idx) => (
-            <div
-              key={idx}
-              className="rounded-lg bg-white shadow transition hover:shadow-lg"
-            >
-              <img
-                src={post.img}
-                alt={post.title}
-                className="h-32 w-full rounded-t-lg object-cover"
-              />
-              <div className="p-4">
-                <div className="mb-2 text-sm font-semibold text-gray-800">
-                  {post.title}
+          {recentPosts.map((post, idx) => {
+            const slug = slugify(post.title + "-" + idx);
+            return (
+              <Link
+                key={idx}
+                to={`/blog/post/${encodeURIComponent(slug)}`}
+                className="rounded-lg bg-white shadow transition hover:shadow-lg"
+              >
+                <img
+                  src={post.img}
+                  alt={post.title}
+                  className="h-32 w-full rounded-t-lg object-cover"
+                />
+                <div className="p-4">
+                  <div className="mb-2 text-sm font-semibold text-gray-800">
+                    {post.title}
+                  </div>
+                  <div className="text-xs text-gray-500">{post.author}</div>
                 </div>
-                <div className="text-xs text-gray-500">{post.author}</div>
-              </div>
-            </div>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
       {/* Render nested route content here */}
-      <div className="mx-auto max-w-5xl px-4">
+      <div className="mx-auto max-w-7xl px-4">
         <Outlet />
       </div>
     </div>

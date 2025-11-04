@@ -1,151 +1,205 @@
-import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { latestStories } from "../Blog/Blog";
+import React, { useMemo, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import {
+  latestStories,
+  topReads as _topReads,
+  recentPosts as _recentPosts,
+} from "../Blog/Blog";
 import {
   FaFacebookF,
   FaTwitter,
   FaLinkedinIn,
   FaWhatsapp,
-  FaRegBookmark,
+  FaBookmark,
+  FaLink,
 } from "react-icons/fa";
-import { FiChevronLeft } from "react-icons/fi";
+
+const slugify = (s = "") =>
+  s
+    .toString()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
 
 export default function BlogPost() {
-  const [isTableOpen, setIsTableOpen] = useState(true);
   const { slug } = useParams();
-  const story = latestStories.find((s) => s.slug === slug);
+  const navigate = useNavigate();
+  const decoded = decodeURIComponent(slug || "");
 
-  if (!story) {
+  // resolve post from available sources
+  const post = useMemo(() => {
+    let p = latestStories.find((x) => x.slug === decoded);
+    if (p) return p;
+
+    p =
+      _topReads
+        .map((p, i) => ({ ...p, _slug: slugify(p.title + "-" + i) }))
+        .find((p) => p._slug === decoded) ||
+      _recentPosts
+        .map((p, i) => ({ ...p, _slug: slugify(p.title + "-" + i) }))
+        .find((p) => p._slug === decoded);
+
+    return p;
+  }, [decoded]);
+
+  // Table of contents open state
+  const [isTableOpen, setIsTableOpen] = useState(true);
+
+  // share state
+  const [copied, setCopied] = useState(false);
+
+  const shareUrl = `${window.location.origin}/blog/post/${encodeURIComponent(decoded)}`;
+  const shareText = post?.title || "";
+
+  const openPopup = (url) => {
+    window.open(url, "shareWindow", "width=600,height=500,noopener,noreferrer");
+  };
+
+  const shareTo = (platform) => {
+    // Prefer native share on supported devices
+    if (navigator.share) {
+      navigator
+        .share({
+          title: shareText,
+          text: post?.excerpt || shareText,
+          url: shareUrl,
+        })
+        .catch(() => {
+          /* ignore */
+        });
+      return;
+    }
+
+    switch (platform) {
+      case "facebook":
+        openPopup(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+        );
+        break;
+      case "twitter":
+        openPopup(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(
+            shareUrl,
+          )}`,
+        );
+        break;
+      case "linkedin":
+        openPopup(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+        );
+        break;
+      case "whatsapp":
+        openPopup(
+          `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + shareUrl)}`,
+        );
+        break;
+      case "email":
+        window.location.href = `mailto:?subject=${encodeURIComponent(shareText)}&body=${encodeURIComponent(
+          shareUrl,
+        )}`;
+        break;
+      default:
+        break;
+    }
+  };
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback: open native share dialog if available
+      if (navigator.share) {
+        navigator
+          .share({
+            title: shareText,
+            text: post?.excerpt || shareText,
+            url: shareUrl,
+          })
+          .catch(() => {});
+      }
+    }
+  };
+
+  if (!post) {
     return (
-      <div className="flex min-h-screen items-center justify-center p-6">
-        <div className="max-w-xl text-center">
-          <p className="mb-4 text-red-500">Post not found.</p>
-          <Link
-            to="/blog"
-            className="inline-block rounded bg-green-600 px-4 py-2 text-white"
-          >
-            ← Back to Blog
-          </Link>
-        </div>
-      </div>
+      <main className="mx-auto max-w-4xl p-6">
+        <h1 className="mb-4 text-2xl font-semibold">Post not found</h1>
+        <p className="mb-4">Slug: {decoded}</p>
+        <Link to="/blog" className="text-green-600 underline">
+          Back to Blog
+        </Link>
+      </main>
     );
   }
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(story.title);
-
   return (
-    <div className="mt-12 min-h-screen bg-[#f7f7f7] pt-10">
-      {/* Hero / Banner */}
-      <header
-        className="relative h-72 bg-cover bg-center md:h-96"
-        style={{ backgroundImage: `url(${story.img})` }}
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="absolute inset-0 flex items-center justify-center px-4">
-          <div className="max-w-4xl text-center text-white">
-            <h1 className="text-2xl font-bold drop-shadow md:text-4xl">
-              {story.title}
+    <div className="mt-20 min-h-screen bg-gray-50">
+      {/* Header / Hero */}
+      <div className="relative h-[400px]">
+        <img
+          src={post.img || "/img/blog-default.jpg"}
+          alt={post.title}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 py-8">
+          <button
+            onClick={() =>
+              window.history.length > 1 ? navigate(-1) : navigate("/blog")
+            }
+            className="mb-4 rounded bg-white/90 px-3 py-1 text-sm shadow hover:opacity-95"
+            type="button"
+          >
+            ← Back to Blog
+          </button>
+
+          <div className="mt-8 max-w-6xl text-white">
+            <h1 className="mb-4 text-4xl font-extrabold leading-tight">
+              {post.title}
             </h1>
-            <div className="mt-3 flex items-center justify-center gap-3 text-sm text-white/90">
-              <span>{story.date}</span>
-              <span className="mx-1">·</span>
-              <span>{story.author}</span>
+            <div className="mt-3 flex items-center gap-4 text-sm text-white/90">
+              <div className="flex items-center gap-3">
+                <img
+                  src={post.avatar || "/img/avatar-placeholder.png"}
+                  alt={post.author}
+                  className="h-10 w-10 rounded-full object-cover ring-2 ring-white"
+                />
+                <div>
+                  <div className="text-sm font-semibold">
+                    {post.author || "Author"}
+                  </div>
+                  <div className="text-xs">{post.date}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <Link
-          to="/blog"
-          className="absolute left-4 top-4 inline-flex items-center gap-2 rounded bg-white/90 px-3 py-2 text-sm text-gray-800 hover:bg-white"
-        >
-          <FiChevronLeft /> Back to Blog
-        </Link>
-      </header>
+      </div>
 
       {/* Content */}
-      <main className="mx-auto max-w-7xl px-4 py-10">
-        <article className="px-6 py-8">
-          {/* meta + share */}
-          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-4 text-sm text-gray-600">
-              <img
-                src={story.avatar}
-                alt={story.author}
-                className="h-12 w-12 rounded-full object-cover"
-              />
-              <div>
-                <div className="font-semibold text-gray-800">
-                  {story.author}
-                </div>
-                <div className="text-xs">{story.date}</div>
+      <main className="mx-auto max-w-7xl px-6 py-12">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
+          {/* Main article */}
+          <article className="lg:col-span-2">
+            <div className="mb-6 rounded-lg bg-white p-8 shadow">
+              <div className="prose max-w-none text-green-700">
+                {/* Intro / excerpt */}
+                {post.excerpt ? <p className="lead">{post.excerpt}</p> : null}
+
+                {/* Sample content rendering - replace with real HTML/content as needed */}
+                <div
+                  className="text-2xl font-semibold"
+                  dangerouslySetInnerHTML={{
+                    __html: post.full || post.desc || "<p>No content</p>",
+                  }}
+                />
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <a
-                className="flex h-9 w-9 items-center justify-center rounded bg-[#1877F2] text-white transition hover:bg-opacity-90"
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Share on Facebook"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                className="flex h-9 w-9 items-center justify-center rounded bg-[#1DA1F2] text-white transition hover:bg-opacity-90"
-                href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Share on Twitter"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                className="flex h-9 w-9 items-center justify-center rounded bg-[#0A66C2] text-white transition hover:bg-opacity-90"
-                href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Share on LinkedIn"
-              >
-                <FaLinkedinIn />
-              </a>
-              <a
-                className="flex h-9 w-9 items-center justify-center rounded bg-[#25D366] text-white transition hover:bg-opacity-90"
-                href={`https://wa.me/?text=${encodedTitle}%20${encodedUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Share on WhatsApp"
-              >
-                <FaWhatsapp />
-              </a>
-              <button
-                className="flex h-9 w-9 items-center justify-center rounded bg-green-600 text-white transition hover:bg-opacity-90"
-                title="Bookmark"
-                aria-label="Bookmark"
-              >
-                <FaRegBookmark />
-              </button>
-            </div>
-          </div>
-
-          {/* Article body */}
-          <div className="prose max-w-none text-gray-800">
-            <h2 className="mb-4 text-2xl font-bold">{story.full}</h2>
-            <p className="mb-6 text-gray-700">
-              If you can't do without a hot Indian breakfast, there are several
-              healthier options to choose from. Take a look:
-            </p>
-
-            <p className="mb-6 text-gray-700">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-              vel,
-            </p>
+            {/* Table of contents box (visual) */}
             {/* Table of Contents */}
             <div className="mb-8 rounded-lg border border-gray-200 bg-white p-4">
               <div className="mb-3 flex items-center justify-between">
@@ -212,7 +266,6 @@ export default function BlogPost() {
                 </ol>
               )}
             </div>
-
             {/* Article Content */}
             <div className="space-y-8">
               <section id="parathas" className="scroll-mt-20">
@@ -285,43 +338,119 @@ export default function BlogPost() {
                 </p>
               </section>
             </div>
+          </article>
 
-            {/* tags / category */}
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                to="/blog/category/health-tips"
-                className="rounded bg-orange-500 px-4 py-3 text-sm text-gray-700 text-white transition-colors hover:bg-green-100 hover:text-green-700"
-              >
-                Health tips
-              </Link>
-              <Link
-                to="/blog/category/diet"
-                className="rounded bg-orange-500 px-4 py-3 text-sm text-gray-700 text-white transition-colors hover:bg-green-100 hover:text-green-700"
-              >
-                Diet
-              </Link>
-            </div>
-          </div>
-
-          {/* Author box */}
-          <div className="mt-10 rounded border border-gray-100 bg-gray-50 p-6">
-            <div className="flex items-center gap-4">
-              <img
-                src={story.avatar}
-                alt={story.author}
-                className="h-16 w-16 rounded-full object-cover"
-              />
-              <div>
-                <div className="font-semibold text-gray-800">
-                  {story.author}
-                </div>
-                <div className="text-sm text-gray-600">
-                  Nutrition & wellness writer at GreeNox
+          {/* Right column: author + social + meta */}
+          <aside className="space-y-6">
+            <div className="rounded-lg bg-white p-6 shadow">
+              <div className="flex items-center gap-4">
+                <img
+                  src={post.avatar || "/img/avatar-placeholder.png"}
+                  alt={post.author}
+                  className="h-16 w-16 rounded-full object-cover"
+                />
+                <div>
+                  <div className="text-sm font-semibold text-gray-900">
+                    {post.author || "Author"}
+                  </div>
+                  <div className="text-xs text-gray-500">{post.date}</div>
                 </div>
               </div>
+
+              <p className="mt-4 text-sm text-gray-600">
+                {post.bio || "Short author bio goes here."}
+              </p>
+
+              <div className="mt-4 flex items-center gap-3">
+                <button
+                  onClick={() => shareTo("facebook")}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded bg-blue-600 text-white"
+                  aria-label="Share to Facebook"
+                  type="button"
+                >
+                  <FaFacebookF />
+                </button>
+
+                <button
+                  onClick={() => shareTo("twitter")}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded bg-sky-500 text-white"
+                  aria-label="Share to Twitter"
+                  type="button"
+                >
+                  <FaTwitter />
+                </button>
+
+                <button
+                  onClick={() => shareTo("linkedin")}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded bg-blue-700 text-white"
+                  aria-label="Share to LinkedIn"
+                  type="button"
+                >
+                  <FaLinkedinIn />
+                </button>
+
+                <button
+                  onClick={() => shareTo("whatsapp")}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded bg-green-500 text-white"
+                  aria-label="Share to WhatsApp"
+                  type="button"
+                >
+                  <FaWhatsapp />
+                </button>
+
+                <button
+                  onClick={copyLink}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded border text-gray-700"
+                  aria-label="Copy link"
+                  type="button"
+                  title={copied ? "Copied" : "Copy link"}
+                >
+                  <FaLink />
+                </button>
+
+                <button
+                  className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded border text-green-600"
+                  aria-label="Save"
+                  type="button"
+                >
+                  <FaBookmark />
+                </button>
+              </div>
+
+              {copied && (
+                <div className="mt-2 text-sm text-green-600">
+                  Link copied to clipboard
+                </div>
+              )}
             </div>
-          </div>
-        </article>
+
+            {/* Recommended / recent posts */}
+            <div className="rounded-lg bg-white p-4 shadow">
+              <h4 className="mb-3 text-sm font-semibold text-gray-700">
+                Recent Posts
+              </h4>
+              <div className="space-y-3">
+                {_recentPosts.slice(0, 4).map((p, i) => {
+                  const s = slugify(p.title + "-" + i);
+                  return (
+                    <Link
+                      key={i}
+                      to={`/blog/post/${encodeURIComponent(s)}`}
+                      className="flex items-center gap-3"
+                    >
+                      <img
+                        src={p.img}
+                        alt={p.title}
+                        className="h-12 w-12 rounded object-cover"
+                      />
+                      <div className="text-sm text-gray-700">{p.title}</div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </aside>
+        </div>
       </main>
     </div>
   );

@@ -21,6 +21,10 @@ const titleize = (s = "") =>
 const placeholderImg = "/img/Sandwich.jpg";
 
 export default function FoodMenu() {
+  // move search state inside component
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
   // normalize raw menu: flat array + map by slug-key (group name or inferred category)
   const { menuArray, itemsByKey } = useMemo(() => {
     const map = {};
@@ -63,20 +67,40 @@ export default function FoodMenu() {
   const [activeKey, setActiveKey] = useState(defaultKey);
 
   const activeItems = useMemo(() => {
+    // if there is an active search, show search results across all items
+    const qSearch = (searchQuery || "").toString().trim().toLowerCase();
+    if (qSearch) {
+      return menuArray.filter((it) =>
+        `${it.name || ""} ${it.description || ""}`
+          .toLowerCase()
+          .includes(qSearch),
+      );
+    }
+
     if (activeKey === defaultKey) return menuArray;
     // prefer explicit group
     if (itemsByKey[activeKey] && itemsByKey[activeKey].length)
       return itemsByKey[activeKey];
-    // fallback: search by name/description matching category label
+    // fallback: text match against names/descriptions
     const q = activeKey.replace(/-/g, " ");
     return menuArray.filter((it) =>
       `${it.name || ""} ${it.description || ""}`.toLowerCase().includes(q),
     );
-  }, [activeKey, defaultKey, menuArray, itemsByKey]);
+  }, [activeKey, defaultKey, menuArray, itemsByKey, searchQuery]);
 
   const handleImgError = (e) => {
     e.currentTarget.onerror = null;
     e.currentTarget.src = placeholderImg;
+  };
+
+  // search submit handler
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSearchQuery(searchInput || "");
+  };
+  const clearSearch = () => {
+    setSearchInput("");
+    setSearchQuery("");
   };
 
   return (
@@ -163,15 +187,18 @@ export default function FoodMenu() {
                 {activeItems.length} items
               </p> */}
 
-              <form className="relative w-[300px] max-w-[50vw]">
+              <form
+                className="relative w-[300px] max-w-[50vw]"
+                onSubmit={handleSearchSubmit}
+              >
                 <label
-                  for="default-search"
+                  htmlFor="default-search"
                   className="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Search
                 </label>
                 <div className="relative">
-                  <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <svg
                       className="h-4 w-4 text-gray-500 dark:text-gray-400"
                       aria-hidden="true"
@@ -181,9 +208,9 @@ export default function FoodMenu() {
                     >
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                       />
                     </svg>
@@ -191,16 +218,26 @@ export default function FoodMenu() {
                   <input
                     type="search"
                     id="default-search"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                     placeholder="Search Menu..."
-                    required
                   />
                   <button
                     type="submit"
-                    className="absolute bottom-2.5 end-2.5 rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700"
+                    className="absolute bottom-2.5 right-2.5 rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700"
                   >
                     Search
                   </button>
+                  {searchQuery ? (
+                    <button
+                      type="button"
+                      onClick={clearSearch}
+                      className="absolute bottom-2.5 right-24 rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                    >
+                      Clear
+                    </button>
+                  ) : null}
                 </div>
               </form>
             </div>

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import menuItems from "../data/menuItems";
 
 const slugify = (s = "") =>
@@ -27,6 +27,12 @@ function Accordion({ title, children }) {
 }
 
 export default function MenuItemDetail() {
+  const navigate = useNavigate();
+  const handleBack = () => {
+    // go back if there is history, otherwise go to /menu
+    if (window.history && window.history.length > 1) navigate(-1);
+    else navigate("/menu");
+  };
   const { category: categoryParam, id: idParam } = useParams();
   const { menuArray, itemsByKey } = useMemo(() => {
     const arr = Object.values(menuItems).flatMap((v) =>
@@ -99,12 +105,13 @@ export default function MenuItemDetail() {
         </div>
       </div>
       <main className="main_box mx-auto max-w-7xl px-6">
-        <Link
-          to={`/menu/${encodeURIComponent(categoryKey)}`}
-          className="mb-6 inline-block text-green-600"
+        <button
+          onClick={handleBack}
+          className="mb-6 inline-flex items-center text-green-600 hover:underline"
+          type="button"
         >
           ← Back to Menu
-        </Link>
+        </button>
 
         <div className="mx-auto max-w-7xl rounded-lg bg-white px-4 py-4">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -161,7 +168,7 @@ export default function MenuItemDetail() {
         </div>
       </main>
 
-      <div className="freshmealplan mx-auto mt-16 w-full py-12">
+      <div className="mx-auto mt-16 w-full py-12">
         <div className="mx-auto max-w-7xl px-4">
           <h1 className="mb-8 text-center text-4xl font-extrabold text-green-500">
             Nutritional Information
