@@ -144,34 +144,26 @@ export default function FoodMenu() {
               <ul className="space-y-1">
                 {categoryList.map((cat, idx) => {
                   const isActive = activeKey === cat.key;
-                  const thumb = `/img/menu/${cat.slug ?? slugify(cat.key)}.jpg`;
-                  // ensure unique key even if slug duplicates (fallback to index)
+                  const thumbPath =
+                    cat.thumb || `/img/menu/thumbs/${slugify(cat.key)}.jpg`;
                   return (
                     <li key={`${cat.slug ?? slugify(cat.key)}-${idx}`}>
                       <button
                         type="button"
                         onClick={() => setActiveKey(cat.key)}
-                        aria-current={isActive ? "true" : "false"}
-                        className={`flex w-full items-center gap-4 px-4 py-2 text-left transition-all duration-150 ${
-                          isActive
-                            ? "text-white-700 bg-green-200 shadow-sm ring-1 ring-green-100"
-                            : "bg-white text-gray-800 hover:bg-gray-50"
-                        }`}
+                        className={`flex w-full items-center gap-4 px-4 py-2 text-left ${isActive ? "border-l-4 border-green-600 bg-white" : "bg-white"}`}
                       >
-                        <div
-                          className={`h-14 w-14 flex-none overflow-hidden rounded-md bg-white shadow-sm ${
-                            isActive ? "ring-1 ring-green-100" : ""
-                          }`}
-                        >
-                          <img
-                            src={thumb}
-                            onError={handleImgError}
+                        <div className="h-12 w-12 flex-none overflow-hidden rounded-md bg-gray-100">
+                          <ThumbImage
+                            cat={cat}
                             alt={cat.name}
                             className="h-full w-full object-cover"
                           />
                         </div>
-                        <div className="grow">
-                          <div className="text-sm font-medium">{cat.name}</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-md font-small text-gray-900">
+                            {cat.name}
+                          </div>
                         </div>
                       </button>
                     </li>
@@ -295,5 +287,40 @@ export default function FoodMenu() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Try multiple candidate paths for a category thumbnail.
+ * Falls back to /img/menu/placeholder.jpg when none found.
+ */
+function ThumbImage({ cat = {}, className = "", alt = "" }) {
+  const baseName = cat.slug ?? slugify(cat.key ?? cat.name ?? "");
+  const candidates = [
+    cat.thumb, // explicit path if available
+    `/img/menu/thumbs/${baseName}.jpg`,
+    `/img/menu/thumbs/${baseName.replace(/-/g, "")}.jpg`,
+    `/img/menu/thumbs/${baseName.replace(/-/g, "_")}.jpg`,
+    `/img/menu/thumbs/${encodeURIComponent(cat.name || baseName)}.jpg`,
+  ].filter(Boolean);
+
+  const [idx, setIdx] = useState(0);
+  const src = candidates[idx] || "/img/menu/salads.jpg";
+
+  return (
+    <img
+      src={encodeURI(src)}
+      alt={alt || cat.name}
+      className={className}
+      onError={(e) => {
+        // try next candidate, then finally placeholder
+        e.currentTarget.onerror = null;
+        if (idx < candidates.length - 1) {
+          setIdx((i) => i + 1);
+        } else {
+          e.currentTarget.src = "/img/menu/salads.jpg";
+        }
+      }}
+    />
   );
 }
