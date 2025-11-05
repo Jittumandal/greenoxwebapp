@@ -17,6 +17,7 @@ function Accordion({ title, children }) {
       <button
         onClick={() => setOpen((s) => !s)}
         className="flex w-full items-center justify-between px-4 py-3 text-left"
+        type="button"
       >
         <span className="font-semibold">{title}</span>
         <span className="text-lg">{open ? "−" : "+"}</span>
@@ -29,37 +30,54 @@ function Accordion({ title, children }) {
 export default function MenuItemDetail() {
   const navigate = useNavigate();
   const handleBack = () => {
-    // go back if there is history, otherwise go to /menu
     if (window.history && window.history.length > 1) navigate(-1);
     else navigate("/menu");
   };
+
   const { category: categoryParam, id: idParam } = useParams();
-  const { menuArray, itemsByKey } = useMemo(() => {
+  const categoryDecoded = decodeURIComponent(categoryParam || "");
+  const idRaw = decodeURIComponent(idParam || "");
+
+  const { menuArray, itemsByKey, groupNameBySlug } = useMemo(() => {
     const arr = Object.values(menuItems).flatMap((v) =>
       Array.isArray(v) ? v : [],
     );
     const map = {};
+    const nameMap = {};
     Object.entries(menuItems).forEach(([k, v]) => {
-      map[slugify(k)] = Array.isArray(v) ? v.slice() : [];
+      const s = slugify(k);
+      map[s] = Array.isArray(v) ? v.slice() : [];
+      nameMap[s] = k;
     });
-    return { menuArray: arr, itemsByKey: map };
+    return { menuArray: arr, itemsByKey: map, groupNameBySlug: nameMap };
   }, []);
 
-  const categoryKey = decodeURIComponent(categoryParam || "");
-  const idRaw = decodeURIComponent(idParam || "");
+  const categorySlug = slugify(categoryDecoded);
 
-  const candidates =
-    categoryKey === slugify("All Menu") ||
-    categoryKey === slugify("All Menu Items") ||
-    categoryKey === "all-menu"
+  // primary candidates from explicit groups (by slug)
+  let candidates =
+    categorySlug === slugify("All Menu")
       ? menuArray
-      : itemsByKey[categoryKey] ||
-        menuArray.filter((it) =>
-          `${it.name || ""} ${it.description || ""}`
-            .toLowerCase()
-            .includes((categoryKey || "").replace(/-/g, " ")),
-        );
+      : itemsByKey[categorySlug] || [];
 
+  // if primary candidates empty, attempt to find group by name match (case-insensitive)
+  if ((!candidates || candidates.length === 0) && categoryDecoded) {
+    const entry = Object.entries(menuItems).find(
+      ([groupName]) =>
+        groupName.toLowerCase() === categoryDecoded.toLowerCase(),
+    );
+    if (entry) candidates = Array.isArray(entry[1]) ? entry[1] : [];
+  }
+
+  // final fallback: fuzzy filter across all items using the decoded category text
+  if ((!candidates || candidates.length === 0) && categoryDecoded) {
+    const q = categoryDecoded.replace(/-/g, " ").toLowerCase();
+    candidates = menuArray.filter((it) =>
+      `${it.name || ""} ${it.description || ""}`.toLowerCase().includes(q),
+    );
+  }
+
+  // find item by id (try strict string match, numeric match, slug match of name, or name exact)
   const item =
     candidates.find((it) => String(it.id) === idRaw) ||
     candidates.find((it) => it.id && Number(it.id) === Number(idRaw)) ||
@@ -67,33 +85,67 @@ export default function MenuItemDetail() {
     candidates.find((it) => it.name && it.name === idRaw);
 
   if (!item) {
+    // show available items in resolved group if any
+    const resolvedGroupName =
+      groupNameBySlug[categorySlug] || categoryDecoded || "Unknown";
+    const groupList =
+      (itemsByKey[categorySlug] && itemsByKey[categorySlug].slice()) || [];
+
     return (
       <main className="mx-auto max-w-4xl p-6">
         <h1 className="mb-4 text-2xl font-semibold">Item not found</h1>
-        <p className="mb-4">
-          Category: {categoryKey || "—"}, ID: {idRaw || "—"}
+        <p className="mb-2">
+          Category: <strong>{resolvedGroupName}</strong>, ID:{" "}
+          <strong>{idRaw || "—"}</strong>
         </p>
-        <Link to="/menu" className="text-green-600 underline">
+
+        {groupList.length > 0 ? (
+          <>
+            <p className="mb-2">Available items in this category:</p>
+            <ul className="mb-4 list-disc pl-5">
+              {groupList.map((g) => (
+                <li key={String(g.id)}>
+                  <Link
+                    to={`/menu/${encodeURIComponent(resolvedGroupName)}/${encodeURIComponent(
+                      String(g.id),
+                    )}`}
+                    className="text-green-600 underline"
+                  >
+                    {g.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="mb-4 text-sm text-gray-600">
+            No items found for this category.
+          </p>
+        )}
+
+        <button
+          onClick={handleBack}
+          type="button"
+          className="text-green-600 underline"
+        >
           Back to menu
-        </Link>
+        </button>
       </main>
     );
   }
 
   const nutrition = item.nutritionInfo || {};
-  // panel state used by the Nutrition / Allergen accordions
   const [openNutrition, setOpenNutrition] = useState(true);
   const [openAllergens, setOpenAllergens] = useState(false);
   const allergens = item.allergens || [];
 
   const handleImgError = (e) => {
     e.currentTarget.onerror = null;
-    e.currentTarget.src = "/img/menu/menubg.svg"; // ensure placeholder exists in public/img
+    e.currentTarget.src = "/img/menu/menubg.svg";
   };
 
   return (
     <section>
-      {/* Hero Section */}
       <div className="relative mt-20 h-[300px]">
         <div className="absolute inset-0">
           <img
@@ -104,6 +156,7 @@ export default function MenuItemDetail() {
           />
         </div>
       </div>
+
       <main className="main_box mx-auto max-w-7xl px-6">
         <button
           onClick={handleBack}
@@ -115,16 +168,15 @@ export default function MenuItemDetail() {
 
         <div className="mx-auto max-w-7xl rounded-lg bg-white px-4 py-4">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {/* Image */}
             <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
               <img
                 src={item.image || item.img}
                 alt={item.name}
+                onError={handleImgError}
                 className="h-100 w-full rounded-lg object-cover md:h-full"
               />
             </div>
 
-            {/* Details */}
             <div className="p-8">
               <h1 className="mb-2 text-3xl font-extrabold text-gray-900">
                 {item.name}
@@ -148,21 +200,6 @@ export default function MenuItemDetail() {
               </div>
 
               <p className="mb-6 text-gray-700">{item.description}</p>
-
-              {/* <div className="mb-6 flex flex-col gap-3 sm:flex-row">
-              <button
-                className="w-full rounded-lg bg-green-600 px-5 py-3 text-white shadow transition hover:bg-green-700"
-                title="Add to cart"
-              >
-                Add to Cart
-              </button>
-              <button
-                className="w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 transition hover:shadow"
-                title="Customize"
-              >
-                Customize
-              </button>
-            </div> */}
             </div>
           </div>
         </div>
@@ -173,12 +210,13 @@ export default function MenuItemDetail() {
           <h1 className="mb-8 text-center text-4xl font-extrabold text-green-500">
             Nutritional Information
           </h1>
-          {/* Accordion: Nutrition */}
+
           <div className="mt-6 rounded-lg border border-gray-100 bg-white">
             <button
               className="flex w-full items-center justify-between px-6 py-4 text-left"
               onClick={() => setOpenNutrition((s) => !s)}
               aria-expanded={openNutrition}
+              type="button"
             >
               <div>
                 <div className="text-2xl font-semibold text-gray-800">
@@ -186,9 +224,7 @@ export default function MenuItemDetail() {
                 </div>
               </div>
               <svg
-                className={`h-5 w-5 transform transition-transform ${
-                  openNutrition ? "rotate-180" : ""
-                }`}
+                className={`h-5 w-5 transform transition-transform ${openNutrition ? "rotate-180" : ""}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -204,7 +240,6 @@ export default function MenuItemDetail() {
 
             {openNutrition && (
               <div className="border-t border-gray-100 px-6 py-5">
-                {/* Main nutrition metrics */}
                 <div className="mb-8 grid grid-cols-4 gap-8 text-center">
                   <div>
                     <div className="text-2xl font-bold text-green-500">
@@ -223,141 +258,34 @@ export default function MenuItemDetail() {
                       {nutrition.carbs}
                     </div>
                     <div className="mt-1 text-sm text-gray-600">
-                      Total Carbs (17% DV)
+                      Total Carbs
                     </div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-green-500">
                       {nutrition.fat}
                     </div>
-                    <div className="mt-1 text-sm text-gray-600">
-                      Total Fat (50% DV)
-                    </div>
+                    <div className="mt-1 text-sm text-gray-600">Total Fat</div>
                   </div>
                 </div>
-
-                {/* Detailed nutrition table */}
-                {/* <div className="space-y-4">
-                  <div className="grid grid-cols-3 gap-8 text-center">
-                    <div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Saturated Fat:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          13g (67% DV)
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Trans Fat:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          0.5g
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Cholesterol:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          280mg (93% DV)
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Dietary Fiber:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          4g (13% DV)
-                        </span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Total Sugars:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          2g
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Added Sugars:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          1g (1% DV)
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Vitamin D:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          4mcg (15% DV)
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">Calcium:</span>
-                        <span className="text-sm font-medium text-gray-900">
-                          184mg (10% DV)
-                        </span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">Iron:</span>
-                        <span className="text-sm font-medium text-gray-900">
-                          3.5mg (22% DV)
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">
-                          Potassium:
-                        </span>
-                        <span className="text-sm font-medium text-gray-900">
-                          660mg (16% DV)
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b py-2">
-                        <span className="text-sm text-gray-600">Sodium:</span>
-                        <span className="text-sm font-medium text-gray-900">
-                          1150mg (50% DV)
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="mt-4 text-xs text-gray-500">
-                    *Percent Daily Values (DV) are based on a 2,000 calorie diet
-                  </p>
-                </div> */}
               </div>
             )}
           </div>
 
-          {/* Accordion: Allergens */}
           <div className="mt-4 rounded-lg border border-gray-100 bg-white">
             <button
               className="flex w-full items-center justify-between px-6 py-4 text-left"
               onClick={() => setOpenAllergens((s) => !s)}
               aria-expanded={openAllergens}
+              type="button"
             >
               <div>
                 <div className="text-2xl font-semibold text-gray-800">
                   Allergen Information
                 </div>
-                {/* <div className="text-xs text-gray-500">
-                  Ingredients that may cause allergies
-                </div> */}
               </div>
               <svg
-                className={`h-5 w-5 transform transition-transform ${
-                  openAllergens ? "rotate-180" : ""
-                }`}
+                className={`h-5 w-5 transform transition-transform ${openAllergens ? "rotate-180" : ""}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

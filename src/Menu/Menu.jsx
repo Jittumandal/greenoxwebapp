@@ -21,53 +21,56 @@ const titleize = (s = "") =>
 const placeholderImg = "/img/Sandwich.jpg";
 
 export default function FoodMenu() {
-  // move search state inside component
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // normalize raw menu: flat array + map by slug-key (group name or inferred category)
+  // normalize raw menu: flat array + map by slug-key (group name)
   const { menuArray, itemsByKey } = useMemo(() => {
-    const map = {};
+    // create flat array of all items (from the explicit menuItems groups)
     const arr = Object.values(menuItems).flatMap((v) =>
       Array.isArray(v) ? v : [],
     );
 
-    // group by explicit object keys
-    Object.entries(menuItems).forEach(([k, v]) => {
-      const key = slugify(k);
-      map[key] = Array.isArray(v) ? v.slice() : [];
-    });
-
-    // also try grouping by item.category fields if present
-    arr.forEach((it) => {
-      const catRaw = (it.category || it.cat || it.group || "").toString();
-      if (!catRaw) return;
-      const key = slugify(catRaw);
-      if (!map[key]) map[key] = [];
-      map[key].push(it);
-    });
+    // build itemsByKey ONLY from the explicit menuItems groups (avoid mixing by item.category)
+    const map = Object.entries(menuItems).reduce((acc, [groupName, items]) => {
+      const key = slugify(groupName);
+      acc[key] = Array.isArray(items) ? items.slice() : [];
+      return acc;
+    }, {});
 
     return { menuArray: arr, itemsByKey: map };
   }, []);
 
+  // ensure we can accept categories exported as strings or objects; fallback to menuItems keys
+  const rawCategories = Array.isArray(categories)
+    ? categories
+    : Object.keys(menuItems).map((k) => k);
+
+  const ALL_KEY = "All Menu"; // use raw name as active key
+
   // build left categories list from categories array (All first)
   const categoryList = useMemo(() => {
     const total = menuArray.length;
-    const list = [{ key: slugify("All Menu"), name: "All Menu", count: total }];
-    categories.forEach((c) => {
-      if (c === "All Menu") return;
-      const key = slugify(c);
-      const count = itemsByKey[key]?.length ?? 0;
-      list.push({ key, name: c, count });
-    });
-    return list;
-  }, [categories, menuArray, itemsByKey]);
+    const list = [
+      { key: ALL_KEY, name: "All Menu", slug: slugify(ALL_KEY), count: total },
+    ];
 
-  const defaultKey = slugify("All Menu");
-  const [activeKey, setActiveKey] = useState(defaultKey);
+    rawCategories.forEach((c) => {
+      const name = typeof c === "string" ? c : String(c?.name ?? "");
+      if (!name || name === ALL_KEY) return;
+      const slug = slugify(name);
+      const count = itemsByKey[slug]?.length ?? 0;
+      // keep both raw name (key) and slug for lookups
+      list.push({ key: name, name, slug, count });
+    });
+
+    return list;
+  }, [rawCategories, menuArray, itemsByKey]);
+
+  // set default active to ALL_KEY so page shows full menu by default
+  const [activeKey, setActiveKey] = useState(ALL_KEY);
 
   const activeItems = useMemo(() => {
-    // if there is an active search, show search results across all items
     const qSearch = (searchQuery || "").toString().trim().toLowerCase();
     if (qSearch) {
       return menuArray.filter((it) =>
@@ -77,23 +80,29 @@ export default function FoodMenu() {
       );
     }
 
-    if (activeKey === defaultKey) return menuArray;
-    // prefer explicit group
-    if (itemsByKey[activeKey] && itemsByKey[activeKey].length)
-      return itemsByKey[activeKey];
-    // fallback: text match against names/descriptions
+    // show full menu only when ALL_KEY is selected
+    if (activeKey === ALL_KEY) return menuArray;
+
+    // prefer lookup by slug of the activeKey (itemsByKey built on slugs)
+    const activeSlug = slugify(activeKey);
+    if (itemsByKey[activeSlug] && itemsByKey[activeSlug].length)
+      return itemsByKey[activeSlug];
+
+    // fallback: fuzzy match using readable name
     const q = activeKey.replace(/-/g, " ");
     return menuArray.filter((it) =>
       `${it.name || ""} ${it.description || ""}`.toLowerCase().includes(q),
     );
-  }, [activeKey, defaultKey, menuArray, itemsByKey, searchQuery]);
+  }, [activeKey, ALL_KEY, menuArray, itemsByKey, searchQuery]);
+
+  // add this line so links use slugified category (no spaces / %20)
+  const activeSlug = slugify(activeKey);
 
   const handleImgError = (e) => {
     e.currentTarget.onerror = null;
     e.currentTarget.src = placeholderImg;
   };
 
-  // search submit handler
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setSearchQuery(searchInput || "");
@@ -133,12 +142,14 @@ export default function FoodMenu() {
           >
             <nav className="flex-1">
               <ul className="space-y-1">
-                {categoryList.map((cat) => {
+                {categoryList.map((cat, idx) => {
                   const isActive = activeKey === cat.key;
-                  const thumb = `/img/menu/${cat.key}.jpg`;
+                  const thumb = `/img/menu/${cat.slug ?? slugify(cat.key)}.jpg`;
+                  // ensure unique key even if slug duplicates (fallback to index)
                   return (
-                    <li key={cat.key}>
+                    <li key={`${cat.slug ?? slugify(cat.key)}-${idx}`}>
                       <button
+                        type="button"
                         onClick={() => setActiveKey(cat.key)}
                         aria-current={isActive ? "true" : "false"}
                         className={`flex w-full items-center gap-4 px-4 py-2 text-left transition-all duration-150 ${
@@ -148,7 +159,9 @@ export default function FoodMenu() {
                         }`}
                       >
                         <div
-                          className={`h-14 w-14 flex-none overflow-hidden rounded-md bg-white shadow-sm ${isActive ? "ring-1 ring-green-100" : ""}`}
+                          className={`h-14 w-14 flex-none overflow-hidden rounded-md bg-white shadow-sm ${
+                            isActive ? "ring-1 ring-green-100" : ""
+                          }`}
                         >
                           <img
                             src={thumb}
@@ -183,9 +196,6 @@ export default function FoodMenu() {
               <h2 className="text-2xl font-semibold text-green-500">
                 {categoryList.find((c) => c.key === activeKey)?.name ?? "Menu"}
               </h2>
-              {/* <p className="text-sm text-gray-500">
-                {activeItems.length} items
-              </p> */}
 
               <form
                 className="relative w-[300px] max-w-[50vw]"
@@ -243,18 +253,21 @@ export default function FoodMenu() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {activeItems.map((item) => {
-                const itemId = item.id ?? item.name;
+              {activeItems.map((item, idx) => {
+                const itemId =
+                  typeof item.id !== "undefined"
+                    ? String(item.id)
+                    : encodeURIComponent(String(item.name ?? `item-${idx}`));
                 return (
                   <Link
-                    key={itemId}
-                    to={`/menu/${encodeURIComponent(activeKey)}/${encodeURIComponent(itemId)}`}
+                    key={`${activeKey}-${itemId}`}
+                    to={`/menu/${encodeURIComponent(activeSlug)}/${encodeURIComponent(itemId)}`}
                     className="group flex items-start gap-4 rounded-lg bg-white p-4 shadow-lg transition-shadow hover:shadow-lg"
                   >
                     <img
                       src={item.img || placeholderImg}
                       onError={handleImgError}
-                      alt={item.name}
+                      alt={String(item.name)}
                       className="h-32 w-32 flex-none rounded-lg object-cover"
                     />
                     <div className="min-w-0 flex-1">
@@ -280,23 +293,6 @@ export default function FoodMenu() {
             </div>
           </div>
         </div>
-
-        {/* Mobile: horizontal category bar (show on small screens only) */}
-        {/* <div className="mt-6 block flex gap-2 overflow-x-auto lg:hidden">
-          {categoryList.map((cat) => {
-            const key = cat.key;
-            const active = activeKey === key;
-            return (
-              <button
-                key={key}
-                onClick={() => setActiveKey(key)}
-                className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${active ? "bg-green-600 text-white" : "border border-gray-200 bg-white text-gray-700"}`}
-              >
-                {cat.name}
-              </button>
-            );
-          })}
-        </div> */}
       </div>
     </section>
   );

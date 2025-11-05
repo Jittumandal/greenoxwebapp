@@ -1,26 +1,3 @@
-export const categories = [
-  "All Menu",
-  "Salads",
-  "Meal",
-  "Sandwich",
-  "Hot Coffee",
-  "Shake & Smoothie",
-  "Burrito Bowls",
-  "Tacos",
-  "Rice Bowl",
-  "Sub Multigrain Goodness",
-  "Whole Wheat Wrap",
-  "Pasta Durum wheat",
-  "Smoothie  Bowl",
-  "Dessert  & Oatmeal Jars",
-  "Hot Coffee",
-  "Chai",
-  "Cold Coffee",
-  "Fresh Juice",
-  "Mocktails",
-  "Healthy Soups",
-];
-
 export const menuItems = {
   Salads: [
     {
@@ -144,7 +121,7 @@ export const menuItems = {
       id: 7,
       name: "High Protein Chicken Bowl (200g) - Grilled Chicken / Peri Peri Chicken",
       type: "Non Veg",
-      category: "Balanced Bowl",
+      category: "Meal",
       description:
         "Bowl full of nutrient and delicious protein-rich chicken breast served with lettuce, french beans, and cherry tomato.",
       price: 289,
@@ -163,7 +140,7 @@ export const menuItems = {
       id: 8,
       name: "Caribbean Chicken Fillets",
       type: "Non Veg",
-      category: "Balanced Bowl",
+      category: "Meal",
       description:
         "Grilled chicken with Caribbean spices topped with cherry tomato, beans, parsley, and lettuce.",
       price: 329,
@@ -182,7 +159,7 @@ export const menuItems = {
       id: 9,
       name: "Grilled Chicken With Mashed Potato",
       type: "Non Veg",
-      category: "Balanced Bowl",
+      category: "Meal",
       description:
         "Grilled chicken served with mashed potatoes, side salad, and parsley. Choice of sauce: Marinara, Broccoli, or BBQ.",
       price: 349,
@@ -201,7 +178,7 @@ export const menuItems = {
       id: 10,
       name: "Paneer Steak With Mashed Potato",
       type: "Veg",
-      category: "Balanced Bowl",
+      category: "Meal",
       description:
         "Paneer steak with mashed potatoes, side salad, and parsley. Choice of sauce: Marinara, Broccoli, or BBQ.",
       price: 329,
@@ -220,7 +197,7 @@ export const menuItems = {
       id: 11,
       name: "Hummus Falafel Platter",
       type: "Veg",
-      category: "Balanced Bowl",
+      category: "Meal",
       description:
         "Hummus, side salad, falafel, pickled beetroot, chickpeas, olives, crisp lavas, and tzatziki.",
       price: 329,
@@ -496,6 +473,36 @@ export const menuItems = {
       pairs: [],
     },
   ],
+  "Cold Coffee": [],
+};
+
+// build categories from menuItems keys so tabs and data always align
+export const categories = Object.keys(menuItems).map((name, i) => ({
+  id: i + 1,
+  name,
+}));
+
+// slug helpers and lookup
+export const slugify = (name = "") =>
+  name
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+
+export const menuIndexBySlug = Object.keys(menuItems).reduce((acc, key) => {
+  acc[slugify(key)] = menuItems[key];
+  return acc;
+}, {});
+
+export const getGroupBySlug = (slug) => menuIndexBySlug[slug] || [];
+
+export const findItemBySlugAndId = (slug, id) => {
+  const group = menuIndexBySlug[slug];
+  if (!group) return null;
+  return group.find((it) => String(it.id) === String(id)) || null;
 };
 
 export default menuItems;
