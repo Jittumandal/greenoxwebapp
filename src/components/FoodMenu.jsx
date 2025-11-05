@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { categories, menuItems } from "../data/menuData";
+import { categories, menuItems, slugify } from "../data/menuData";
 import Delicious from "../components/Delicious";
 
 const FoodMenu = () => {
-  const [activeTab, setActiveTab] = useState("special");
-  const activeContent = menuItems[activeTab] || menuItems.special;
+  const [activeTab, setActiveTab] = useState(categories[0]?.name || "Salads");
+  // find matching menuItems key (exact name) and fallback to first menu group or empty array
+  const activeContent =
+    menuItems[activeTab] || menuItems[Object.keys(menuItems)[0]] || [];
+  // slug for URLs (keeps menu lookup using original category name)
+  const activeSlug = slugify(activeTab);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-12" id="target-section">
@@ -25,7 +29,7 @@ const FoodMenu = () => {
         <div className="w-full md:w-auto">
           <div className="tabsmenu flex w-full flex-col gap-2 sm:flex-row sm:items-center">
             {categories.map((category) => {
-              const key = category.name.toLowerCase();
+              const key = category.name;
               const active = activeTab === key;
               return (
                 <button
@@ -54,7 +58,7 @@ const FoodMenu = () => {
         {activeContent.map((item) => (
           <Link
             key={item.id}
-            to={`/menu/${activeTab}/${item.id}`}
+            to={`/menu/${activeSlug}/${item.id}`}
             className="group flex items-start gap-4 bg-white p-4 transition-shadow hover:shadow-lg"
           >
             <img
