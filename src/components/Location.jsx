@@ -4,71 +4,118 @@ import Location_pic from "./Location_pic";
 const cityLocations = {
   "Uttar Pradesh": [
     {
-      address:
-        "A-41 Corenthum Tower Noida, Sector 62, Noida, Uttar Pradesh-201301",
-      phone: "098990 80100",
+      address: "Shiv Nadar University, Noida, Uttar Pradesh",
+      phone: "9773857436",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "Christ University, Delhi NCR Campus, Noida, Uttar Pradesh",
+      phone: "9319304911",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "World Trade tower, C-1, Central Auto Market, Sector 16, Noida, Uttar Pradesh 201301",
-      phone: "088001 23480",
+        "Mangalmay College, Knowledge Park II, Greater Noida, Uttar Pradesh",
+      phone: "9773930485",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "UG 38, Ajnara Orbit Plaza Mall, Crossings Republik, Ghaziabad, Uttar Pradesh 201016",
-      phone: "9711882104",
+        "Amity University, Knowledge Park-III, Greater Noida, Uttar Pradesh",
+      phone: "8920352016",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "Sector-18, Vasundhara, Ghaziabad, Uttar Pradesh 201012",
+      phone: "7078548120",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "639 GF, Shakti Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh 201014",
-      phone: "093157 00833",
+        "S-1, 4/15, Sector-5, Rajendra Nagar, Ghaziabad 201005, Uttar Pradesh",
+      phone: "9625754646",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "S- 8, Gardenia Geetanjali, Market, Maharaja Agarsain Marg, near Maharaja Agrasen Chowk, Sector 18, Vasundhara, Ghaziabad, Uttar Pradesh 201012",
-      phone: " 070785 48120",
+        "639, Shakti Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh 201014",
+      phone: "9315700833",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address:
+        "Orbit Plaza, Crossing Republik, Ghaziabad, Uttar Pradesh 201016",
+      phone: "8800765477",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "SK-66, Sector 112, Noida, Uttar Pradesh 201304",
+      phone: "9211577272",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "The Corenthum, Sector 62, Noida, Uttar Pradesh 201301",
+      phone: "9899800100",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "World Trade Tower, Sector 16, Noida, Uttar Pradesh 201301",
+      phone: "8800123580",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "HMEL Petrol Pump, Sector 108, Noida, Uttar Pradesh 201304",
+      phone: "9311061646",
       dinein: "OPEN",
       delivery: "OPEN",
     },
   ],
   Others: [
     {
-      address:
-        "Shop 19, New Marke, Old Market, Shivalik Colony, Malviya Nagar, New Others , Others  110017",
-      phone: " 098211 76930",
+      address: "Ashoka University, Sonipat, Haryana 131029",
+      phone: "9266871146",
+      dinein: "OPEN",
+      delivery: "OPEN",
+    },
+    {
+      address: "Unitech Trade Centre, Sector 43, Gurugram, Haryana 122002",
+      phone: "9919575355",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "GreeNox Ultrex Recreational Club, South City I, Sector 41, Gurugram, Haryana 122003",
-      phone: "9873162942",
+        "SBI Card, DLF Infinity Towers, Cyber City, Gurugram, Haryana 122002",
+      phone: "8810389393",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
       address:
-        "Commercial Complex-II /1888–89, Kumar Theatre, Chandni Chowk, New Others -110006",
-      phone: "9711882126",
+        "Ultrex Recreational Club, South City Sector 41, Gurugram, Haryana 122003",
+      phone: "9811571646",
       dinein: "OPEN",
       delivery: "OPEN",
     },
     {
-      address:
-        "Others  D-Mall Rohini:- Plot No. 1B5, Twin District Center. D-Mall , Sector-10, Rohini, New Others - 110085",
-      phone: "9999194946",
+      address: "Shop No.19, New Market, Malviya Nagar, New Delhi 110017",
+      phone: "9821176930",
       dinein: "OPEN",
       delivery: "OPEN",
     },
   ],
+
   // Mumbai: [],
   // Bangalore: [],
   // Kolkata: [],
@@ -171,13 +218,16 @@ const Location = () => {
             <h2 className="z-10 mb-6 text-center text-4xl font-extrabold text-green-600">
               Restaurant Locator
             </h2>
-            <div className="z-10 grid w-full grid-cols-1 gap-6 overflow-y-auto pr-2 md:grid-cols-2 lg:grid-cols-3">
+            <div
+              className="custom-scrollbar z-10 grid w-full grid-cols-1 gap-6 pr-2 md:grid-cols-2 lg:grid-cols-3"
+              style={{ height: "500px", overflowY: "auto" }}
+            >
               {cityLocations[selectedCity] &&
               cityLocations[selectedCity].length > 0 ? (
                 cityLocations[selectedCity].map((loc, idx) => (
                   <div
                     key={idx}
-                    className="flex min-h-[230px] flex-col justify-between rounded-2xl bg-white p-6 shadow"
+                    className="custom-scrollbar-inner flex min-h-[300px] flex-col justify-between rounded-2xl bg-white p-6 shadow"
                   >
                     <div>
                       <div className="mb-2 text-base font-semibold text-gray-800">
