@@ -91,7 +91,7 @@ export const menuItems = {
             "category": "Balanced Bowl",
             "description": "Bowl full of nutrient and delicious protein-rich chicken breast served with lettuce, french beans, and cherry tomato.",
             "price": 289,
-            "img": "/img/menu/Protein Veg Meal.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "257 kcal",
                 "carbs": "0 g",
@@ -109,7 +109,7 @@ export const menuItems = {
             "category": "Balanced Bowl",
             "description": "Grilled chicken with Caribbean spices topped with cherry tomato, beans, parsley, and lettuce.",
             "price": 329,
-            "img": "/img/menu/Protein Veg Meal -2.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "306 kcal",
                 "carbs": "0.1 g",
@@ -127,7 +127,7 @@ export const menuItems = {
             "category": "Balanced Bowl",
             "description": "Grilled chicken served with mashed potatoes, side salad, and parsley. Choice of sauce: Marinara, Broccoli, or BBQ.",
             "price": 349,
-            "img": "/img/menu/Protein Veg Meal -3.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "333 kcal",
                 "carbs": "30.8 g",
@@ -145,7 +145,7 @@ export const menuItems = {
             category: "Balanced Bowl",
             description: "Paneer steak with mashed potatoes, side salad, and parsley. Choice of sauce: Marinara, Broccoli, or BBQ.",
             price: 329,
-            "img": "/img/menu/Protein Veg Meal.jpg",
+            "img": "/img/menu/logo.jpg",
             nutritionInfo: {
                 calories: "407 kcal",
                 carbs: "40 g",
@@ -163,7 +163,7 @@ export const menuItems = {
             category: "Balanced Bowl",
             description: "Hummus, side salad, falafel, pickled beetroot, chickpeas, olives, crisp lavas, and tzatziki.",
             price: 329,
-            "img": "/img/menu/Protein Veg Meal -2.jpg",
+            "img": "/img/menu/logo.jpg",
             nutritionInfo: {
                 calories: "737 kcal",
                 carbs: "76.6 g",
@@ -186,7 +186,7 @@ export const menuItems = {
             "category": "Sandwich",
             "description": "Brown bread sandwich stuffed with golden corn, bell pepper, onion, tomato, cucumber, and lettuce.",
             "price": 199,
-            "img": "/img/menu/Grilled Chicken Barbecue Sandwich.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "330 kcal",
                 "carbs": "41.1 g",
@@ -204,7 +204,7 @@ export const menuItems = {
             "category": "Sandwich",
             "description": "Brown bread sandwich with golden corn, cheese, chopped onion, capsicum, and tomato.",
             "price": 229,
-            "img": "/img/menu/Grilled Chicken Barbecue Sandwich- 2.jpg",
+            "img": "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
             "nutritionInfo": {
                 "calories": "319 kcal",
                 "carbs": "43 g",
@@ -222,7 +222,7 @@ export const menuItems = {
             "category": "Sandwich",
             "description": "Brown bread sandwich with broccoli, zucchini, bell pepper, onion, lettuce, and pesto sauce.",
             "price": 249,
-            "img": "/img/menu/Corn Sandwich ( Cheese_ Paneer ) (1).jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "526 kcal",
                 "carbs": "68 g",
@@ -240,7 +240,7 @@ export const menuItems = {
             "category": "Sandwich",
             "description": "Brown bread sandwich with paneer tikka, bell pepper, onion, tomato, and lettuce.",
             "price": 249,
-            "img": "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "531 kcal",
                 "carbs": "65.8 g",
@@ -258,7 +258,7 @@ export const menuItems = {
             "category": "Sandwich",
             "description": "Brown bread sandwich with grilled chicken, bell pepper, onion, lettuce, and black olives.",
             "price": 279,
-            "img": "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {
                 "calories": "432 kcal",
                 "carbs": "61 g",
@@ -280,7 +280,7 @@ export const menuItems = {
             "category": "Hot Coffee",
             "description": "Expertly crafted with a shot of premium espresso and hot water, delivering a deep rich flavor with a smooth finish.",
             "price": 169,
-            "img": "/img/menu/Irish Cold Coffee.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {},
             "allergens": [],
             "pairs": []
@@ -292,7 +292,7 @@ export const menuItems = {
             "category": "Hot Coffee",
             "description": "A beautifully balanced blend of intense espresso, velvety steamed milk, and a cloud of frothy milk foam.",
             "price": 189,
-            "img": "/img/menu/Irish Cold Coffee.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {},
             "allergens": [],
             "pairs": []
@@ -304,7 +304,7 @@ export const menuItems = {
             "category": "Hot Coffee",
             "description": "An elegant mix of bold espresso and silky steamed milk, finished with a delicate foam layer for a mellow, creamy texture.",
             "price": 189,
-            "img": "/img/menu/Irish Cold Coffee.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {},
             "allergens": [],
             "pairs": []
@@ -316,7 +316,7 @@ export const menuItems = {
             "category": "Hot Coffee",
             "description": "A rich and velvety coffee made with a double shot of espresso and steamed milk, topped with a thin layer of microfoam — stronger than a latte but smoother than a cappuccino.",
             "price": 189,
-            "img": "/img/menu/Irish Cold Coffee.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {},
             "allergens": [],
             "pairs": []
@@ -328,7 +328,7 @@ export const menuItems = {
             "category": "Hot Coffee",
             "description": "An authentic Italian-style coffee featuring a robust espresso base gently softened with a dash of steamed milk or foam.",
             "price": 199,
-            "img": "/img/menu/Irish Cold Coffee.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {},
             "allergens": [],
             "pairs": []
@@ -340,7 +340,7 @@ export const menuItems = {
             "category": "Hot Coffee",
             "description": "A luxurious fusion of bold espresso, velvety steamed milk, and smooth chocolate sauce.",
             "price": 199,
-            "img": "/img/menu/Irish Cold Coffee.jpg",
+            "img": "/img/menu/logo.jpg",
             "nutritionInfo": {},
             "allergens": [],
             "pairs": []

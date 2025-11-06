@@ -18,7 +18,7 @@ const titleize = (s = "") =>
     .replace(/\b\w/g, (ch) => ch.toUpperCase())
     .trim();
 
-const placeholderImg = "/img/Sandwich.jpg";
+const placeholderImg = "/img/menu/logo.jpg";
 
 export default function FoodMenu() {
   const [searchInput, setSearchInput] = useState("");
@@ -117,7 +117,7 @@ export default function FoodMenu() {
       <img
         alt="About Background"
         className="h-200 menubg absolute left-0 top-0 -z-10 w-full object-cover"
-        src="menuimg/menubg.svg"
+        src="img/menubg.svg"
       />
       {/* Hero Section */}
       <div className="relative h-[230px]">

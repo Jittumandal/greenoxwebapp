@@ -6,21 +6,17 @@ const features = [
   {
     icon: (
       <img
-        src="/img/grocery.svg"
-        className="mx-auto mb-2 h-8 w-8"
+        src="/img/discount.svg"
+        className="w50 mx-auto"
         alt="Fresh Ingredients"
       />
     ),
-    title: "Fresh Ingredients",
-    desc: "sourced daily",
+    title: "Save up to 50% on",
+    desc: "Every Subscription",
   },
   {
     icon: (
-      <img
-        src="/img/group_add.svg"
-        className="mx-auto mb-2 h-8 w-8"
-        alt="Custom Plans"
-      />
+      <img src="/img/custom.svg" className="w50 mx-auto" alt="Custom Plans" />
     ),
     title: "Custom Plans",
     desc: "tailored for you",
@@ -28,24 +24,24 @@ const features = [
   {
     icon: (
       <img
-        src="/img/pediatrics.svg"
-        className="mx-auto mb-2 h-8 w-8"
+        src="/img/Reschedule.svg"
+        className="w50 mx-auto"
         alt="Nutritionist"
       />
     ),
-    title: "Nutritionist",
-    desc: "expert guidance",
+    title: "Change, Reschedule ",
+    desc: "Anytime you want",
   },
   {
     icon: (
       <img
         src="/img/local_shipping.svg"
-        className="mx-auto mb-2 h-8 w-8"
+        className="w50 mx-auto"
         alt="Free Delivery"
       />
     ),
-    title: "Free Delivery",
-    desc: "to your door",
+    title: "Healthy meals ",
+    desc: "Delivered Everyday",
   },
 ];
 
@@ -59,8 +55,10 @@ const Freshmealplans = () => {
           </h1> */}
           <FreshMealPlansHeading />
           <p className="animate__animated animate__backInDown text-gray-600">
-            Transform Your Health Journey&nbsp; Premium meal plans and
-            personalized coaching to help you achieve your wellness goals
+            Healthy Balance Meal Box For Everyday You can’t exercise your way
+            out of a bad diet <br />
+            (Visuals show salad bowl with vitamins and nutrients like B6, B9, C,
+            PP, E, B1, A, N, D)
           </p>
         </div>
       </div>

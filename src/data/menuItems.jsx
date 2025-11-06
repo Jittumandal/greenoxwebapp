@@ -130,11 +130,11 @@ export const menuItems = {
       id: 7,
       name: "High Protein Chicken Bowl (200g) - Grilled Chicken / Peri Peri Chicken",
       type: "Non Veg",
-      category: "Meal",
+      category: "Balanced Bowl",
       description:
         "Bowl full of nutrient and delicious protein-rich chicken breast served with lettuce, french beans, and cherry tomato.",
       price: 289,
-      img: "/img/menu/Protein Veg Meal.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "257 kcal",
         carbs: "0 g",
@@ -149,11 +149,11 @@ export const menuItems = {
       id: 8,
       name: "Caribbean Chicken Fillets",
       type: "Non Veg",
-      category: "Meal",
+      category: "Balanced Bowl",
       description:
         "Grilled chicken with Caribbean spices topped with cherry tomato, beans, parsley, and lettuce.",
       price: 329,
-      img: "/img/menu/Protein Veg Meal -2.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "306 kcal",
         carbs: "0.1 g",
@@ -168,11 +168,11 @@ export const menuItems = {
       id: 9,
       name: "Grilled Chicken With Mashed Potato",
       type: "Non Veg",
-      category: "Meal",
+      category: "Balanced Bowl",
       description:
         "Grilled chicken served with mashed potatoes, side salad, and parsley. Choice of sauce: Marinara, Broccoli, or BBQ.",
       price: 349,
-      img: "/img/menu/Protein Veg Meal -3.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "333 kcal",
         carbs: "30.8 g",
@@ -187,11 +187,11 @@ export const menuItems = {
       id: 10,
       name: "Paneer Steak With Mashed Potato",
       type: "Veg",
-      category: "Meal",
+      category: "Balanced Bowl",
       description:
         "Paneer steak with mashed potatoes, side salad, and parsley. Choice of sauce: Marinara, Broccoli, or BBQ.",
       price: 329,
-      img: "/img/menu/Protein Veg Meal.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "407 kcal",
         carbs: "40 g",
@@ -206,11 +206,11 @@ export const menuItems = {
       id: 11,
       name: "Hummus Falafel Platter",
       type: "Veg",
-      category: "Meal",
+      category: "Balanced Bowl",
       description:
         "Hummus, side salad, falafel, pickled beetroot, chickpeas, olives, crisp lavas, and tzatziki.",
       price: 329,
-      img: "/img/menu/Protein Veg Meal -2.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "737 kcal",
         carbs: "76.6 g",
@@ -232,7 +232,7 @@ export const menuItems = {
       description:
         "Brown bread sandwich stuffed with golden corn, bell pepper, onion, tomato, cucumber, and lettuce.",
       price: 199,
-      img: "/img/menu/Grilled Chicken Barbecue Sandwich.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "330 kcal",
         carbs: "41.1 g",
@@ -251,7 +251,7 @@ export const menuItems = {
       description:
         "Brown bread sandwich with golden corn, cheese, chopped onion, capsicum, and tomato.",
       price: 229,
-      img: "/img/menu/Grilled Chicken Barbecue Sandwich- 2.jpg",
+      img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
       nutritionInfo: {
         calories: "319 kcal",
         carbs: "43 g",
@@ -270,7 +270,7 @@ export const menuItems = {
       description:
         "Brown bread sandwich with broccoli, zucchini, bell pepper, onion, lettuce, and pesto sauce.",
       price: 249,
-      img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ) (1).jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "526 kcal",
         carbs: "68 g",
@@ -289,7 +289,7 @@ export const menuItems = {
       description:
         "Brown bread sandwich with paneer tikka, bell pepper, onion, tomato, and lettuce.",
       price: 249,
-      img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "531 kcal",
         carbs: "65.8 g",
@@ -308,7 +308,7 @@ export const menuItems = {
       description:
         "Brown bread sandwich with grilled chicken, bell pepper, onion, lettuce, and black olives.",
       price: 279,
-      img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {
         calories: "432 kcal",
         carbs: "61 g",
@@ -330,7 +330,7 @@ export const menuItems = {
       description:
         "Expertly crafted with a shot of premium espresso and hot water, delivering a deep rich flavor with a smooth finish.",
       price: 169,
-      img: "/img/menu/Irish Cold Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -343,7 +343,7 @@ export const menuItems = {
       description:
         "A beautifully balanced blend of intense espresso, velvety steamed milk, and a cloud of frothy milk foam.",
       price: 189,
-      img: "/img/menu/Irish Cold Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -356,7 +356,7 @@ export const menuItems = {
       description:
         "An elegant mix of bold espresso and silky steamed milk, finished with a delicate foam layer for a mellow, creamy texture.",
       price: 189,
-      img: "/img/menu/Irish Cold Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -369,7 +369,7 @@ export const menuItems = {
       description:
         "A rich and velvety coffee made with a double shot of espresso and steamed milk, topped with a thin layer of microfoam — stronger than a latte but smoother than a cappuccino.",
       price: 189,
-      img: "/img/menu/Irish Cold Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -382,7 +382,7 @@ export const menuItems = {
       description:
         "An authentic Italian-style coffee featuring a robust espresso base gently softened with a dash of steamed milk or foam.",
       price: 199,
-      img: "/img/menu/Irish Cold Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -395,7 +395,7 @@ export const menuItems = {
       description:
         "A luxurious fusion of bold espresso, velvety steamed milk, and smooth chocolate sauce.",
       price: 199,
-      img: "/img/menu/Irish Cold Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -482,6 +482,7 @@ export const menuItems = {
       pairs: [],
     },
   ],
+
   "Cold Coffee": [
     {
       id: 29,
@@ -491,7 +492,7 @@ export const menuItems = {
       description:
         "Freshly pulled espresso shots poured over cold water and ice, delivering a clean, robust coffee flavor without any milk.",
       price: 179,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -504,7 +505,7 @@ export const menuItems = {
       description:
         "Slow-dripped dark coffee brewed to perfection, poured over ice and luxuriously sweetened with condensed milk.",
       price: 199,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -517,7 +518,7 @@ export const menuItems = {
       description:
         "Premium ceremonial-grade matcha whisked with cold milk and poured over ice, offering a refreshing, antioxidant-rich drink with earthy and creamy flavors.",
       price: 239,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -530,7 +531,7 @@ export const menuItems = {
       description:
         "Rich espresso combined with chilled milk and ice, creating a balanced and velvety iced coffee experience for any time of the day.",
       price: 199,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -543,7 +544,7 @@ export const menuItems = {
       description:
         "Rich brewed coffee shaken with chilled milk and sugar, served frothy and cold for a timeless, invigorating coffee experience.",
       price: 199,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -556,7 +557,7 @@ export const menuItems = {
       description:
         "Rich cold coffee blended with velvety milk and aromatic hazelnut syrup, finished with frothy cream for a nutty, luxurious refreshment.",
       price: 199,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -569,7 +570,7 @@ export const menuItems = {
       description:
         "Classic Greek-style frappe made with rich instant coffee shaken with cold milk and ice for a smooth, frothy, and energizing coffee delight.",
       price: 239,
-      img: "/img/menu/Iced Coffee.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -597,7 +598,7 @@ export const menuItems = {
       description:
         "Aromatic Indian tea infused with fresh ginger, offering warmth and comfort in every sip.",
       price: 99,
-      img: "/img/menu/Kulhad Chai -2.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -610,7 +611,7 @@ export const menuItems = {
       description:
         "Classic Indian spiced tea brewed with milk, cardamom, cinnamon, and cloves for a flavorful experience.",
       price: 99,
-      img: "/img/menu/Kulhad Chai -3.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -623,7 +624,7 @@ export const menuItems = {
       description:
         "Refreshing green tea blended with honey and fresh ginger for a soothing and healthy beverage.",
       price: 99,
-      img: "/img/menu/Kulhad Chai .jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -636,7 +637,7 @@ export const menuItems = {
       description:
         "Light and revitalizing tea infused with honey and lemon, perfect for a refreshing and detoxifying sip.",
       price: 99,
-      img: "/img/menu/Kulhad Chai -2.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -762,7 +763,7 @@ export const menuItems = {
       description:
         "A refreshing immunity booster made with orange, pineapple, and lime.",
       price: 229,
-      img: "/img/menu/Sweet Lime Juice .jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -775,7 +776,7 @@ export const menuItems = {
       description:
         "A nourishing juice blend of pomegranate, pineapple, orange, apple, and soaked chia seeds.",
       price: 249,
-      img: "/img/menu/Sweet Lime Juice -2.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -788,7 +789,7 @@ export const menuItems = {
       description:
         "A powerful immunity-enhancing blend of beetroot, turmeric, amla, ginger, and apple.",
       price: 229,
-      img: "/img/menu/ABC Red Nutritional Juice.jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -803,7 +804,7 @@ export const menuItems = {
       description:
         "A zesty and refreshing drink that combines the tangy flavors of lemonade with aromatic Indian spices.",
       price: 149,
-      img: "/img/menu/Watermelon Mint Mojito  (1).jpg",
+      img: "/img/menu/logo.jpg",
 
       nutritionInfo: {},
       allergens: [],
@@ -843,7 +844,7 @@ export const menuItems = {
       description:
         "A vibrant and refreshing drink that combines blue curacao flavor with the cooling essence of mint.",
       price: 159,
-      img: "/img/menu/Watermelon Mint Mojito  (1).jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -856,7 +857,7 @@ export const menuItems = {
       description:
         "A revitalizing iced tea prepared with the crispness of tea, citrus juice, and the cooling freshness of mint — perfect for hot days.",
       price: 149,
-      img: "/img/menu/Watermelon Mint Mojito  (1).jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -869,7 +870,7 @@ export const menuItems = {
       description:
         "Classic Indian shikanji with a tangy anardana twist – refreshingly tangy, sweet, and spicy.",
       price: 169,
-      img: "/img/menu/Watermelon Mint Mojito  (1).jpg",
+      img: "/img/menu/logo.jpg",
       nutritionInfo: {},
       allergens: [],
       pairs: [],
@@ -951,7 +952,7 @@ export const menuItems = {
         fiber: "14 g",
       },
       price: 339,
-      img: "/img/menu/Soya Paneer Rice Bowl - 2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1008,7 +1009,7 @@ export const menuItems = {
         fiber: "11 g",
       },
       price: 349,
-      img: "/img/menu/Grilled Chicken Rice Bowl .jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1029,7 +1030,7 @@ export const menuItems = {
         fiber: "5 g",
       },
       price: 199,
-      img: "/img/menu/Hara Bhara Kebab Wrap.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1048,7 +1049,7 @@ export const menuItems = {
         fiber: "5.2 g",
       },
       price: 269,
-      img: "/img/menu/Hara Bhara Kebab Wrap- 2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1066,7 +1067,7 @@ export const menuItems = {
         fiber: "4.4 g",
       },
       price: 269,
-      img: "/img/menu/Hara Bhara Kebab Wrap- 2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1105,7 +1106,7 @@ export const menuItems = {
         fiber: "11.8 g",
       },
       price: 189,
-      img: "/img/menu/Cheesy Tikka Sub -2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1124,7 +1125,7 @@ export const menuItems = {
         fiber: "7.8 g",
       },
       price: 229,
-      img: "/img/menu/Cheesy Tikka Sub -2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1143,7 +1144,7 @@ export const menuItems = {
         fiber: "17.2 g",
       },
       price: 229,
-      img: "/img/menu/Cheesy Tikka Sub -2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1182,7 +1183,7 @@ export const menuItems = {
         fiber: "19 g",
       },
       price: 269,
-      img: "/img/menu/Cheesy Tikka Sub -2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1201,7 +1202,7 @@ export const menuItems = {
         fiber: "10 g",
       },
       price: 289,
-      img: "/img/menu/Cheesy Tikka Sub -2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1239,7 +1240,7 @@ export const menuItems = {
         fiber: "8 g",
       },
       price: 289,
-      img: "/img/menu/Cheesy Tikka Sub -3.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1258,7 +1259,7 @@ export const menuItems = {
         fiber: "8 g",
       },
       price: 289,
-      img: "/img/Cheesy Tikka Sub -3.jpg",
+      img: "/img/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1292,7 +1293,7 @@ export const menuItems = {
       //   nonVeg: 279,
       // },
       price: 249,
-      img: "/img/menu/Spaghetti Red Sauce Pasta.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1308,7 +1309,7 @@ export const menuItems = {
       //   nonVeg: 279,
       // },
       price: 249,
-      img: "/img/menu/Basil Pesto Pasta Salad.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1324,7 +1325,7 @@ export const menuItems = {
       //   nonVeg: null,
       // },
       price: 249,
-      img: "/img/menu/Alfredo ( White Sauce ) Pasta - 3.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1383,7 +1384,7 @@ export const menuItems = {
         "Honey",
       ],
       price: 249,
-      img: "/img/menu/Mango Blueberry Smoothie Bowl.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1414,7 +1415,7 @@ export const menuItems = {
         fiber: "3.6 g",
       },
       price: 219,
-      img: "/img/menu/Apple Berry Oatmeal Jar.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1440,7 +1441,7 @@ export const menuItems = {
         fiber: "2 g",
       },
       price: 249,
-      img: "/img/menu/Apple Berry Oatmeal Jar -2.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1471,7 +1472,7 @@ export const menuItems = {
         fiber: "9.3 g",
       },
       price: 249,
-      img: "/img/menu/Apple Berry Oatmeal Jar.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },
@@ -1492,7 +1493,7 @@ export const menuItems = {
         "Honey",
       ],
       price: 279,
-      img: "/img/menu/Apple Berry Oatmeal Jar.jpg",
+      img: "/img/menu/logo.jpg",
       allergens: [],
       pairs: [],
     },

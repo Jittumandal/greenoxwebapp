@@ -12,10 +12,10 @@ export default function HeroSection() {
         playsInline
         preload="metadata"
         poster="/img/greenox-poster.jpg"
-        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40 transition-opacity duration-500 ease-in-out"
+        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-30 transition-opacity duration-500 ease-in-out"
         crossOrigin="anonymous"
       >
-        <source src={encodeURI("/img/greenox.mp4")} type="video/mp4" />
+        <source src={encodeURI("/img/IMG_9162.MP4")} type="video/mp4" />
         {/* add webm fallback if you have one */}
         <source src={encodeURI("/img/greenox.webm")} type="video/webm" />
         {/* accessible fallback */}

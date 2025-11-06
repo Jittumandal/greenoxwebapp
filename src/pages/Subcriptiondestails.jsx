@@ -14,15 +14,15 @@ const aboutList = [
 const meals = [
   {
     label: "Breakfast",
-    img: "/products/Corn Sandwich ( Cheese_ Paneer ).jpg",
+    img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
   },
   {
     label: "Lunch",
-    img: "/products/Soya Paneer Rice Bowl -3.jpg",
+    img: "/img/menu/Soya Paneer Rice Bowl -3.jpg",
   },
   {
     label: "Dinner",
-    img: "/products/Peri Peri Paneer Burrito Bowl- 3.jpg",
+    img: "/img/menu/Peri Peri Paneer Burrito Bowl- 3.jpg",
   },
 ];
 

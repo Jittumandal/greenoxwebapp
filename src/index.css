@@ -225,3 +225,7 @@ header {
     margin-top: -250px;
     position: relative;
 }
+
+.w50 {
+    width: 50px !important;
+}
