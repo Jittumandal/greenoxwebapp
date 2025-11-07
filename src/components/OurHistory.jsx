@@ -63,7 +63,7 @@ export const OurHistory = () => {
         className="about_overlay leaf buttom-0 absolute left-0 top-0 z-[-1]"
       />
       <img
-        src="/products/about_overlay.png"
+        src="/img/about_overlay.png"
         alt="about_overlay"
         className="about_overlay top_30px buttom-0 absolute right-0 top-0 z-[-1]"
       />

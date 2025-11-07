@@ -5,6 +5,17 @@ export default function HeroSection() {
   return (
     <div className="Main_Heading_bg relative min-h-[400px] overflow-hidden md:min-h-screen">
       {/* Background Video */}
+      {/* <iframe
+        title="Hero background video"
+        src="https://player.vimeo.com/video/1134601259?background=1&autoplay=1&muted=1&loop=1&autopause=0&player_id=0"
+        className="absolute inset-0 -z-20 h-full w-full object-cover brightness-50"
+        crossOrigin="anonymous"
+        style={{ width: "100%" }}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+        style={{ width: "100%", height: "100%" }}
+        aria-hidden="true"
+      /> */}
       <video
         autoPlay
         muted
@@ -12,19 +23,19 @@ export default function HeroSection() {
         playsInline
         preload="metadata"
         poster="/img/greenox-poster.jpg"
-        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-30 transition-opacity duration-500 ease-in-out"
+        className="absolute inset-0 -z-20 h-full w-full object-cover brightness-50"
         crossOrigin="anonymous"
+        style={{ width: "100%" }}
       >
-        <source src={encodeURI("/img/greenox.mp4")} type="video/mp4" />
-        {/* add webm fallback if you have one */}
+        <source src={encodeURI("/img/video.MP4")} type="video/mp4" />
         <source src={encodeURI("/img/greenox.webm")} type="video/webm" />
-        {/* accessible fallback */}
-        <img
-          src="/img/greenox-poster.jpg"
-          alt="Hero background"
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
-        />
       </video>
+      {/* dark overlay between video and content */}
+      {/* overlay using the attached light/gray color with adjustable opacity */}
+      <div
+        className="absolute inset-0 -z-10 transition-opacity duration-500"
+        style={{ backgroundColor: "rgba(245,246,247,0.65)" }}
+      />
 
       {/* Overlay Content */}
       <div className="Main_Heading relative z-10 flex min-h-[400px] flex-col items-center justify-center px-4 md:min-h-screen">

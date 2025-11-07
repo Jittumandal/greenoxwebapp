@@ -256,12 +256,36 @@ export default function FoodMenu() {
                     to={`/menu/${encodeURIComponent(activeSlug)}/${encodeURIComponent(itemId)}`}
                     className="group flex items-start gap-4 rounded-lg bg-white p-4 shadow-lg transition-shadow hover:shadow-lg"
                   >
-                    <img
-                      src={item.img || placeholderImg}
-                      onError={handleImgError}
-                      alt={String(item.name)}
-                      className="h-32 w-32 flex-none rounded-lg object-cover"
-                    />
+                    <div className="relative flex-none">
+                      <img
+                        src={item.img || placeholderImg}
+                        onError={handleImgError}
+                        alt={String(item.name)}
+                        className="h-32 w-32 rounded-lg object-cover"
+                      />
+
+                      {/* Veg / Non-Veg badge */}
+                      <span
+                        className="absolute right-1 top-1 z-10 flex h-5 w-5 items-center justify-center shadow"
+                        title={
+                          String(item.type || "")
+                            .toLowerCase()
+                            .includes("non")
+                            ? "Non Veg"
+                            : "Veg"
+                        }
+                      >
+                        {String(item.type || "")
+                          .toLowerCase()
+                          .includes("non") ? (
+                          // Non-veg: red dot with white center
+                          <img src="img/non-veg.svg" alt="nonveg" />
+                        ) : (
+                          // Veg: green leaf icon
+                          <img src="img/veg.svg" alt="veg" />
+                        )}
+                      </span>
+                    </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="line-clamp-1 text-lg font-semibold text-gray-900 group-hover:text-green-600">
                         {item.name}

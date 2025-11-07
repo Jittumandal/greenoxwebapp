@@ -61,11 +61,35 @@ const FoodMenu = () => {
             to={`/menu/${activeSlug}/${item.id}`}
             className="group flex items-start gap-4 bg-white p-4 transition-shadow hover:shadow-lg"
           >
-            <img
-              src={item.img}
-              alt={item.name}
-              className="h-32 w-32 flex-none rounded-lg object-cover"
-            />
+            <div className="relative flex-none">
+              <img
+                src={item.img}
+                alt={item.name}
+                className="h-32 w-32 rounded-lg object-cover"
+              />
+
+              {/* Veg / Non-Veg badge */}
+              <span
+                className="absolute right-1 top-1 z-10 flex h-5 w-5 items-center justify-center shadow"
+                title={
+                  String(item.type || "")
+                    .toLowerCase()
+                    .includes("non")
+                    ? "Non Veg"
+                    : "Veg"
+                }
+              >
+                {String(item.type || "")
+                  .toLowerCase()
+                  .includes("non") ? (
+                  // red dot icon for Non-Veg
+                  <img src="img/non-veg.svg" alt="nonveg" />
+                ) : (
+                  // green leaf icon for Veg
+                  <img src="img/veg.svg" alt="veg" />
+                )}
+              </span>
+            </div>
             <div className="min-w-0 flex-1">
               <h3 className="line-clamp-1 text-lg font-semibold text-gray-900 group-hover:text-orange-500">
                 {item.name}
