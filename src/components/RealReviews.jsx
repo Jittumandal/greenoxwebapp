@@ -77,7 +77,7 @@ const MainSlider = () => {
   return (
     <div className="main-container testimonials_justify flex items-center justify-center">
       <div
-        className="Testimonials_mobile relative"
+        className="Testimonials_mobile Testimonials_tabs_view relative"
         style={{
           position: "relative",
           width: "330px",

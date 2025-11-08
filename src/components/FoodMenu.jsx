@@ -14,7 +14,7 @@ const FoodMenu = () => {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12" id="target-section">
       {/* Header: left title, right tabs */}
-      <div className="mb-8 flex w-full flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
+      <div className="tabs_view mb-8 flex w-full flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         {/* Left: heading */}
         <div className="w-full md:w-1/2">
           <p className="text-sm text-gray-500">Popular Menu</p>

@@ -7,22 +7,154 @@
 
 @media only screen and (max-width: 1024px) {}
 
+@media (min-width: 1024px) and (max-width: 1110px) {
+    .tabsmenu {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-direction: row;
+    }
 
-@media only screen and (max-width: 990px) {}
+    .custom-scrollbar-inner {
+        padding: 15px !important;
+    }
 
-@media only screen and (max-width: 991px) {}
+    .custom-scrollbar-inner button {
+        font-size: 16px !important;
+    }
 
-@media only screen and (max-width: 991px) {}
+    .tabs_view {
+        display: block
+    }
 
-@media only screen and (max-width: 768px) {}
+    .tabs_view {
+        display: block;
+    }
 
-@media only screen and (max-width: 767px) {}
+    .about_overlay {
+        display: none;
+    }
 
-@media only screen and (max-width: 690px) {}
+    .ourhistory {
+        margin: 0px;
+    }
 
-@media only screen and (max-width: 600px) {}
+    .our_history_section {
+        padding: 0px;
+    }
 
-@media (min-width: 575px) and (max-width: 768px) {}
+    .mobile_view_loc_pic {
+        margin-left: 0px !important;
+    }
+
+    .locaton_mobile_section {
+        margin-left: 0px !important;
+        padding: 15px;
+    }
+
+    .select_locotion {
+        padding-left: 0px !important;
+    }
+
+    .Our_Presence {
+        padding: 0px
+    }
+
+    .Real {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .Testimonials_tabs_view {
+        width: 270px !important;
+    }
+
+    .testimonial-item {
+        padding: 15px !important;
+    }
+
+    .testimonial-item div:last-child div {
+        font-size: 12px !important;
+    }
+
+    .Join_Our_Team {
+        margin: 20px;
+    }
+
+
+
+
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .tabsmenu {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-direction: row;
+    }
+
+    .tabs_view {
+        display: block;
+    }
+
+    .about_overlay {
+        display: none;
+    }
+
+    .ourhistory {
+        margin: 0px;
+    }
+
+    .our_history_section {
+        padding: 0px;
+    }
+
+    .mobile_view_loc_pic {
+        margin-left: 0px !important;
+        width: 230px !important;
+    }
+
+    .locaton_mobile_section {
+        margin-left: 0px !important;
+        padding: 15px;
+    }
+
+    .select_locotion {
+        padding-left: 0px !important;
+    }
+
+    .Our_Presence {
+        padding: 0px
+    }
+
+    .Real {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .Testimonials_tabs_view {
+        width: 270px !important;
+    }
+
+    .testimonial-item {
+        height: 350px !important;
+        padding: 15px !important;
+    }
+
+    .testimonial-item div:last-child div {
+        font-size: 12px !important;
+    }
+
+    .Join_Our_Team {
+        margin: 20px;
+    }
+
+
+
+
+}
 
 @media (min-width: 575px) and (max-width: 768px) {
     .testimonials_justify {
