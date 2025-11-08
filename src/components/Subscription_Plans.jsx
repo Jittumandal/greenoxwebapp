@@ -60,7 +60,7 @@ const plans = [
 
 const Subscription_Plans = () => {
   return (
-    <div className="px-2">
+    <div className="Subscription_Plans wfull px-2">
       {/* Plans */}
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
         {plans.map((plan, index) => (

@@ -208,7 +208,7 @@ export default function Blog() {
                 <img
                   src={read.img}
                   alt={read.title}
-                  className="h-[150px] w-[150px] rounded object-cover"
+                  className="wfull h-[150px] w-[150px] rounded object-cover"
                 />
                 <div className="flex-1">
                   <div className="text-sm font-bold text-gray-800">

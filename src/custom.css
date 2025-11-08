@@ -28,6 +28,19 @@
 
 
 @media (min-width: 320px) and (max-width: 480px) {
+    .testimonials_justify {
+        justify-content: start !important;
+    }
+
+    .mobile_text {
+        font-size: 24px;
+    }
+
+    .animation_text {
+        font-size: 24px;
+        margin-top: 14px;
+    }
+
     .delicious_mobile {
         width: 100%;
         overflow: hidden;
@@ -79,7 +92,7 @@
     }
 
     .Testimonials_mobile {
-        width: 340px !important;
+        width: 100% !important;
     }
 
     .getnow {
@@ -174,6 +187,26 @@
     .Real {
         font-size: 30px;
         text-align: center;
+    }
+
+    .serchpanel {
+        display: block;
+        text-align: center;
+    }
+
+    .serchpanel form {
+        width: 100%;
+        display: block;
+        margin-top: 20px;
+    }
+
+    .subcriptionplan_bg {
+        background: none !important;
+        margin-top: 25px;
+    }
+
+    .wfull {
+        width: 100% !important;
     }
 
 

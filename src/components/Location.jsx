@@ -215,7 +215,7 @@ const Location = () => {
           </div>
         ) : (
           <>
-            <h2 className="z-10 mb-6 text-center text-4xl font-extrabold text-green-600">
+            <h2 className="z-10 mb-6 text-center text-2xl font-extrabold text-green-600 md:text-4xl">
               Restaurant Locator
             </h2>
             <div

@@ -129,8 +129,10 @@ export default function FoodMenu() {
           />
         </div>
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-white">
-          <h1 className="mb-4 text-4xl font-bold">Popular Menu</h1>
-          <h2 className="text-6xl font-bold">Delicious Food Menu</h2>
+          <h1 className="mb-4 text-2xl font-bold md:text-4xl">Popular Menu</h1>
+          <h2 className="text-3xl font-bold md:text-6xl">
+            Delicious Food Menu
+          </h2>
         </div>
       </div>
       <div className="mx-auto w-full px-4">
@@ -184,13 +186,13 @@ export default function FoodMenu() {
 
           {/* Main content */}
           <div className="flex-1">
-            <div className="mb-4 flex items-center justify-between rounded bg-white p-3 shadow-lg shadow-sm">
+            <div className="serchpanel mb-4 flex items-center justify-between rounded bg-white p-3 shadow-lg shadow-sm">
               <h2 className="text-2xl font-semibold text-green-500">
                 {categoryList.find((c) => c.key === activeKey)?.name ?? "Menu"}
               </h2>
 
               <form
-                className="relative w-[300px] max-w-[50vw]"
+                className="relative w-[400px] max-w-[100vw]"
                 onSubmit={handleSearchSubmit}
               >
                 <label

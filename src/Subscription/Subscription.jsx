@@ -3,19 +3,19 @@ import Subscription_Plans from "../components/Subscription_Plans";
 
 const mealTypes = [
   {
-    label: "Breakfast",
+    label: "Salads",
     icon: <img className="mb-1 h-8" src="img/breakfast.svg" alt="breakfast" />,
   },
   {
-    label: "Lunch",
+    label: "Meal",
     icon: <img className="mb-1 h-8" src="img/lunch.svg" alt="Lunch" />,
   },
   {
-    label: "Snack",
+    label: "Sandwich",
     icon: <img className="mb-1 h-8" src="img/snak.svg" alt="Snack" />,
   },
   {
-    label: "Dinner",
+    label: "Hot Coffee",
     icon: <img className="mb-1 h-8" src="img/dinner.svg" alt="Dinner" />,
   },
 ];

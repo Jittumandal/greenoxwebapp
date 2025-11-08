@@ -20,12 +20,12 @@ const Delicious = () => {
   return (
     <div className="justify-Left delicious_mobile relative flex items-center">
       <div className="flex items-center text-[40px] font-semibold">
-        <p className="mr-2">Delicious</p>
+        <p className="mobile_text mr-2">Delicious</p>
         <div className="relative min-h-[60px] min-w-[300px]">
           {words.map((word, index) => (
             <span
               key={index}
-              className={`absolute left-0 top-0 block w-full transition-all duration-700 ${word.className}`}
+              className={`animation_text absolute left-0 top-0 block w-full transition-all duration-700 ${word.className}`}
               style={{
                 opacity: index === currentIndex ? 1 : 0,
                 visibility: index === currentIndex ? "visible" : "hidden",
