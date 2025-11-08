@@ -87,7 +87,7 @@
 }
 
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 760px) and (max-width: 1024px) {
     .tabsmenu {
         width: 100%;
         overflow-x: auto;
@@ -105,6 +105,11 @@
 
     .ourhistory {
         margin: 0px;
+    }
+
+    .ourhistory h1 {
+        font-size: 30px !important;
+        margin-top: 50px;
     }
 
     .our_history_section {
@@ -138,12 +143,12 @@
         width: 270px !important;
     }
 
-    .testimonial-item {
+    .testimonial-item_tabs {
         height: 350px !important;
         padding: 15px !important;
     }
 
-    .testimonial-item div:last-child div {
+    .testimonial-item_tabs div:last-child div {
         font-size: 12px !important;
     }
 

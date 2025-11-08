@@ -116,7 +116,7 @@ export const Testimonials = () => {
               {[...testimonials, ...testimonials].map((t, i) => (
                 <div
                   key={i}
-                  className="testimonial-item"
+                  className="testimonial-item testimonial-item_tabs"
                   style={{
                     width: "100%",
                     height: `${ITEM_HEIGHT}px`,

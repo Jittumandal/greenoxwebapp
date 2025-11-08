@@ -99,7 +99,7 @@ const MainSlider = () => {
           {[...testimonials, ...testimonials].map((item, i) => (
             <div
               key={i}
-              className="testimonial-item"
+              className="testimonial-item testimonial-item_tabs"
               style={{
                 width: "100%",
                 height: `${SLIDE_HEIGHT}px`,
