@@ -1,4 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+const slugify = (s = "") =>
+  s
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
 
 const offerList = [
   "Extra ₹1500 off applied T&C",
@@ -13,16 +23,16 @@ const aboutList = [
 ];
 const meals = [
   {
-    label: "Breakfast",
-    img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
+    label: "Salads",
+    img: "/img/menu/Extravaganza Veggies Salad.jpg",
   },
   {
-    label: "Lunch",
+    label: "Meal",
     img: "/img/menu/Soya Paneer Rice Bowl -3.jpg",
   },
   {
-    label: "Dinner",
-    img: "/img/menu/Peri Peri Paneer Burrito Bowl- 3.jpg",
+    label: "Sandwich",
+    img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
   },
 ];
 
@@ -179,9 +189,11 @@ export default function Subcriptiondestails() {
             <div className="mb-2 font-semibold">Meals</div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {meals.map((meal, i) => (
-                <div
+                <Link
                   key={i}
-                  className="group relative overflow-hidden rounded-xl shadow"
+                  to={`/menu/${slugify(meal.label)}`}
+                  className="group relative block overflow-hidden rounded-xl shadow"
+                  aria-label={`Open ${meal.label} menu`}
                 >
                   <img
                     src={meal.img}
@@ -205,7 +217,7 @@ export default function Subcriptiondestails() {
                     </svg>
                     <span className="font-semibold">{meal.label}</span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

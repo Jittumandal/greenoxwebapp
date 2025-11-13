@@ -19,6 +19,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/menu" element={<Menu />} />
+      <Route path="/menu/:category" element={<Menu />} />
       <Route path="/menu/:category/:id" element={<MenuItemDetail />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/post/:slug" element={<BlogPost />} />

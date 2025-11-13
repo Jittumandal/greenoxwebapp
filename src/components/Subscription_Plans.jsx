@@ -1,59 +1,66 @@
 import React from "react";
+import { BiLock } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const plans = [
   {
-    duration: "12 MONTHS",
-    originalPrice: "₹8999",
-    discountedPrice: "₹5999",
-    perMonth: "499 per month*",
+    duration: (
+      <>
+        <span>45</span>
+        <span style={{ display: "block" }}>DAYS</span>
+      </>
+    ),
+    originalPrice: "₹8970",
+    discountedPrice: "₹6999",
+    perMonth: "155 each day*",
     benefits: [
-      { icon: "img/shopping_cart.svg", text: "Free ₹1500 Grocery Voucher" },
-      { icon: "img/percent.svg", text: "Additional ₹2000 off applied" },
-      { icon: "img/calendar.svg", text: "60 days of meal plan pause" },
-      { icon: "img/chef_hat.svg", text: "Access 60 recipes in other cuisines" },
-      { icon: "img/clinical_notes.svg", text: "5 nutritionist consultations" },
-      {
-        icon: "img/lefttoright.svg",
-        text: "Free meal plan transfer within 90 days",
-      },
-      { icon: "img/star.svg", text: "3 more Offers" },
+      { icon: "img/shopping_cart.svg", text: "Veg Meal 30 Meals" },
+      { icon: "img/percent.svg", text: "Save ₹1971 instantly" },
+      { icon: "img/calendar.svg", text: "Validity 45 days" },
+      { icon: "img/chef_hat.svg", text: "Healthy balanced veg meals" },
+      { icon: "img/clinical_notes.svg", text: "Delivered everyday fresh" },
+      { icon: "img/lefttoright.svg", text: "Change or reschedule anytime" },
+      { icon: "img/star.svg", text: "Save up to 50% on subscription" },
     ],
   },
   {
-    duration: "06 MONTHS",
-    originalPrice: "₹6999",
-    discountedPrice: "₹4499",
-    perMonth: "749 per month*",
+    duration: (
+      <>
+        <span>45</span>
+        <span style={{ display: "block" }}>DAYS</span>
+      </>
+    ),
+    originalPrice: "₹10470",
+    discountedPrice: "₹7999",
+    perMonth: "178 each day*",
     benefits: [
-      { icon: "img/shopping_cart.svg", text: "Free ₹1500 Grocery Voucher" },
-      { icon: "img/percent.svg", text: "Additional ₹2000 off applied" },
-      { icon: "img/calendar.svg", text: "60 days of meal plan pause" },
-      { icon: "img/chef_hat.svg", text: "Access 60 recipes in other cuisines" },
-      { icon: "img/clinical_notes.svg", text: "5 nutritionist consultations" },
-      {
-        icon: "img/lefttoright.svg",
-        text: "Free meal plan transfer within 90 days",
-      },
-      { icon: "img/star.svg", text: "3 more Offers" },
+      { icon: "img/shopping_cart.svg", text: "Non Veg Meal 30 Meals" },
+      { icon: "img/percent.svg", text: "Save ₹2471 instantly" },
+      { icon: "img/calendar.svg", text: "Validity 45 days" },
+      { icon: "img/chef_hat.svg", text: "Healthy non-veg meal box" },
+      { icon: "img/clinical_notes.svg", text: "Delivered fresh daily" },
+      { icon: "img/lefttoright.svg", text: "Change or reschedule anytime" },
+      { icon: "img/star.svg", text: "Up to 50% off on subscription" },
     ],
   },
   {
-    duration: "03 MONTHS",
-    originalPrice: "₹3999",
-    discountedPrice: "₹2999",
-    perMonth: "999 per month*",
+    duration: (
+      <>
+        <span>80</span>
+        <span style={{ display: "block" }}>DAYS</span>
+      </>
+    ),
+    originalPrice: "₹17940",
+    discountedPrice: "₹12999",
+    perMonth: "217 each day*",
     benefits: [
-      { icon: "img/shopping_cart.svg", text: "Free ₹1500 Grocery Voucher" },
-      { icon: "img/percent.svg", text: "Additional ₹2000 off applied" },
-      { icon: "img/calendar.svg", text: "60 days of meal plan pause" },
-      { icon: "img/chef_hat.svg", text: "Access 60 recipes in other cuisines" },
-      { icon: "img/clinical_notes.svg", text: "5 nutritionist consultations" },
-      {
-        icon: "img/lefttoright.svg",
-        text: "Free meal plan transfer within 90 days",
-      },
-      { icon: "img/star.svg", text: "3 more Offers" },
+      { icon: "img/shopping_cart.svg", text: "Veg Meal 60 Meals" },
+      { icon: "img/percent.svg", text: "Save ₹4941 instantly" },
+      { icon: "img/calendar.svg", text: "Validity 80 days" },
+      { icon: "img/chef_hat.svg", text: "Healthy veg plan for 2 months" },
+      { icon: "img/clinical_notes.svg", text: "Delivered fresh everyday" },
+      { icon: "img/lefttoright.svg", text: "Change or reschedule anytime" },
+      { icon: "img/star.svg", text: "Up to 50% savings" },
     ],
   },
 ];

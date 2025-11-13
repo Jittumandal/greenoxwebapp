@@ -266,25 +266,24 @@ export default function FoodMenu() {
                         className="h-32 w-32 rounded-lg object-cover"
                       />
 
-                      {/* Veg / Non-Veg badge */}
+                      {/* Veg / Non-Veg badge — check item.type or fallback to "Veg" */}
                       <span
-                        className="absolute right-1 top-1 z-10 flex h-5 w-5 items-center justify-center shadow"
+                        className="absolute right-1 top-1 z-10 flex h-5 w-5 items-center justify-center shadow-md"
                         title={
-                          String(item.type || "")
-                            .toLowerCase()
-                            .includes("non")
-                            ? "Non Veg"
+                          item.type
+                            ? String(item.type).toLowerCase().includes("non")
+                              ? "Non Veg"
+                              : "Veg"
                             : "Veg"
                         }
                       >
-                        {String(item.type || "")
-                          .toLowerCase()
-                          .includes("non") ? (
-                          // Non-veg: red dot with white center
-                          <img src="img/non-veg.svg" alt="nonveg" />
+                        {item.type &&
+                        String(item.type).toLowerCase().includes("non") ? (
+                          // Non-veg: red dot
+                          <img src="/img/non-veg.svg" alt="nonveg" />
                         ) : (
-                          // Veg: green leaf icon
-                          <img src="img/veg.svg" alt="veg" />
+                          // Veg: green leaf
+                          <img src="/img/veg.svg" alt="veg" />
                         )}
                       </span>
                     </div>
