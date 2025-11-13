@@ -76,7 +76,7 @@ const Subscription_Plans = () => {
             className="flex flex-col rounded-lg bg-gradient-to-b from-green-500 to-green-600 p-6 text-white shadow transition hover:shadow-lg"
           >
             <div className="flex justify-between">
-              <h1 className="MONTHS mb-2 text-center text-xl font-semibold uppercase tracking-wider">
+              <h1 className="MONTHS mb-2 pt-4 text-center text-xl font-semibold uppercase tracking-wider">
                 {plan.duration}
               </h1>
               <div className="amount mb-2">
@@ -107,6 +107,18 @@ const Subscription_Plans = () => {
             </ul>
             <Link
               to="/subcriptiondestails"
+              state={{
+                plan: {
+                  duration:
+                    plan.duration && typeof plan.duration === "string"
+                      ? plan.duration
+                      : `${plan.duration?.props?.children?.[0]?.props?.children || ""} ${plan.duration?.props?.children?.[1]?.props?.children || ""}`.trim(),
+                  originalPrice: plan.originalPrice,
+                  discountedPrice: plan.discountedPrice,
+                  perMonth: plan.perMonth,
+                  benefits: plan.benefits,
+                },
+              }}
               className="mt-2 mt-auto w-full rounded bg-orange-400 px-4 py-4 text-center font-semibold text-white transition hover:bg-orange-500"
             >
               SUBSCRIBE NOW

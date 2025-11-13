@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const slugify = (s = "") =>
   s
@@ -36,7 +36,15 @@ const meals = [
   },
 ];
 
-export default function Subcriptiondestails() {
+export default function SubscriptionDetails() {
+  const location = useLocation();
+  const selectedPlan = location.state?.plan || null;
+
+  // extract duration text from plan.duration JSX
+  const getDurationText = () => {
+    return selectedPlan?.duration || "Selected Plan";
+  };
+
   return (
     <div
       className="mt-12 min-h-screen bg-[#fafbfc] px-4 py-8 pt-12"
@@ -56,20 +64,51 @@ export default function Subcriptiondestails() {
             className="h-100 w-full rounded-lg object-cover"
           /> */}
         </div>
+
         {/* Right: Details */}
         <div className="flex flex-col p-6 md:w-2/3">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <h2 className="mb-2 text-2xl font-bold md:text-3xl">
-              3 Month NutriPlan{" "}
-              <span className="text-green-500">Elite Plus</span>
+              <span className="text-green-500">{getDurationText()} </span>
+              <span className="pl-24">{selectedPlan.perMonth}</span>
             </h2>
             <div className="flex flex-col items-end">
-              <span className="text-lg text-gray-400 line-through">3999</span>
-              <span className="text-2xl font-bold text-gray-800">₹ 2099</span>
+              <span className="text-lg text-gray-400 line-through">
+                {selectedPlan.originalPrice}
+              </span>
+              <span className="text-2xl font-bold text-gray-800">
+                {selectedPlan.discountedPrice}
+              </span>
               <button className="mt-2 rounded bg-green-500 px-6 py-2 font-semibold text-white transition hover:bg-green-600">
                 Get Plan
               </button>
             </div>
+          </div>
+          <div className="mt-4">
+            <h3 className="mb-2 font-semibold">Benefits</h3>
+            <ul className="space-y-1">
+              {selectedPlan.benefits?.map((benefit, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm">
+                  <span className="text-green-600">
+                    {" "}
+                    <svg
+                      className="h-5 w-5 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M5 13l4 4L19 7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  {benefit.text}
+                </li>
+              ))}
+            </ul>
           </div>
           {/* Offer */}
           <div className="mt-4">
