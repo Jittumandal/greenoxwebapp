@@ -11,8 +11,8 @@ const plans = [
       </>
     ),
     originalPrice: "₹8970",
-    discountedPrice: "₹6999",
-    perMonth: "155 each day*",
+    discountedPrice: "₹7999",
+    perMonth: "177 each day*",
     benefits: [
       { icon: "img/shopping_cart.svg", text: "Veg Meal 30 Meals" },
       { icon: "img/percent.svg", text: "Save ₹1971 instantly" },
@@ -31,8 +31,8 @@ const plans = [
       </>
     ),
     originalPrice: "₹10470",
-    discountedPrice: "₹7999",
-    perMonth: "178 each day*",
+    discountedPrice: "₹8999",
+    perMonth: "199 each day*",
     benefits: [
       { icon: "img/shopping_cart.svg", text: "Non Veg Meal 30 Meals" },
       { icon: "img/percent.svg", text: "Save ₹2471 instantly" },
@@ -51,8 +51,8 @@ const plans = [
       </>
     ),
     originalPrice: "₹17940",
-    discountedPrice: "₹12999",
-    perMonth: "217 each day*",
+    discountedPrice: "₹14999",
+    perMonth: "187 each day*",
     benefits: [
       { icon: "img/shopping_cart.svg", text: "Veg Meal 60 Meals" },
       { icon: "img/percent.svg", text: "Save ₹4941 instantly" },
