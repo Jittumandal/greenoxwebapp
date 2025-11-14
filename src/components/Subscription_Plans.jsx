@@ -63,13 +63,33 @@ const plans = [
       { icon: "img/star.svg", text: "Up to 50% savings" },
     ],
   },
+  {
+    duration: (
+      <>
+        <span>80</span>
+        <span style={{ display: "block" }}>DAYS</span>
+      </>
+    ),
+    originalPrice: "₹20940",
+    discountedPrice: "₹16999",
+    perMonth: "212 each day*",
+    benefits: [
+      { icon: "img/shopping_cart.svg", text: "Mon-Veg Meal 60 Meals" },
+      { icon: "img/percent.svg", text: "Save ₹4941 instantly" },
+      { icon: "img/calendar.svg", text: "Validity 80 days" },
+      { icon: "img/chef_hat.svg", text: "Healthy veg plan for 2 months" },
+      { icon: "img/clinical_notes.svg", text: "Delivered fresh everyday" },
+      { icon: "img/lefttoright.svg", text: "Change or reschedule anytime" },
+      { icon: "img/star.svg", text: "Up to 50% savings" },
+    ],
+  },
 ];
 
 const Subscription_Plans = () => {
   return (
     <div className="Subscription_Plans wfull px-2">
       {/* Plans */}
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-4">
         {plans.map((plan, index) => (
           <div
             key={index}

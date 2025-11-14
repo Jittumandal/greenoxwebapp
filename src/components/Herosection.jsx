@@ -27,7 +27,7 @@ export default function HeroSection() {
         crossOrigin="anonymous"
         style={{ width: "100%" }}
       >
-        <source src={encodeURI("/img/video.MP4")} type="video/mp4" />
+        <source src={encodeURI("/img/greenox.mp4")} type="video/mp4" />
         <source src={encodeURI("/img/greenox.webm")} type="video/webm" />
       </video>
       {/* dark overlay between video and content */}
