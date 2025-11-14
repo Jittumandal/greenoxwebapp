@@ -60,7 +60,7 @@ const Subscription = () => {
             </div>
           </div>
         </div>
-        <div className="mb-24">
+        <div className="mb-24 px-4">
           <Subscription_Plans />
         </div>
       </section>

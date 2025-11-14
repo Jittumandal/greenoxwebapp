@@ -70,7 +70,7 @@ export default function SubscriptionDetails() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <h2 className="mb-2 text-2xl font-bold md:text-3xl">
               <span className="text-green-500">{getDurationText()} </span>
-              <span className="pl-24">{selectedPlan.perMonth}</span>
+              {/* <span className="pl-24">{selectedPlan.perMonth}</span> */}
             </h2>
             <div className="flex flex-col items-end">
               <span className="text-lg text-gray-400 line-through">
