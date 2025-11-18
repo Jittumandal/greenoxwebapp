@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <div className="Main_Heading_bg relative min-h-[400px] overflow-hidden md:min-h-screen">
       {/* Background Video */}
-      <iframe
+      {/* <iframe
         title="Hero background video"
         src="https://player.vimeo.com/video/1134601259?background=1&autoplay=1&muted=1&loop=1&autopause=0&player_id=0"
         className="absolute inset-0 -z-20 h-full w-full object-cover brightness-50"
@@ -15,8 +15,8 @@ export default function HeroSection() {
         allowFullScreen
         style={{ width: "100%", height: "100%" }}
         aria-hidden="true"
-      />
-      {/* <video
+      /> */}
+      <video
         autoPlay
         muted
         loop
@@ -29,7 +29,7 @@ export default function HeroSection() {
       >
         <source src={encodeURI("/img/greenox.mp4")} type="video/mp4" />
         <source src={encodeURI("/img/greenox.webm")} type="video/webm" />
-      </video> */}
+      </video>
       {/* dark overlay between video and content */}
       {/* overlay using the attached light/gray color with adjustable opacity */}
       <div
