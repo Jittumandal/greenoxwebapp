@@ -201,6 +201,7 @@ export default function Navigation() {
                     ? "border-b-2 border-green-500 pb-1 text-green-500"
                     : "text-gray-700 hover:text-green-500"
                 }`}
+                onClick={() => setMenuOpen(false)}
               >
                 Careers
               </Link>

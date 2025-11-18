@@ -2,27 +2,27 @@ import React, { useEffect, useRef } from "react";
 
 const testimonials = [
   {
-    text: "The Beginnings is my go-to place for a balanced and satisfying meal. Their commitment to sustainability and quality ingredients is truly impressive. It's not just food; it's a lifestyle choice.",
+    text: "As a fitness enthusiast, I appreciate the protein-packed options at GreeNox. The Soya Paneer Rice Bowl is my favorite - it's both nutritious and delicious. Plus, the cleanliness and hygiene at their food production unit are top-notch.",
     name: "Akash",
-    role: "Lead Intranet Technician",
+    role: "Designation Name",
     img: "/img/Akash.jpg",
   },
   {
-    text: "I've been a loyal customer of GreeNox for over two years, and I can't get enough of their delicious and healthy dishes. The plant-based menu is a game-changer for me, and the atmosphere at their outlets is always warm and welcoming.",
+    text: "As a fitness enthusiast, I appreciate the protein-packed options at GreeNox. The Soya Paneer Rice Bowl is my favorite - it's both nutritious and delicious. Plus, the cleanliness and hygiene at their food production unit are top-notch.",
     name: "Aditya Chaudhary",
-    role: "Lead Intranet Technician",
+    role: "Designation Name",
     img: "/img/Aditya.jpg",
   },
   {
-    text: "GreeNox has redefined my perception of 'fast food.' The meals are not just quick; they're truly nourishing. I'm thrilled to be a part of their journey toward a healthier world.",
+    text: "As a fitness enthusiast, I appreciate the protein-packed options at GreeNox. The Soya Paneer Rice Bowl is my favorite - it's both nutritious and delicious. Plus, the cleanliness and hygiene at their food production unit are top-notch.",
     name: "Adeesh",
-    role: "Lead Intranet Technician",
+    role: "Designation Name",
     img: "/img/Adeesh.jpg",
   },
   {
     text: "As a fitness enthusiast, I appreciate the protein-packed options at GreeNox. The Soya Paneer Rice Bowl is my favorite - it's both nutritious and delicious. Plus, the cleanliness and hygiene at their food production unit are top-notch.",
     name: "Kinjalika Verma",
-    role: "Lead Intranet Technician",
+    role: "Designation Name",
     img: "/img/Kinjalika.jpg",
   },
 ];

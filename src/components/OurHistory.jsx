@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const OurHistory = () => {
   return (
@@ -35,12 +36,16 @@ export const OurHistory = () => {
               fulfilling, and straight from the heart.
             </p>
 
-            <button className="group flex items-center gap-2 font-medium text-orange-500 hover:underline">
+            {/* Replace the button with a Link to the About/History page */}
+            <Link
+              to="/about"
+              className="group inline-flex items-center gap-2 font-medium text-orange-500 hover:underline"
+            >
               Read More
               <span className="transition-transform group-hover:translate-x-1">
                 →
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Image - Now 40% width */}
