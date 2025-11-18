@@ -8,13 +8,11 @@ import FoodMenu from "../components/FoodMenu.jsx"; // Import the new component
 import { OurHistory } from "../components/OurHistory.jsx";
 import BiggestBrands from "../components/Bigestbarand.jsx";
 import Testimonials from "../components/Testimonials.jsx";
-import Corousel from "../components/Carousel.jsx";
 
 const Home = () => {
   return (
     <>
       <Herosection />
-      <Corousel />
       {/* <PopularMenu /> */}
       <FoodMenu /> {/* Add the FoodMenu component */}
       {/* <Slider /> */}

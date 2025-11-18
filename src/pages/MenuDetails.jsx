@@ -1,7 +1,44 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
+
 import { useParams, Link, useNavigate } from "react-router-dom";
 import menuItems from "../data/menuItems";
 
+// static slider images (place these files in public/img/slider/)
+const slidesData = [
+  "/img/slider/slide1.jpg",
+  "/img/slider/slide2.jpg",
+  "/img/slider/slide3.jpg",
+  "/img/slider/slide4.jpg",
+];
+
+const carouselStyles = `
+  .carousel-hero-banner { position: relative; max-width: 1200px; margin: 0 auto; }
+  /* track-based sliding layout instead of absolute/fade */
+  .carousel-images { position: relative; width: 100%; height:auto; overflow: hidden; background:#111; border-radius:8px; }
+  .carousel-track { display:flex; height:100%; transition: transform .6s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+  .carousel-item { flex: 0 0 100%; display:flex; align-items:center; justify-content:center; height:100%; }
+  .carousel-item img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  .slide-content { position: absolute; left: 32px; bottom: 32px; color: #fff; background: rgba(0,0,0,0.45); padding: 18px; border-radius: 8px; max-width: 48%; z-index: 30; }
+  .slide-content h1{ margin:0 0 8px; font-size:1.6rem; line-height:1.1; }
+  .slide-content p{ margin:0 0 12px; opacity:.95; }
+  .cta-button{ display:inline-block; padding:8px 14px; background:#10b981; color:#fff; border-radius:6px; text-decoration:none; font-weight:600; }
+
+  .nav-button { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: #fff; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:999px; cursor:pointer; z-index:40; border: none; }
+  .nav-button:hover{ background: rgba(0,0,0,0.6); }
+  .nav-button.prev{ left: 12px; }
+  .nav-button.next{ right: 12px; }
+
+  .carousel-indicators{ position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display:flex; gap:8px; z-index:50; }
+  .dot{ width:12px; height:12px; border-radius:999px; background: rgba(255,255,255,0.4); cursor:pointer; display:inline-block; border: 2px solid rgba(0,0,0,0.15); }
+  .dot.active{ background: #f59e0b; box-shadow: 0 0 0 6px rgba(245,158,11,0.12); }
+
+  @media (max-width: 768px){
+    .carousel-images { height: 360px; }
+    .slide-content { left: 16px; bottom: 16px; max-width: 75%; padding: 12px; }
+    .slide-content h1{ font-size:1.25rem; }
+  }
+`;
 const slugify = (s = "") =>
   s
     .toString()
@@ -28,16 +65,36 @@ function Accordion({ title, children }) {
 }
 
 export default function MenuItemDetail() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideInterval = 500;
   const navigate = useNavigate();
+  const containerRef = useRef(null);
+
+  // Inject component-scoped carousel CSS once
+  useEffect(() => {
+    const id = "carousel-component-styles";
+    if (!document.getElementById(id)) {
+      const el = document.createElement("style");
+      el.id = id;
+      el.innerHTML = carouselStyles;
+      document.head.appendChild(el);
+    }
+    // no cleanup so styles persist while app runs
+  }, []);
+
+  // navigate back to previous page (used by "Back to Menu" button)
   const handleBack = () => {
-    if (window.history && window.history.length > 1) navigate(-1);
+    // prefer history back; fallback to /menu if no history
+    if (window.history.length > 1) navigate(-1);
     else navigate("/menu");
   };
 
+  // decode URI parameters
   const { category: categoryParam, id: idParam } = useParams();
   const categoryDecoded = decodeURIComponent(categoryParam || "");
   const idRaw = decodeURIComponent(idParam || "");
 
+  // memoized menu data processing
   const { menuArray, itemsByKey, groupNameBySlug } = useMemo(() => {
     const arr = Object.values(menuItems).flatMap((v) =>
       Array.isArray(v) ? v : [],
@@ -144,6 +201,75 @@ export default function MenuItemDetail() {
     e.currentTarget.src = "/img/menu/menubg.svg";
   };
 
+  // build slides from item images / gallery / single image; fallback to top-level slidesData
+  const slides =
+    (Array.isArray(item?.images) && item.images.length
+      ? item.images
+      : Array.isArray(item?.gallery) && item.gallery.length
+        ? item.gallery
+        : item?.image || item?.img
+          ? [item.image || item.img]
+          : slidesData) || [];
+
+  // ensure currentSlide is valid when slides change (run after slides is available)
+  useEffect(() => {
+    if (slides && slides.length && currentSlide >= slides.length) {
+      setCurrentSlide(0);
+    }
+  }, [slides.length, currentSlide]);
+
+  // autoplay controller (start/stop and restart on user interaction)
+  const autoplayRef = useRef(null);
+
+  const startAutoplay = () => {
+    // ensure any previous timer cleared
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+    if (!slides || slides.length <= 1) return;
+    autoplayRef.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, slideInterval);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayRef.current) {
+      clearInterval(autoplayRef.current);
+      autoplayRef.current = null;
+    }
+  };
+
+  // start autoplay when slides change; cleanup on unmount
+  useEffect(() => {
+    startAutoplay();
+    return () => stopAutoplay();
+  }, [slides.length]);
+
+  // navigation helpers reset autoplay so user interaction is respected
+  const goToSlide = (index) => {
+    const idx = index % Math.max(1, slides.length);
+    stopAutoplay();
+    setCurrentSlide(idx);
+    startAutoplay();
+  };
+
+  const nextSlide = () => {
+    stopAutoplay();
+    setCurrentSlide((prev) => {
+      const next = (prev + 1) % Math.max(1, slides.length);
+      return next;
+    });
+    startAutoplay();
+  };
+
+  const prevSlide = () => {
+    stopAutoplay();
+    setCurrentSlide((prev) => {
+      const p =
+        (prev - 1 + Math.max(1, slides.length)) % Math.max(1, slides.length);
+      return p;
+    });
+    startAutoplay();
+  };
+
   return (
     <section>
       <div className="relative mt-20 h-[300px]">
@@ -169,12 +295,78 @@ export default function MenuItemDetail() {
         <div className="mx-auto max-w-7xl rounded-lg bg-white px-4 py-4">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
-              <img
-                src={item.image || item.img}
-                alt={item.name}
-                onError={handleImgError}
-                className="h-100 w-full rounded-lg object-cover md:h-full"
-              />
+              <div className="carousel-hero-banner">
+                <div className="carousel-images" ref={containerRef}>
+                  {/* track-based layout: width = slides.length * 100% */}
+                  <div
+                    className="carousel-track"
+                    style={{
+                      width: `${slides.length * 100}%`,
+                      transform: `translateX(-${(currentSlide * 100) / slides.length}%)`,
+                    }}
+                  >
+                    {slides.map((slide, index) => {
+                      const src =
+                        typeof slide === "string"
+                          ? slide
+                          : slide.image || slide.src;
+                      const title =
+                        typeof slide === "string" ? "" : slide.title || "";
+                      const desc =
+                        typeof slide === "string"
+                          ? ""
+                          : slide.description || "";
+                      const btnText =
+                        typeof slide === "string" ? "" : slide.buttonText || "";
+                      return (
+                        <div key={index} className="carousel-item">
+                          <img
+                            src={src}
+                            alt={`Slide ${index + 1}`}
+                            onError={handleImgError}
+                          />
+                          {(title || desc || btnText) && (
+                            <div className="slide-content">
+                              <h1>{title}</h1>
+                              <p>{desc}</p>
+                              {btnText && (
+                                <a href="#" className="cta-button">
+                                  {btnText}
+                                </a>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <button
+                  className="nav-button prev"
+                  onClick={prevSlide}
+                  aria-label="Previous"
+                >
+                  &#10094;
+                </button>
+                <button
+                  className="nav-button next"
+                  onClick={nextSlide}
+                  aria-label="Next"
+                >
+                  &#10095;
+                </button>
+
+                <div className="carousel-indicators">
+                  {slides.map((_, index) => (
+                    <span
+                      key={index}
+                      className={`dot ${index === currentSlide ? "active" : ""}`}
+                      onClick={() => goToSlide(index)}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="p-8">
