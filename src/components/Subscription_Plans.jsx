@@ -74,7 +74,7 @@ const plans = [
     discountedPrice: "₹16999",
     perMonth: "212 each day*",
     benefits: [
-      { icon: "img/shopping_cart.svg", text: "Mon-Veg Meal 60 Meals" },
+      { icon: "img/shopping_cart.svg", text: "Non-Veg Meal 60 Meals" },
       { icon: "img/percent.svg", text: "Save ₹4941 instantly" },
       { icon: "img/calendar.svg", text: "Validity 80 days" },
       { icon: "img/chef_hat.svg", text: "Healthy veg plan for 2 months" },

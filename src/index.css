@@ -245,3 +245,140 @@ header {
     height: 100%;
     object-fit: cover;
 }
+
+/* Carousel styles for MenuDetails slider */
+.carousel-hero-banner {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-images {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #000;
+    /* desktop height */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(.25, .8, .25, 1);
+    will-change: transform;
+    height: 100%;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.slide-content {
+    position: absolute;
+    left: 32px;
+    bottom: 32px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 18px;
+    border-radius: 8px;
+    max-width: 48%;
+    z-index: 30;
+}
+
+.slide-content h1 {
+    margin: 0 0 8px;
+    font-size: 1.6rem;
+    line-height: 1.1;
+}
+
+.slide-content p {
+    margin: 0 0 12px;
+    opacity: .95;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #10b981;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 40;
+}
+
+.nav-button:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.nav-button.prev {
+    left: 12px;
+}
+
+.nav-button.next {
+    right: 12px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 50;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #f59e0b;
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.12);
+}
+
+@media (max-width: 768px) {
+    .carousel-images {
+        height: 360px;
+    }
+
+    .slide-content {
+        left: 16px;
+        bottom: 16px;
+        max-width: 75%;
+        padding: 12px;
+    }
+
+    .slide-content h1 {
+        font-size: 1.25rem;
+    }
+}

@@ -1,5 +1,4 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
-
 import { useParams, Link, useNavigate } from "react-router-dom";
 import menuItems from "../data/menuItems";
 
@@ -11,37 +10,8 @@ const slidesData = [
   "/img/slider/slide4.jpg",
 ];
 
-const carouselStyles = `
-  .carousel-hero-banner { position: relative; max-width: 1200px; margin: 0 auto; }
-  /* track-based sliding layout instead of absolute/fade */
-  .carousel-images { position: relative; width: 100%; height:auto; overflow: hidden; background:#111; border-radius:8px; }
-  .carousel-track { display:flex; height:100%; transition: transform .6s cubic-bezier(.2,.8,.2,1); will-change: transform; }
-  .carousel-item { flex: 0 0 100%; display:flex; align-items:center; justify-content:center; height:100%; }
-  .carousel-item img { width:100%; height:100%; object-fit:cover; display:block; }
-
-  .slide-content { position: absolute; left: 32px; bottom: 32px; color: #fff; background: rgba(0,0,0,0.45); padding: 18px; border-radius: 8px; max-width: 48%; z-index: 30; }
-  .slide-content h1{ margin:0 0 8px; font-size:1.6rem; line-height:1.1; }
-  .slide-content p{ margin:0 0 12px; opacity:.95; }
-  .cta-button{ display:inline-block; padding:8px 14px; background:#10b981; color:#fff; border-radius:6px; text-decoration:none; font-weight:600; }
-
-  .nav-button { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: #fff; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:999px; cursor:pointer; z-index:40; border: none; }
-  .nav-button:hover{ background: rgba(0,0,0,0.6); }
-  .nav-button.prev{ left: 12px; }
-  .nav-button.next{ right: 12px; }
-
-  .carousel-indicators{ position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display:flex; gap:8px; z-index:50; }
-  .dot{ width:12px; height:12px; border-radius:999px; background: rgba(255,255,255,0.4); cursor:pointer; display:inline-block; border: 2px solid rgba(0,0,0,0.15); }
-  .dot.active{ background: #f59e0b; box-shadow: 0 0 0 6px rgba(245,158,11,0.12); }
-
-  @media (max-width: 768px){
-    .carousel-images { height: 360px; }
-    .slide-content { left: 16px; bottom: 16px; max-width: 75%; padding: 12px; }
-    .slide-content h1{ font-size:1.25rem; }
-  }
-`;
 const slugify = (s = "") =>
-  s
-    .toString()
+  String(s)
     .toLowerCase()
     .replace(/[^\w\s-]/g, "")
     .trim()
@@ -66,35 +36,14 @@ function Accordion({ title, children }) {
 
 export default function MenuItemDetail() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slideInterval = 500;
+  const slideInterval = 3000;
   const navigate = useNavigate();
-  const containerRef = useRef(null);
+  const autoplayRef = useRef(null);
 
-  // Inject component-scoped carousel CSS once
-  useEffect(() => {
-    const id = "carousel-component-styles";
-    if (!document.getElementById(id)) {
-      const el = document.createElement("style");
-      el.id = id;
-      el.innerHTML = carouselStyles;
-      document.head.appendChild(el);
-    }
-    // no cleanup so styles persist while app runs
-  }, []);
-
-  // navigate back to previous page (used by "Back to Menu" button)
-  const handleBack = () => {
-    // prefer history back; fallback to /menu if no history
-    if (window.history.length > 1) navigate(-1);
-    else navigate("/menu");
-  };
-
-  // decode URI parameters
   const { category: categoryParam, id: idParam } = useParams();
   const categoryDecoded = decodeURIComponent(categoryParam || "");
   const idRaw = decodeURIComponent(idParam || "");
 
-  // memoized menu data processing
   const { menuArray, itemsByKey, groupNameBySlug } = useMemo(() => {
     const arr = Object.values(menuItems).flatMap((v) =>
       Array.isArray(v) ? v : [],
@@ -111,13 +60,11 @@ export default function MenuItemDetail() {
 
   const categorySlug = slugify(categoryDecoded);
 
-  // primary candidates from explicit groups (by slug)
   let candidates =
     categorySlug === slugify("All Menu")
       ? menuArray
       : itemsByKey[categorySlug] || [];
 
-  // if primary candidates empty, attempt to find group by name match (case-insensitive)
   if ((!candidates || candidates.length === 0) && categoryDecoded) {
     const entry = Object.entries(menuItems).find(
       ([groupName]) =>
@@ -126,7 +73,6 @@ export default function MenuItemDetail() {
     if (entry) candidates = Array.isArray(entry[1]) ? entry[1] : [];
   }
 
-  // final fallback: fuzzy filter across all items using the decoded category text
   if ((!candidates || candidates.length === 0) && categoryDecoded) {
     const q = categoryDecoded.replace(/-/g, " ").toLowerCase();
     candidates = menuArray.filter((it) =>
@@ -134,15 +80,18 @@ export default function MenuItemDetail() {
     );
   }
 
-  // find item by id (try strict string match, numeric match, slug match of name, or name exact)
   const item =
     candidates.find((it) => String(it.id) === idRaw) ||
     candidates.find((it) => it.id && Number(it.id) === Number(idRaw)) ||
     candidates.find((it) => it.name && slugify(it.name) === slugify(idRaw)) ||
     candidates.find((it) => it.name && it.name === idRaw);
 
+  const handleBack = () => {
+    if (window.history.length > 1) navigate(-1);
+    else navigate("/menu");
+  };
+
   if (!item) {
-    // show available items in resolved group if any
     const resolvedGroupName =
       groupNameBySlug[categorySlug] || categoryDecoded || "Unknown";
     const groupList =
@@ -201,32 +150,29 @@ export default function MenuItemDetail() {
     e.currentTarget.src = "/img/menu/menubg.svg";
   };
 
-  // build slides from item images / gallery / single image; fallback to top-level slidesData
-  const slides =
-    (Array.isArray(item?.images) && item.images.length
-      ? item.images
-      : Array.isArray(item?.gallery) && item.gallery.length
-        ? item.gallery
-        : item?.image || item?.img
-          ? [item.image || item.img]
-          : slidesData) || [];
+  // build slides for this item (normalize to string URLs), fallback to static slidesData
+  const rawSlides =
+    (Array.isArray(item?.images) && item.images.length && item.images) ||
+    (Array.isArray(item?.gallery) && item.gallery.length && item.gallery) ||
+    (item?.image || item?.img ? [item.image || item.img] : slidesData);
 
-  // ensure currentSlide is valid when slides change (run after slides is available)
+  const slides = rawSlides
+    .map((s) =>
+      typeof s === "string" ? s : s?.image || s?.src || s?.url || "",
+    )
+    .filter(Boolean);
+
+  // reset to first slide when item changes
   useEffect(() => {
-    if (slides && slides.length && currentSlide >= slides.length) {
-      setCurrentSlide(0);
-    }
-  }, [slides.length, currentSlide]);
+    setCurrentSlide(0);
+  }, [item?.id]);
 
-  // autoplay controller (start/stop and restart on user interaction)
-  const autoplayRef = useRef(null);
-
+  // autoplay control
   const startAutoplay = () => {
-    // ensure any previous timer cleared
     if (autoplayRef.current) clearInterval(autoplayRef.current);
     if (!slides || slides.length <= 1) return;
     autoplayRef.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setCurrentSlide((p) => (p + 1) % slides.length);
     }, slideInterval);
   };
 
@@ -237,38 +183,36 @@ export default function MenuItemDetail() {
     }
   };
 
-  // start autoplay when slides change; cleanup on unmount
   useEffect(() => {
     startAutoplay();
-    return () => stopAutoplay();
+    return stopAutoplay;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slides.length]);
 
-  // navigation helpers reset autoplay so user interaction is respected
   const goToSlide = (index) => {
-    const idx = index % Math.max(1, slides.length);
+    if (!slides || slides.length <= 1) return;
+    const idx = ((index % slides.length) + slides.length) % slides.length;
     stopAutoplay();
     setCurrentSlide(idx);
     startAutoplay();
   };
 
   const nextSlide = () => {
+    if (!slides || slides.length <= 1) return;
     stopAutoplay();
-    setCurrentSlide((prev) => {
-      const next = (prev + 1) % Math.max(1, slides.length);
-      return next;
-    });
+    setCurrentSlide((p) => (p + 1) % slides.length);
     startAutoplay();
   };
 
   const prevSlide = () => {
+    if (!slides || slides.length <= 1) return;
     stopAutoplay();
-    setCurrentSlide((prev) => {
-      const p =
-        (prev - 1 + Math.max(1, slides.length)) % Math.max(1, slides.length);
-      return p;
-    });
+    setCurrentSlide((p) => (p - 1 + slides.length) % slides.length);
     startAutoplay();
   };
+
+  const slideCount = Math.max(1, slides.length);
+  const slideWidthPercent = 100 / slideCount;
 
   return (
     <section>
@@ -296,49 +240,27 @@ export default function MenuItemDetail() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
               <div className="carousel-hero-banner">
-                <div className="carousel-images" ref={containerRef}>
-                  {/* track-based layout: width = slides.length * 100% */}
+                <div className="carousel-images">
                   <div
                     className="carousel-track"
                     style={{
-                      width: `${slides.length * 100}%`,
-                      transform: `translateX(-${(currentSlide * 100) / slides.length}%)`,
+                      width: `${slideCount * 100}%`,
+                      transform: `translateX(-${currentSlide * slideWidthPercent}%)`,
                     }}
                   >
-                    {slides.map((slide, index) => {
-                      const src =
-                        typeof slide === "string"
-                          ? slide
-                          : slide.image || slide.src;
-                      const title =
-                        typeof slide === "string" ? "" : slide.title || "";
-                      const desc =
-                        typeof slide === "string"
-                          ? ""
-                          : slide.description || "";
-                      const btnText =
-                        typeof slide === "string" ? "" : slide.buttonText || "";
-                      return (
-                        <div key={index} className="carousel-item">
-                          <img
-                            src={src}
-                            alt={`Slide ${index + 1}`}
-                            onError={handleImgError}
-                          />
-                          {(title || desc || btnText) && (
-                            <div className="slide-content">
-                              <h1>{title}</h1>
-                              <p>{desc}</p>
-                              {btnText && (
-                                <a href="#" className="cta-button">
-                                  {btnText}
-                                </a>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                    {slides.map((src, index) => (
+                      <div
+                        key={index}
+                        className="carousel-item"
+                        style={{ width: `${slideWidthPercent}%` }}
+                      >
+                        <img
+                          src={src}
+                          alt={`Slide ${index + 1}`}
+                          onError={handleImgError}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
 
