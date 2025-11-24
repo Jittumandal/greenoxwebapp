@@ -13,6 +13,9 @@ import Contact from "../Contact/Contact";
 import Careers from "../Careers/Careers";
 import Subcriptiondestails from "../pages/Subcriptiondestails";
 import AllMenuIteams from "../pages/AllMenuIteams";
+import TermsService from "../pages/Termservice";
+import Termsconditions from "../pages/termsconditions";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 export default function AppRoutes() {
   return (
@@ -29,6 +32,9 @@ export default function AppRoutes() {
       <Route path="/careers" element={<Careers />} />
       <Route path="/subcriptiondestails" element={<Subcriptiondestails />} />
       <Route path="/allmenuiteams" element={<AllMenuIteams />} />
+      <Route path="/termservice" element={<TermsService />} />
+      <Route path="/termsconditions" element={<Termsconditions />} />
+      <Route path="/privacypolicy" element={<PrivacyPolicy />} />
     </Routes>
   );
 }

@@ -87,19 +87,21 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <div className="mb-2 font-semibold">Contact</div>
+            <div className="mb-2 font-semibold">Learn More</div>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>
-                <Link className="hover:text-white">+91 7078548120</Link>
+                <Link to="/privacypolicy" className="hover:text-white">
+                  Privacy Policy
+                </Link>
               </li>
               <li className="py-2">
-                <a href="mailto:info@greenox.in" className="hover:text-white">
-                  info@greenox.in
-                </a>
+                <Link to="/termsconditions" className="hover:text-white">
+                  Terms & Conditions
+                </Link>
               </li>
               <li>
-                <Link to="/" className="hover:text-white">
-                  www.greenox.in
+                <Link to="/termservice" className="hover:text-white">
+                  Terms & Conditions
                 </Link>
               </li>
             </ul>
