@@ -7,7 +7,7 @@ const Termservice = () => {
         className="relative flex min-h-[300px] items-center justify-center px-6 py-16 text-center text-white"
         style={{
           backgroundImage:
-            "linear-gradient(135deg, rgba(6,95,70,0.35), rgba(16,185,129,0.35)), url('/img/Terms-and-conditions.jpg')",
+            "linear-gradient(135deg, rgba(6,95,70,0.60), rgba(16,185,129,0.60)), url('/img/Termservices.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

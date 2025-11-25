@@ -83,12 +83,22 @@ export default function About() {
       <OurHistory />
       {/* Journey Section */}
       <section className="Join_Our_Team mx-auto mb-8 flex max-w-7xl flex-col gap-8 rounded-lg bg-white px-6 py-8 shadow md:flex-row">
-        <div className="flex flex-1 items-center justify-center">
-          <img
-            src="img/janri.png"
-            alt="Journey Timeline"
-            className="h-100 w-full rounded-lg object-contain"
-          />
+        <div className="relative flex min-h-[320px] flex-1 items-center justify-center overflow-hidden">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/img/greenox-poster.jpg"
+            className="absolute inset-0 z-0 h-full w-full object-cover"
+            style={{ width: "100%", borderRadius: "0.5rem" }}
+          >
+            <source
+              src="https://greenox.in/wp-content/uploads/2025/04/you-are-what-you-eat.mp4"
+              type="video/mp4"
+            />
+          </video>
         </div>
         <div className="flex-1">
           <h3 className="mb-2 text-lg font-semibold text-orange-500">
