@@ -101,8 +101,17 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/termservice" className="hover:text-white">
-                  Terms & Conditions
+                  Cancellation & Refund Policy
                 </Link>
+                {/* <button
+                  onClick={() =>
+                    document
+                      .getElementById("target-section")
+                      .scrollIntoView({ behavior: "smooth" })
+                  }
+                >
+                  Terms & Conditions
+                </button> */}
               </li>
             </ul>
           </div>
