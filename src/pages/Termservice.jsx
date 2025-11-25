@@ -1,6 +1,6 @@
 import React from "react";
 
-const Termsconditions = () => {
+const Termservice = () => {
   return (
     <>
       <section
@@ -136,4 +136,4 @@ const Termsconditions = () => {
   );
 };
 
-export default Termsconditions;
+export default Termservice;

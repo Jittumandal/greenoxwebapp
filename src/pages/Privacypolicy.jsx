@@ -1,4 +1,4 @@
-const PrivacyPolicy = () => {
+const Privacypolicy = () => {
   return (
     <>
       <section
@@ -414,4 +414,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default Privacypolicy;
