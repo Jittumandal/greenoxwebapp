@@ -69,31 +69,49 @@ export default function FoodMenu() {
 
   // set default active to ALL_KEY so page shows full menu by default
   const [activeKey, setActiveKey] = useState(ALL_KEY);
+  const [optionsOpen, setOptionsOpen] = useState(false); // <-- add this
+  const [dietFilter, setDietFilter] = useState("all"); // "all" | "veg" | "nonveg"
 
   const activeItems = useMemo(() => {
+    const applyDiet = (list = []) => {
+      if (dietFilter === "all") return list;
+      return list.filter((it) => {
+        const t = String(it.type || "").toLowerCase();
+        const isNon =
+          t.includes("non") ||
+          t.includes("non-veg") ||
+          t.includes("nonveg") ||
+          t.includes("non veg");
+        return dietFilter === "veg" ? !isNon : isNon;
+      });
+    };
+
     const qSearch = (searchQuery || "").toString().trim().toLowerCase();
     if (qSearch) {
-      return menuArray.filter((it) =>
+      const result = menuArray.filter((it) =>
         `${it.name || ""} ${it.description || ""}`
           .toLowerCase()
           .includes(qSearch),
       );
+      return applyDiet(result);
     }
 
-    // show full menu only when ALL_KEY is selected
-    if (activeKey === ALL_KEY) return menuArray;
+    // show full menu only when ALL_KEY is selected (apply diet filter too)
+    if (activeKey === ALL_KEY) return applyDiet(menuArray);
 
     // prefer lookup by slug of the activeKey (itemsByKey built on slugs)
     const activeSlug = slugify(activeKey);
     if (itemsByKey[activeSlug] && itemsByKey[activeSlug].length)
-      return itemsByKey[activeSlug];
+      return applyDiet(itemsByKey[activeSlug]);
 
     // fallback: fuzzy match using readable name
     const q = activeKey.replace(/-/g, " ");
-    return menuArray.filter((it) =>
+    const baseList = menuArray.filter((it) =>
       `${it.name || ""} ${it.description || ""}`.toLowerCase().includes(q),
     );
-  }, [activeKey, ALL_KEY, menuArray, itemsByKey, searchQuery]);
+
+    return applyDiet(baseList);
+  }, [activeKey, ALL_KEY, menuArray, itemsByKey, searchQuery, dietFilter]);
 
   // add this line so links use slugified category (no spaces / %20)
   const activeSlug = slugify(activeKey);
@@ -189,6 +207,68 @@ export default function FoodMenu() {
             <div className="serchpanel mb-4 flex items-center justify-between rounded bg-white p-3 shadow-lg shadow-sm">
               <h2 className="text-2xl font-semibold text-green-500">
                 {categoryList.find((c) => c.key === activeKey)?.name ?? "Menu"}
+
+                {/* Filter */}
+                <div className="relative ml-6 inline-block text-left">
+                  <button
+                    type="button"
+                    onClick={() => setOptionsOpen((s) => !s)}
+                    className="shadow-xs inline-flex items-center gap-4 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+                    aria-haspopup="true"
+                    aria-expanded={optionsOpen}
+                  >
+                    Filter
+                    <svg
+                      className="h-4 w-4 text-gray-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M5.23 7.21a.75.75 0 011.06-.02L10 10.67l3.71-3.48a.75.75 0 111.04 1.08l-4.25 4a.75.75 0 01-1.04 0l-4.25-4a.75.75 0 01-.02-1.06z" />
+                    </svg>
+                  </button>
+
+                  {optionsOpen && (
+                    <div
+                      className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+                      role="menu"
+                    >
+                      <div className="py-1">
+                        {/* <button
+                        className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${dietFilter === "all" ? "bg-gray-50 font-semibold" : "text-gray-700"}`}
+                        role="menuitem"
+                        onClick={() => {
+                          setDietFilter("all");
+                          setOptionsOpen(false);
+                        }}
+                      >
+                        All
+                      </button> */}
+                        <button
+                          className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${dietFilter === "veg" ? "bg-gray-50 font-semibold" : "text-gray-700"}`}
+                          role="menuitem"
+                          onClick={() => {
+                            setDietFilter("veg");
+                            setOptionsOpen(false);
+                          }}
+                        >
+                          Veg Foods
+                        </button>
+                        <button
+                          className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${dietFilter === "nonveg" ? "bg-gray-50 font-semibold" : "text-gray-700"}`}
+                          role="menuitem"
+                          onClick={() => {
+                            setDietFilter("nonveg");
+                            setOptionsOpen(false);
+                          }}
+                        >
+                          Non-Veg Foods
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* end replacement */}
               </h2>
 
               <form
