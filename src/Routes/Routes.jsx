@@ -14,7 +14,7 @@ import Careers from "../Careers/Careers";
 import Subcriptiondestails from "../pages/Subcriptiondestails";
 import AllMenuIteams from "../pages/AllMenuIteams";
 import Termservice from "../pages/Termservice";
-import Termsconditions from "../pages/termsconditions";
+import Termsconditions from "../pages/Termsconditions";
 import Privacypolicy from "../pages/Privacypolicy";
 
 export default function AppRoutes() {
