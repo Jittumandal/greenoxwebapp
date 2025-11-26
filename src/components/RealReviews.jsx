@@ -27,7 +27,7 @@ const testimonials = [
   },
 ];
 
-const SLIDE_HEIGHT = 330; // px
+const SLIDE_HEIGHT = 360; // px
 const SCROLL_SPEED = 0.5; // px per frame
 const SLIDES_TO_SHOW = 2;
 

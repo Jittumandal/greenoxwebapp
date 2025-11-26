@@ -28,7 +28,7 @@ const testimonials = [
   },
 ];
 
-const ITEM_HEIGHT = 330; // px
+const ITEM_HEIGHT = 375; // px
 const SLIDES_TO_SHOW = 2;
 const SCROLL_SPEED = 0.5; // px per frame (slower)
 
