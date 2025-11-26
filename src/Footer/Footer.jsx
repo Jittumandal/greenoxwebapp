@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="min-w-[220px] flex-1">
           <div className="mb-4 flex items-center gap-2">
             <img src="/img/logo.png" alt="GreeNox Logo" className="h-10 w-10" />
-            <span className="text-2xl font-semibold italic text-white">
+            <span className="quiklinks text-2xl font-semibold italic">
               You are what you eat!
             </span>
           </div>
@@ -51,7 +51,7 @@ const Footer = () => {
         {/* Center: Quick Links and Utility Pages */}
         <div className="flex flex-[2] flex-col justify-between gap-8 md:flex-row">
           <div>
-            <div className="mb-2 font-semibold">Quick Links</div>
+            <div className="quiklinks mb-2 font-semibold">Quick Links</div>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>
                 <Link to="/" className="hover:text-white">
@@ -87,7 +87,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <div className="mb-2 font-semibold">Learn More</div>
+            <div className="quiklinks mb-2 font-semibold">Learn More</div>
             <ul className="space-y-1 text-sm text-gray-300">
               <li>
                 <Link to="/privacypolicy" className="hover:text-white">
@@ -117,7 +117,9 @@ const Footer = () => {
           </div>
           {/* Instagram */}
           <div>
-            <div className="mb-2 font-semibold">Follow Us On Instagram</div>
+            <div className="quiklinks mb-4 font-semibold">
+              Follow Us On Instagram
+            </div>
             <a
               href="https://www.instagram.com/officialgreenox/"
               className="grid grid-cols-2 gap-2"
