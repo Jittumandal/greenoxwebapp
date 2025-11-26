@@ -1,17 +1,10 @@
-import React, { useMemo, useState, useEffect, useRef } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import React, { useMemo, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import menuItems from "../data/menuItems";
 
-// static slider images (place these files in public/img/slider/)
-const slidesData = [
-  "/img/slider/slide1.jpg",
-  "/img/slider/slide2.jpg",
-  "/img/slider/slide3.jpg",
-  "/img/slider/slide4.jpg",
-];
-
 const slugify = (s = "") =>
-  String(s)
+  s
+    .toString()
     .toLowerCase()
     .replace(/[^\w\s-]/g, "")
     .trim()
@@ -24,7 +17,6 @@ function Accordion({ title, children }) {
       <button
         onClick={() => setOpen((s) => !s)}
         className="flex w-full items-center justify-between px-4 py-3 text-left"
-        type="button"
       >
         <span className="font-semibold">{title}</span>
         <span className="text-lg">{open ? "−" : "+"}</span>
@@ -35,50 +27,32 @@ function Accordion({ title, children }) {
 }
 
 export default function MenuItemDetail() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slideInterval = 3000;
-  const navigate = useNavigate();
-  const autoplayRef = useRef(null);
-
   const { category: categoryParam, id: idParam } = useParams();
-  const categoryDecoded = decodeURIComponent(categoryParam || "");
-  const idRaw = decodeURIComponent(idParam || "");
-
-  const { menuArray, itemsByKey, groupNameBySlug } = useMemo(() => {
+  const { menuArray, itemsByKey } = useMemo(() => {
     const arr = Object.values(menuItems).flatMap((v) =>
       Array.isArray(v) ? v : [],
     );
     const map = {};
-    const nameMap = {};
     Object.entries(menuItems).forEach(([k, v]) => {
-      const s = slugify(k);
-      map[s] = Array.isArray(v) ? v.slice() : [];
-      nameMap[s] = k;
+      map[slugify(k)] = Array.isArray(v) ? v.slice() : [];
     });
-    return { menuArray: arr, itemsByKey: map, groupNameBySlug: nameMap };
+    return { menuArray: arr, itemsByKey: map };
   }, []);
 
-  const categorySlug = slugify(categoryDecoded);
+  const categoryKey = decodeURIComponent(categoryParam || "");
+  const idRaw = decodeURIComponent(idParam || "");
 
-  let candidates =
-    categorySlug === slugify("All Menu")
+  const candidates =
+    categoryKey === slugify("All Menu") ||
+    categoryKey === slugify("All Menu Items") ||
+    categoryKey === "all-menu"
       ? menuArray
-      : itemsByKey[categorySlug] || [];
-
-  if ((!candidates || candidates.length === 0) && categoryDecoded) {
-    const entry = Object.entries(menuItems).find(
-      ([groupName]) =>
-        groupName.toLowerCase() === categoryDecoded.toLowerCase(),
-    );
-    if (entry) candidates = Array.isArray(entry[1]) ? entry[1] : [];
-  }
-
-  if ((!candidates || candidates.length === 0) && categoryDecoded) {
-    const q = categoryDecoded.replace(/-/g, " ").toLowerCase();
-    candidates = menuArray.filter((it) =>
-      `${it.name || ""} ${it.description || ""}`.toLowerCase().includes(q),
-    );
-  }
+      : itemsByKey[categoryKey] ||
+        menuArray.filter((it) =>
+          `${it.name || ""} ${it.description || ""}`
+            .toLowerCase()
+            .includes((categoryKey || "").replace(/-/g, " ")),
+        );
 
   const item =
     candidates.find((it) => String(it.id) === idRaw) ||
@@ -86,56 +60,16 @@ export default function MenuItemDetail() {
     candidates.find((it) => it.name && slugify(it.name) === slugify(idRaw)) ||
     candidates.find((it) => it.name && it.name === idRaw);
 
-  const handleBack = () => {
-    if (window.history.length > 1) navigate(-1);
-    else navigate("/menu");
-  };
-
   if (!item) {
-    const resolvedGroupName =
-      groupNameBySlug[categorySlug] || categoryDecoded || "Unknown";
-    const groupList =
-      (itemsByKey[categorySlug] && itemsByKey[categorySlug].slice()) || [];
-
     return (
       <main className="mx-auto max-w-4xl p-6">
         <h1 className="mb-4 text-2xl font-semibold">Item not found</h1>
-        <p className="mb-2">
-          Category: <strong>{resolvedGroupName}</strong>, ID:{" "}
-          <strong>{idRaw || "—"}</strong>
+        <p className="mb-4">
+          Category: {categoryKey || "—"}, ID: {idRaw || "—"}
         </p>
-
-        {groupList.length > 0 ? (
-          <>
-            <p className="mb-2">Available items in this category:</p>
-            <ul className="mb-4 list-disc pl-5">
-              {groupList.map((g) => (
-                <li key={String(g.id)}>
-                  <Link
-                    to={`/menu/${encodeURIComponent(resolvedGroupName)}/${encodeURIComponent(
-                      String(g.id),
-                    )}`}
-                    className="text-green-600 underline"
-                  >
-                    {g.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p className="mb-4 text-sm text-gray-600">
-            No items found for this category.
-          </p>
-        )}
-
-        <button
-          onClick={handleBack}
-          type="button"
-          className="text-green-600 underline"
-        >
+        <Link to="/menu" className="text-green-600 underline">
           Back to menu
-        </button>
+        </Link>
       </main>
     );
   }
@@ -149,70 +83,6 @@ export default function MenuItemDetail() {
     e.currentTarget.onerror = null;
     e.currentTarget.src = "/img/menu/menubg.svg";
   };
-
-  // build slides for this item (normalize to string URLs), fallback to static slidesData
-  const rawSlides =
-    (Array.isArray(item?.images) && item.images.length && item.images) ||
-    (Array.isArray(item?.gallery) && item.gallery.length && item.gallery) ||
-    (item?.image || item?.img ? [item.image || item.img] : slidesData);
-
-  const slides = rawSlides
-    .map((s) =>
-      typeof s === "string" ? s : s?.image || s?.src || s?.url || "",
-    )
-    .filter(Boolean);
-
-  // reset to first slide when item changes
-  useEffect(() => {
-    setCurrentSlide(0);
-  }, [item?.id]);
-
-  // autoplay control
-  const startAutoplay = () => {
-    if (autoplayRef.current) clearInterval(autoplayRef.current);
-    if (!slides || slides.length <= 1) return;
-    autoplayRef.current = setInterval(() => {
-      setCurrentSlide((p) => (p + 1) % slides.length);
-    }, slideInterval);
-  };
-
-  const stopAutoplay = () => {
-    if (autoplayRef.current) {
-      clearInterval(autoplayRef.current);
-      autoplayRef.current = null;
-    }
-  };
-
-  useEffect(() => {
-    startAutoplay();
-    return stopAutoplay;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slides.length]);
-
-  const goToSlide = (index) => {
-    if (!slides || slides.length <= 1) return;
-    const idx = ((index % slides.length) + slides.length) % slides.length;
-    stopAutoplay();
-    setCurrentSlide(idx);
-    startAutoplay();
-  };
-
-  const nextSlide = () => {
-    if (!slides || slides.length <= 1) return;
-    stopAutoplay();
-    setCurrentSlide((p) => (p + 1) % slides.length);
-    startAutoplay();
-  };
-
-  const prevSlide = () => {
-    if (!slides || slides.length <= 1) return;
-    stopAutoplay();
-    setCurrentSlide((p) => (p - 1 + slides.length) % slides.length);
-    startAutoplay();
-  };
-
-  const slideCount = Math.max(1, slides.length);
-  const slideWidthPercent = 100 / slideCount;
 
   return (
     <section>
@@ -228,67 +98,22 @@ export default function MenuItemDetail() {
       </div>
 
       <main className="main_box mx-auto max-w-7xl px-6">
-        <button
-          onClick={handleBack}
-          className="mb-6 inline-flex items-center text-green-600 hover:underline"
-          type="button"
+        <Link
+          to={`/menu/${encodeURIComponent(categoryKey)}`}
+          className="mb-6 inline-block text-green-600"
         >
           ← Back to Menu
-        </button>
+        </Link>
 
         <div className="mx-auto max-w-7xl rounded-lg bg-white px-4 py-4">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="relative overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-r-none">
-              <div className="carousel-hero-banner">
-                <div className="carousel-images">
-                  <div
-                    className="carousel-track"
-                    style={{
-                      width: `${slideCount * 100}%`,
-                      transform: `translateX(-${currentSlide * slideWidthPercent}%)`,
-                    }}
-                  >
-                    {slides.map((src, index) => (
-                      <div
-                        key={index}
-                        className="carousel-item"
-                        style={{ width: `${slideWidthPercent}%` }}
-                      >
-                        <img
-                          src={src}
-                          alt={`Slide ${index + 1}`}
-                          onError={handleImgError}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <button
-                  className="nav-button prev"
-                  onClick={prevSlide}
-                  aria-label="Previous"
-                >
-                  &#10094;
-                </button>
-                <button
-                  className="nav-button next"
-                  onClick={nextSlide}
-                  aria-label="Next"
-                >
-                  &#10095;
-                </button>
-
-                <div className="carousel-indicators">
-                  {slides.map((_, index) => (
-                    <span
-                      key={index}
-                      className={`dot ${index === currentSlide ? "active" : ""}`}
-                      onClick={() => goToSlide(index)}
-                    />
-                  ))}
-                </div>
-              </div>
+              <img
+                src={item.image || item.img}
+                alt={item.name}
+                className="h-100 w-full rounded-lg object-cover md:h-full"
+                onError={handleImgError}
+              />
             </div>
 
             <div className="p-8">
@@ -319,7 +144,7 @@ export default function MenuItemDetail() {
         </div>
       </main>
 
-      <div className="mx-auto mt-16 w-full py-12">
+      <div className="freshmealplan mx-auto mt-16 w-full py-12">
         <div className="mx-auto max-w-7xl px-4">
           <h1 className="mb-8 text-center text-4xl font-extrabold text-green-500">
             Nutritional Information
@@ -330,7 +155,6 @@ export default function MenuItemDetail() {
               className="flex w-full items-center justify-between px-6 py-4 text-left"
               onClick={() => setOpenNutrition((s) => !s)}
               aria-expanded={openNutrition}
-              type="button"
             >
               <div>
                 <div className="text-2xl font-semibold text-gray-800">
@@ -338,7 +162,9 @@ export default function MenuItemDetail() {
                 </div>
               </div>
               <svg
-                className={`h-5 w-5 transform transition-transform ${openNutrition ? "rotate-180" : ""}`}
+                className={`h-5 w-5 transform transition-transform ${
+                  openNutrition ? "rotate-180" : ""
+                }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -372,14 +198,16 @@ export default function MenuItemDetail() {
                       {nutrition.carbs}
                     </div>
                     <div className="mt-1 text-sm text-gray-600">
-                      Total Carbs
+                      Total Carbs (17% DV)
                     </div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-green-500">
                       {nutrition.fat}
                     </div>
-                    <div className="mt-1 text-sm text-gray-600">Total Fat</div>
+                    <div className="mt-1 text-sm text-gray-600">
+                      Total Fat (50% DV)
+                    </div>
                   </div>
                 </div>
               </div>
@@ -391,7 +219,6 @@ export default function MenuItemDetail() {
               className="flex w-full items-center justify-between px-6 py-4 text-left"
               onClick={() => setOpenAllergens((s) => !s)}
               aria-expanded={openAllergens}
-              type="button"
             >
               <div>
                 <div className="text-2xl font-semibold text-gray-800">
@@ -399,7 +226,9 @@ export default function MenuItemDetail() {
                 </div>
               </div>
               <svg
-                className={`h-5 w-5 transform transition-transform ${openAllergens ? "rotate-180" : ""}`}
+                className={`h-5 w-5 transform transition-transform ${
+                  openAllergens ? "rotate-180" : ""
+                }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

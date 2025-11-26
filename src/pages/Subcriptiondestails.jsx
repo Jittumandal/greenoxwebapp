@@ -28,11 +28,11 @@ const meals = [
   },
   {
     label: "Meal",
-    img: "/img/menu/Soya Paneer Rice Bowl -3.jpg",
+    img: "/img/Soya.jpg",
   },
   {
     label: "Sandwich",
-    img: "/img/menu/Corn Sandwich ( Cheese_ Paneer ).jpg",
+    img: "/img/Sandwich.jpg",
   },
 ];
 

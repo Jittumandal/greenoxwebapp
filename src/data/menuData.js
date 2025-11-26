@@ -15,7 +15,7 @@ export const menuItems = {
             category: "Veg Salads",
             description: "Lettuce, Parmesan Cheese, Cherry Tomato, Bell Peppers, Black Olives, Croutons, Caesar Dressing",
             price: 289,
-            img: "/img/menu/Classic Caesar Salad .jpg",
+            img: "/img/menu/Classic Caesar Salad.jpg",
             nutritionInfo: { calories: "101 kcal", carbs: "9.7g", protein: "5.9g", fat: "4.6g", fiber: "2.1g" },
             allergens: [],
             pairs: []
@@ -75,7 +75,7 @@ export const menuItems = {
             category: "Veg Salads",
             description: "Feta cheese, Cucumber, Onion, Bell Peppers, Lettuce, Avocado, Cherry Tomato, Black Olives, Choice of Dressing",
             price: 329,
-            img: "/img/menu/Greek Salad with Avocado & Feta Cheese .jpg",
+            img: "/img/menu/Greek Salad with Avocado & Feta Cheese.jpg",
             nutritionInfo: { calories: "273 kcal", carbs: "11g", protein: "9g", fat: "19.1g", fiber: "5g" },
             allergens: [],
             pairs: []
