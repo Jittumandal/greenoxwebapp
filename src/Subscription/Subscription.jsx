@@ -30,7 +30,7 @@ const Subscription = () => {
             Fresh Meal Plans
           </h1> */}
             <FreshMealPlansHeading />
-            <p className="animate__animated animate__backInDown mb-6 text-gray-600">
+            <p className="animate__animated animate__fadeInRight mb-6 text-gray-600">
               Transform Your Health Journey&nbsp; Premium meal plans and
               personalized coaching to help you achieve your wellness goals
             </p>

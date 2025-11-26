@@ -25,7 +25,7 @@ const FreshMealPlansHeading = () => {
 
   return (
     <div className="mobile_view_plan relative mb-4 flex w-full items-center justify-end overflow-hidden">
-      <div className="flex items-center text-[40px] font-semibold">
+      <div className="animate__animated animate__zoomIn flex items-center text-[40px] font-semibold">
         <p className="Meal_Plans mr-2 text-[#16a049]">Fresh Meal Plans </p>
         <div className="aliment-left relative min-h-[60px] min-w-[300px] text-left">
           {words.map((word, index) => (

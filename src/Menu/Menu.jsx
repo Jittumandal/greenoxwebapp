@@ -147,9 +147,11 @@ export default function FoodMenu() {
           />
         </div>
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-white">
-          <h1 className="mb-4 text-2xl font-bold md:text-4xl">Popular Menu</h1>
-          <h2 className="text-3xl font-bold md:text-6xl">
-            Delicious Food Menu
+          <h1 className="animate__animated animate__zoomIn mb-4 text-2xl font-bold md:text-4xl">
+            Trending on the Menu
+          </h1>
+          <h2 className="quiklinks animate__animated animate__fadeInRight text-3xl font-bold md:text-5xl">
+            Most Loved at GreeNox
           </h2>
         </div>
       </div>

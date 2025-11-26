@@ -26,18 +26,24 @@ const Footer = () => {
           </p>
           <div className="mt-12 flex gap-5">
             <a
+              target="_blank"
               href="https://www.facebook.com/officialgreenox"
               className="hover:text-green-400"
             >
               <FaFacebook size={32} className="bg-orange" />
             </a>
             <a
+              target="_blank"
               href="https://www.instagram.com/officialgreenox/"
               className="hover:text-green-400"
             >
               <FaInstagram size={32} />
             </a>
-            <a href="#" className="hover:text-green-400">
+            <a
+              target="_blank"
+              href="https://in.linkedin.com/company/officialgreenox"
+              className="hover:text-green-400"
+            >
               <IoLogoLinkedin size={32} />
             </a>
             {/* <a href="#" className="hover:text-green-400">
@@ -121,6 +127,7 @@ const Footer = () => {
               Follow Us On Instagram
             </div>
             <a
+              target="_blank"
               href="https://www.instagram.com/officialgreenox/"
               className="grid grid-cols-2 gap-2"
             >
